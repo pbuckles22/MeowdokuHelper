@@ -77,7 +77,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `bump/flutter-rust-bridge-2.12` (FRB bump — branch from merged `main`)
+- **Active branch:** `bump/flutter-rust-bridge-2.12` (FRB bump; integration merge to `main` pending)
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)

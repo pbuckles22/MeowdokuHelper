@@ -18,10 +18,11 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`bump/flutter-rust-bridge-2.12`** | FFI version bump (FRB 2.11.1 → 2.12.0) — test on branch before merge |
-| `main` | Integration line — Phase 1 + Phase 1b.1 + `flutter_lints` 6 merged |
+| **`bump/flutter-rust-bridge-2.12`** | Active — FRB 2.11.1 → 2.12.0 bump (branched from integration line) |
+| `cleanup/wordle-remnants` | Integration line — **merge to `main` pending** |
+| `main` | Behind integration work until cleanup branch merges |
 
-**New contributors:** clone and checkout **`main`** (or the active bump branch if noted here).
+**New contributors:** checkout **`bump/flutter-rust-bridge-2.12`** or **`cleanup/wordle-remnants`** until `main` catches up.
 
 ---
 
