@@ -12,7 +12,7 @@ Bootstrapped from the updated [Rust_Julia_FFI_Flutter_Template](https://github.c
 
 **Julia:** Build scripts retain Julia FFI hooks from the template; **do not invoke Julia at runtime** (bundle size / latency). See [doc/requirements/product.md](doc/requirements/product.md).
 
-**Sync:** Manual copy from AgenticTemplate for `.cursor/` and governance files — never git-merge upstream into this repo (protects FFI). See [Syncing the agentic layer](#syncing-the-agentic-layer).
+**Sync:** Manual copy from AgenticTemplate for `.cursor/` and governance files — never git-merge upstream into this repo (protects FFI). Template repo cleanup: [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md). See [Syncing the agentic layer](#syncing-the-agentic-layer).
 
 ---
 
@@ -67,9 +67,10 @@ Skills: [green-and-clean](.cursor/skills/green-and-clean/SKILL.md), [context-boo
 
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** Reconciled in [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
-- **Architecture:** Size-aware `Board` (Vec + `grid_size`); Phase 1 tests at N=9
-- **Next:** Phase 1 — Rust `Board` + Tier 1 solver ([PM_PLAN.md](PM_PLAN.md))
-- **Legacy:** Wordle reference UI/tests still present; replace incrementally
+- **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9
+- **Phase 1b.1:** Done on `cleanup/wordle-remnants` — Wordle UI/tests/assets removed; placeholder app; `cargo test --lib` + `flutter test` green on Windows (FFI smoke skipped on Windows)
+- **Next:** Mac/iPhone validation ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)), then Phase 2 image pipeline
+- **Legacy API:** Wordle Rust exports in `api/` remain until Phase 3 FRB swap — do not extend
 - **FFI:** Use flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test

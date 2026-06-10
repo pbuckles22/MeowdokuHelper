@@ -19,7 +19,8 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 (High ROI; frequent pain; not blocking.)
 
-- (none)
+- **Wordle template remnants** — Phase 1b.1 removed UI/tests/assets/scripts. **Remaining (Phase 3):** Wordle exports in `rust/src/api/` + generated FRB bindings — replace with `calculate_next_move`, then regenerate.
+- **Upstream FFI template** — [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) still contains Wordle bolt-on; execute [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md) so future bolt-ons start clean. Do not git-merge template into MeowdokuHelper.
 
 ## Accept for now
 

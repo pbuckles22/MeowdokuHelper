@@ -1,107 +1,107 @@
 import 'package:flutter/material.dart';
 
-import 'screens/wordle_game_screen.dart';
 import 'service_locator.dart';
-import 'utils/debug_logger.dart';
 
-// REMOVED: No async, no try-catch. Just run the app.
 void main() {
-  runApp(const MyApp());
+  runApp(const MeowdokuHelperApp());
 }
 
-/// Main application widget
-class MyApp extends StatefulWidget {
-  /// Creates the main application widget
-  const MyApp({super.key});
+/// Placeholder shell until Star Battle UI lands (Phase 2/3).
+class MeowdokuHelperApp extends StatefulWidget {
+  const MeowdokuHelperApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MeowdokuHelperApp> createState() => _MeowdokuHelperAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  // Use a Future to track the initialization state
-  late final Future<void> _servicesInitFuture;
-  
-  String _status = '🚀 App starting... Initializing services...';
+class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
+  late final Future<void> _initFuture;
+  String _status = 'Initializing Rust FFI…';
 
   @override
   void initState() {
     super.initState();
-    // Start the initialization process here
-    _servicesInitFuture = _initializeServices();
+    _initFuture = _bootstrap();
   }
 
-  Future<void> _initializeServices() async {
+  Future<void> _bootstrap() async {
     try {
-      setState(() {
-        _status = '🔧 Initializing FFI and services...';
-      });
-      
       await setupServices();
-      
-      setState(() {
-        _status = '✅ All services initialized successfully!';
-      });
-    } on Exception catch (e, stackTrace) {
-      DebugLogger.error(
-        '❌ CRITICAL: Failed to initialize app services: $e',
-        tag: 'Main',
-      );
-      DebugLogger.error('Stack trace: $stackTrace', tag: 'Main');
-
-      // No fallback - app should fail hard if services can't initialize
-      setState(() {
-        _status = '❌ Failed to initialize services - app cannot start';
-      });
+      if (mounted) {
+        setState(() => _status = 'Rust bridge ready');
+      }
+    } on Exception catch (e) {
+      if (mounted) {
+        setState(() => _status = 'FFI init failed: $e');
+      }
+      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Wordle Helper',
+      title: 'MeowdokuHelper',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
       home: FutureBuilder<void>(
-        future: _servicesInitFuture,
+        future: _initFuture,
         builder: (context, snapshot) {
-          // If the future is still running, show a loading indicator
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Wordle Helper'),
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              ),
-              body: Center(
+          final ready = snapshot.connectionState == ConnectionState.done &&
+              !snapshot.hasError;
+
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('MeowdokuHelper'),
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            ),
+            body: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CircularProgressIndicator(),
-                    const SizedBox(height: 16),
-                    Text(_status),
+                    Icon(
+                      ready ? Icons.pets : Icons.hourglass_top,
+                      size: 64,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      ready
+                          ? 'Star Battle solver'
+                          : 'Starting…',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      _status,
+                      textAlign: TextAlign.center,
+                    ),
+                    if (!ready && snapshot.connectionState != ConnectionState.done)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 24),
+                        child: CircularProgressIndicator(),
+                      ),
+                    if (snapshot.hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text(
+                          '${snapshot.error}',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                   ],
                 ),
               ),
-            );
-          }
-
-          // If the future completed with an error, show the error
-          if (snapshot.hasError) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Wordle Helper'),
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-              ),
-              body: Center(
-                child: Text('❌ Initialization Failed: ${snapshot.error}'),
-              ),
-            );
-          }
-
-          // If the future completed successfully, show the main UI
-          return const WordleGameScreen();
+            ),
+          );
         },
       ),
     );

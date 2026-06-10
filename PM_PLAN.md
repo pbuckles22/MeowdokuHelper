@@ -12,17 +12,61 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - [x] Add product SDD under `doc/requirements/`
 - [x] Reconcile geminidata into product SDD (dynamic N, FRB contract)
 
-## Phase 1 — Rust core skeleton (no UI)
+## Phase 1 — Rust core skeleton (no UI) — done
 
 **Goal:** Size-aware `Board` + Tier 1 algorithms (Halo Enforcer, Naked Singles).
 
-- [ ] `Board { state: Vec<u8>, regions: Vec<u8>, size: u32 }` with `idx()` / `coord()` helpers
-- [ ] All tier logic parameterized by `self.size` (no hardcoded `9`)
-- [ ] Halo Enforcer: block empty cells in row/col/8-neighbor halo of each cat
-- [ ] Naked Singles: place cat when a group has exactly one empty and zero cats
-- [ ] Rust `#[test]` with hardcoded N=9 state/regions proving a simple choke point
+- [x] `Board { state: Vec<u8>, regions: Vec<u8>, size: u32 }` with `idx()` / `coord()` helpers
+- [x] All tier logic parameterized by `self.size` (no hardcoded `9`)
+- [x] Halo Enforcer: block empty cells in row/col/8-neighbor halo of each cat
+- [x] Naked Singles: place cat when a group has exactly one empty and zero cats
+- [x] Rust `#[test]` with hardcoded N=9 state/regions proving a simple choke point
 
-**Acceptance:** `cargo test` green for Tier 1 module at N=9.
+**Acceptance:** `cargo test --lib` green for Tier 1 module at N=9. *(Branch: `feature/phase1-board-tier1`.)*
+
+## Phase 1b — Wordle remnant removal (immediate next)
+
+**Goal:** Seek-and-destroy template Wordle code, tests, and assets so the repo reflects Star Battle only — **without breaking FFI/build**.
+
+**Context:** ~95% of the running app is still Wordle (UI, FFI API, word lists, ~45 tests). Star Battle today is `rust/src/solver/` only (not wired to FRB). Do **not** hand-edit `lib/src/rust/` or `rust/src/frb_generated.rs`.
+
+### 1b.1 — Safe deletes (no `api/` or FRB changes)
+
+- [x] Remove stale integration tests (`integration_test/app_integration_test.dart`, `simple_test.dart`)
+- [x] Remove Wordle benchmark tests + device perf scripts (`*_benchmark_*`, etc.)
+- [x] Remove Wordle UI: `wordle_game_screen.dart`, widgets (grid/tiles/keyboard), Wordle models/controllers/state
+- [x] Replace `main.dart` with minimal MeowdokuHelper placeholder (app still launches)
+- [x] Remove Wordle assets: `assets/word_lists/official_wordle_words.json`, `official_guess_words.txt`; update `pubspec.yaml`
+- [x] Remove Rust Wordle-only: `benchmarking.rs`, `benchmark_runner.rs`, `bin/benchmark.rs`, orphan `constraint_test.rs`; trim `lib.rs` exports
+- [x] Archive or delete Wordle-only docs (`docs/archive/*`, `WORDLE_SOLVER_ARCHITECTURE_ANALYSIS.md`, etc.)
+- [x] Remove Wordle scripts: `scripts/benchmark_baseline.py`, `precompute_optimal_guesses.rs`, `run_extended_benchmark.sh`
+
+### 1b.2 — FFI-adjacent (defer to Phase 3 unless doing API swap in same branch)
+
+**Keep until Star Battle API replaces Wordle exports:**
+
+- `rust/src/api/simple.rs` → `init_app()` only (plus future `calculate_next_move`)
+- `rust/src/api/meowdoku_helper.rs`, `meowdoku_helper_reference.rs` — remove when FRB regenerated
+- `lib/services/ffi_service.dart` — rewrite when board FFI lands
+- **Never casual:** `rust_builder/`, `ios/`, `flutter_rust_bridge.yaml`, `Cargo.toml` (see [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md))
+
+### 1b.3 — Keep / wire later
+
+- [ ] Keep `rust/src/solver/*` (Star Battle core)
+- [ ] Keep root `assets/test_fixtures/` (board screenshots for Phase 2)
+- [ ] Keep `service_locator.dart` pattern (rewire in Phase 2/3)
+
+**Acceptance (Phase 1b.1):**
+
+- `cd meowdoku_helper/rust && cargo test --lib` green
+- `cd meowdoku_helper && flutter test` green (Wordle tests removed or replaced with minimal smoke tests)
+- `flutter run` launches placeholder UI (not Wordle screen)
+- No Wordle word-list assets in `pubspec.yaml`
+- FFI stack still builds: `RustLib.init()` succeeds (Wordle API may remain until Phase 3)
+
+**Out of scope for 1b:** Replacing Wordle FRB exports with `calculate_next_move` — that is Phase 3.
+
+**Upstream template:** Wordle should never ship in [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template). See [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md) (Phases T0–T4).
 
 ## Phase 2 — Flutter image pipeline
 

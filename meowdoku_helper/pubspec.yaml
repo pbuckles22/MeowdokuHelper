@@ -1,5 +1,5 @@
 name: meowdoku_helper
-description: "MeowdokuHelper: FFI-accelerated Star Battle puzzle solver"
+description: "MeowdokuHelper: Star Battle puzzle solver (clipboard → Rust CSP engine)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,22 +35,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   
-  # Dependency injection
-  get_it: ^7.7.0
-  
   # FFI bridge for calling Rust functions from Dart
   flutter_rust_bridge: 2.11.1
   
-  # State management for Flutter app
-  provider: ^6.1.2
-  
-  # JSON handling for word lists
-  json_annotation: ^4.9.0
-  
   rust_lib_meowdoku_helper:
     path: rust_builder
-
-  collection: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -62,18 +51,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   
-  # Code generation for JSON serialization
-  json_serializable: ^6.8.0
-  
-  # Mocking framework for unit tests
-  mockito: ^5.4.4
-  build_runner: ^2.4.13
-  
-  # Flutter Driver for UI testing
-  flutter_driver:
-    sdk: flutter
-  
-  # Integration testing (recommended approach)
+  # Integration testing (device — run on Mac for iOS)
   integration_test:
     sdk: flutter
     
@@ -91,32 +69,4 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/word_lists/
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  # Star Battle board fixtures live at repo root assets/test_fixtures/ (Phase 2)

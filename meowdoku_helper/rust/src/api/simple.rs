@@ -47,6 +47,15 @@ pub fn init_app() {
     flutter_rust_bridge::setup_default_user_utils();
 }
 
+/// Load word lists into the global WORD_MANAGER (legacy Wordle bootstrap).
+pub fn initialize_word_lists() -> Result<(), String> {
+    use crate::api::meowdoku_helper::WORD_MANAGER;
+    WORD_MANAGER
+        .lock()
+        .map_err(|_| "WORD_MANAGER lock poisoned".to_string())?
+        .load_words()
+}
+
 /**
  * NORTH STAR ARCHITECTURE: Single FFI Entry Point
  * 
@@ -532,17 +541,20 @@ pub fn calculate_entropy(candidate_word: String, remaining_words: Vec<String>) -
 pub fn get_possible_words(
     guess_results: Vec<(String, Vec<String>)>,
 ) -> Vec<String> {
+    use crate::api::meowdoku_helper::WORD_MANAGER;
+
     // Special case: No constraints - return all answer words
     if guess_results.is_empty() {
-        return match get_answer_words() {
-            Ok(words) => words,
-            Err(_) => Vec::new(),
+        let manager = match WORD_MANAGER.lock() {
+            Ok(manager) => manager,
+            Err(_) => return Vec::new(),
         };
+        return manager.get_answer_words().to_vec();
     }
 
     // Get all words for filtering
-    let all_words = match get_guess_words() {
-        Ok(words) => words,
+    let all_words = match WORD_MANAGER.lock() {
+        Ok(manager) => manager.get_guess_words().to_vec(),
         Err(_) => return Vec::new(),
     };
 
@@ -594,148 +606,6 @@ pub fn get_possible_word_count(
 ) -> i32 {
     let possible_words = get_possible_words(guess_results);
     possible_words.len() as i32
-}
-
-/**
- * Get best guess from game state (SINGLE SERVER FUNCTION)
- * 
- * This is the main entry point for the client-server architecture.
- * Takes game state, handles all filtering and algorithm logic internally,
- * and returns the best guess.
- * 
- * # Arguments
- * - `guess_results`: Vector of (word, pattern) tuples from game state
- * 
- * # Returns
- * - Best guess word, or None if no valid guess available
- * 
- * # Architecture
- * - Client sends: get_best_guess(gameState)
- * - Server handles: Filter words + Run algorithms + Return best guess
- */
-#[flutter_rust_bridge::frb(sync)]
-pub fn get_best_guess(
-    guess_results: Vec<(String, Vec<String>)>,
-) -> Option<String> {
-    // Special case: First guess (no constraints) - use optimal first guess
-    if guess_results.is_empty() {
-        return get_optimal_first_guess();
-    }
-    
-    // Get all words for the solver (14,855 guess words including 2,300 answer words)
-    let all_words = match get_guess_words() {
-        Ok(words) => words,
-        Err(_) => return None,
-    };
-    
-    // COPY EXACT LOGIC FROM WORKING BENCHMARK (98-99% success rate)
-    // Convert FFI format to internal format
-    let internal_guess_results: Vec<crate::api::meowdoku_helper::GuessResult> = guess_results.iter()
-        .map(|(word, pattern)| {
-            let results = pattern.iter().map(|p| match p.as_str() {
-                "G" => crate::api::meowdoku_helper::LetterResult::Green,
-                "Y" => crate::api::meowdoku_helper::LetterResult::Yellow,
-                "X" => crate::api::meowdoku_helper::LetterResult::Gray,
-                _ => crate::api::meowdoku_helper::LetterResult::Gray,
-            }).collect::<Vec<_>>();
-            
-            crate::api::meowdoku_helper::GuessResult {
-                word: word.clone(),
-                results: [results[0], results[1], results[2], results[3], results[4]].to_vec(),
-            }
-        })
-        .collect();
-    
-    // Use the EXACT same filtering logic as the working benchmark
-    let eligible_words = filter_words_with_feedback(&all_words, &internal_guess_results);
-    
-    if eligible_words.is_empty() {
-        return None; // No eligible words remaining
-    }
-    
-    // Use the 98.2% algorithm directly (bypassing the old get_intelligent_guess)
-    use crate::api::meowdoku_helper::IntelligentSolver;
-    
-    let solver = IntelligentSolver::new(all_words);
-    solver.get_best_guess(&eligible_words, &internal_guess_results)
-}
-
-/**
- * COPY EXACT FILTERING LOGIC FROM WORKING BENCHMARK
- * These functions were achieving 98-99% success rate
- */
-
-/// Filter words based on feedback from all guesses
-fn filter_words_with_feedback(words: &[String], guess_results: &[crate::api::meowdoku_helper::GuessResult]) -> Vec<String> {
-    words.iter()
-        .filter(|word| word_matches_all_feedback(word, guess_results))
-        .cloned()
-        .collect()
-}
-
-/// Check if a word matches all feedback from previous guesses
-fn word_matches_all_feedback(candidate: &str, guess_results: &[crate::api::meowdoku_helper::GuessResult]) -> bool {
-    for guess_result in guess_results {
-        if !word_matches_single_feedback(candidate, guess_result) {
-            return false;
-        }
-    }
-    true
-}
-
-/// Check if a word matches feedback from a single guess
-fn word_matches_single_feedback(candidate: &str, guess_result: &crate::api::meowdoku_helper::GuessResult) -> bool {
-    let candidate_chars: Vec<char> = candidate.chars().collect();
-    let guess_chars: Vec<char> = guess_result.word.chars().collect();
-
-    // Check green letters (exact position matches)
-    for i in 0..5 {
-        if guess_result.results[i] == crate::api::meowdoku_helper::LetterResult::Green {
-            if candidate_chars[i] != guess_chars[i] {
-                return false;
-            }
-        }
-    }
-
-    // Check yellow letters (letter exists but not in this position)
-    for i in 0..5 {
-        if guess_result.results[i] == crate::api::meowdoku_helper::LetterResult::Yellow {
-            let letter = guess_chars[i];
-            // Letter can't be in the same position
-            if candidate_chars[i] == letter {
-                return false;
-            }
-            // Letter must exist somewhere else
-            if !candidate_chars.contains(&letter) {
-                return false;
-            }
-        }
-    }
-
-    // Check gray letters (letter doesn't exist or we have enough)
-    use std::collections::HashMap;
-    let mut required_counts: HashMap<char, usize> = HashMap::new();
-    for i in 0..5 {
-        if guess_result.results[i] == crate::api::meowdoku_helper::LetterResult::Green || 
-           guess_result.results[i] == crate::api::meowdoku_helper::LetterResult::Yellow {
-            let letter = guess_chars[i];
-            *required_counts.entry(letter).or_insert(0) += 1;
-        }
-    }
-
-    for i in 0..5 {
-        if guess_result.results[i] == crate::api::meowdoku_helper::LetterResult::Gray {
-            let letter = guess_chars[i];
-            let required_count = required_counts.get(&letter).copied().unwrap_or(0);
-            let actual_count = candidate_chars.iter().filter(|&&c| c == letter).count();
-            
-            if actual_count > required_count {
-                return false;
-            }
-        }
-    }
-
-    true
 }
 
 #[flutter_rust_bridge::frb(sync)]

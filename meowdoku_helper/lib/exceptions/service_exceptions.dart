@@ -19,6 +19,12 @@ abstract class ServiceException implements Exception {
   String toString() => details != null ? '$message: $details' : message;
 }
 
+/// Exception thrown when FFI initialization fails
+class FfiInitializationException extends ServiceException {
+  const FfiInitializationException([String? details])
+    : super('Failed to initialize FFI', details);
+}
+
 /// Exception thrown when a service is not initialized
 class ServiceNotInitializedException extends ServiceException {
   /// Creates a new service not initialized exception
