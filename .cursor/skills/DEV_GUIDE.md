@@ -32,11 +32,28 @@ MeowdokuHelper/
 │   ├── integration_test/        # Integration tests
 │   ├── assets/word_lists/       # Game data
 │   └── flutter_rust_bridge.yaml # FFI config
-├── doc/requirements/product.md  # Star Battle SDD
-├── docs/                        # Setup and architecture
+├── doc/requirements/product.md  # Canonical Star Battle SDD (not geminidata.txt)
+├── docs/                        # Template setup/architecture
 ```
 
-## FFI workflow
+**Solver module (Phase 1+):** `meowdoku_helper/rust/src/` — size-aware `Board` (`Vec<u8>`, `size: u32`); algorithms use `self.size`, not hardcoded 9. See [doc/requirements/product.md](../../doc/requirements/product.md).
+
+## Solver FFI (Phase 3+)
+
+Expose the solver via **flutter_rust_bridge**, not raw `extern "C"`:
+
+```rust
+#[flutter_rust_bridge::frb(sync)]
+pub fn calculate_next_move(
+    state: Vec<u8>,
+    regions: Vec<u8>,
+    grid_size: u32,
+) -> i32
+```
+
+Add in `meowdoku_helper/rust/src/api/` (new module, e.g. `solver.rs`), then regenerate bindings.
+
+## FFI workflow (template pattern)
 
 ### Adding a new Rust function
 

@@ -2,7 +2,9 @@
 
 ## Purpose
 
-**MeowdokuHelper** is an FFI-accelerated Star Battle puzzle solver. It ingests a 9×9 board screenshot from the device clipboard, parses the grid in a Dart isolate, and uses a Rust CSP state machine to compute the next logical move.
+**MeowdokuHelper** is an FFI-accelerated Star Battle puzzle solver (N×N grids; N=9 first). It ingests a board screenshot from the device clipboard, parses the grid in a Dart isolate, and uses a Rust CSP state machine to compute the next logical move.
+
+**Product SDD (canonical):** [doc/requirements/product.md](doc/requirements/product.md) — do not use `geminidata.txt` (superseded).
 
 Bootstrapped from the updated [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) with full SDD/agentic layer (June 2026).
 
@@ -63,10 +65,12 @@ Skills: [green-and-clean](.cursor/skills/green-and-clean/SKILL.md), [context-boo
 
 ## Current state
 
-- **Bootstrap:** Template copied; app renamed to `meowdoku_helper`; SDD in `doc/requirements/product.md`
+- **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
+- **SDD:** Reconciled in [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
+- **Architecture:** Size-aware `Board` (Vec + `grid_size`); Phase 1 tests at N=9
 - **Next:** Phase 1 — Rust `Board` + Tier 1 solver ([PM_PLAN.md](PM_PLAN.md))
-- **Legacy:** Wordle reference UI/tests still present from template; replace incrementally per phase
-- **FFI:** Template bridge intact; regenerate after Rust API changes
+- **Legacy:** Wordle reference UI/tests still present; replace incrementally
+- **FFI:** Use flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test
 
@@ -89,9 +93,9 @@ flutter test integration_test/
 
 ## Conventions
 
-- **Solver logic:** Rust only; tiers per [doc/requirements/product.md](doc/requirements/product.md)
-- **Image parsing:** Dart isolate; no ML/CV libraries
-- **FFI:** Regenerate after `rust/src/api/*.rs` changes: `flutter_rust_bridge_codegen generate`
+- **Solver logic:** Rust only; size-aware `Board`; tiers per [doc/requirements/product.md](doc/requirements/product.md)
+- **Image parsing:** Dart isolate + `pasteboard`; N from unique region colors (Phase 2+)
+- **FFI:** flutter_rust_bridge — `calculate_next_move(state, regions, grid_size) -> i32`; regenerate after API changes
 - **TDD:** Failing test first per [TEST_TDD.md](.cursor/skills/TEST_TDD.md)
 
 ---

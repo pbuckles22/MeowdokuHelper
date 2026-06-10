@@ -1,6 +1,6 @@
 # MeowdokuHelper
 
-FFI-accelerated Star Battle puzzle solver: ingest a 9x9 board screenshot from the clipboard, parse it in a Dart isolate, and compute the next logical move in Rust without blocking the UI.
+FFI-accelerated Star Battle puzzle solver (N×N grids; N=9 first): ingest a board screenshot from the clipboard, parse it in a Dart isolate, and compute the next logical move in Rust without blocking the UI.
 
 ## Stack
 
