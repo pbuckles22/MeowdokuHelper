@@ -1,0 +1,78 @@
+5. The Rust Logic Engine (Escalating State Machine)The solver must not guess randomly. It acts as an escalating state machine, attempting the cheapest computational loops first and only escalating when a loop stalls.Tier 1: Beginner Algorithms (The Workhorse)This loop runs continuously until it results in zero state changes.The Halo Enforcer:Scan state for any 1 (Cat). Mutate all 0 (Empty) cells in its row, column, and 8-neighbor cells to 2 (Blocked).Naked Singles (The Choke Point Scanner):Ask: "Which line or color has the weakest link?"Scan all 9 Rows, 9 Columns, and 9 Regions. If any group contains exactly ONE 0 (Empty) and ZERO 1 (Cats), mutate that 0 to a 1.Trigger: If a Cat is placed, break and loop back to the Halo Enforcer.Tier 2: Medium Algorithms (Intersection Logic)Escalate here only when Tier 1 stalls.Region-to-Line Claims:If a specific Region only has 0 cells residing in a single Row or Column, it claims that line. Mutate all other 0 cells in that Row/Column (outside the region) to 2.Line-to-Region Claims:If a specific Row or Column only has 0 cells belonging to a single Region ID, mutate all other 0 cells in that Region (outside the line) to 2.Trigger: If any cells are blocked, immediately drop back to Tier 1 to check for new Naked Singles.Tier 3: Advanced Algorithms (Locked Ecosystems)Escalate here when Tier 2 stalls.The 2x2 Trap Avoidance:Scan for 2x2 blocks of 0 (Empty) cells. Placing two cats in a 2x2 violates the halo rule.If a 2x2 block contains the only remaining empty squares for a specific Region, the solver deduces that region's cat must live in that block, allowing intersection removals outside of it.Locked Multiples (N-Locked Sets):If $N$ Columns (e.g., 3 columns) only contain 0 cells belonging to exactly $N$ Regions, those Regions are mathematically locked to those Columns.Action: Block those $N$ Regions entirely in the remaining 6 Columns.Trigger: Drop back to Tier 1.Tier 4: Failsafe (DFS / Bifurcation)If all deterministic loops stall, execute a safe backtracking search.Find the first 0 (Empty) cell. Clone the board.Temporarily mutate the cell to 1. Recursively run Tiers 1-3.If the state machine detects an illegal state (e.g., a row with 0 cats and 0 empty spaces), the guess was wrong. Mutate the original cell to 2 (Blocked) and drop back to Tier 1.6. Phased Implementation Plan (Cursor Prompts)Feed these directly into the agentic IDE.Phase 1: Rust Core Skeleton (No UI)Prompt: "Read the SDD. Implement the Board struct in Rust and write the Halo Enforcer and Naked Singles algorithms. Write a standard rust #[test] with a hardcoded [u8; 81] state and region array to prove it solves a simple choke point."Phase 2: The Flutter Image PipelinePrompt: "Create a Flutter Isolate function that takes raw Image bytes from the system clipboard, finds the 9x9 grid using the Isolate-Pixel Method described in the SDD, and returns the flattened Int8List arrays."Phase 3: Connecting the BridgePrompt: "Using the existing FFI template, update the Rust C-bindings to match the calculate_next_move signature in the SDD. Wire the Flutter Isolate output to this FFI function, and render the returned integer index as a highlighted cell on the Flutter UI."Phase 4: Advanced Logic & FallbackPrompt: "Implement Tier 2 (Intersection Logic) and Tier 4 (DFS Fallback) algorithms in Rust to ensure the solver can crack complex board states without panicking.""""
+
+
+
+markdown_content = """# Comprehensive Software Design Document: FFI-Accelerated Logic Puzzle Solver
+
+## 1. Executive Summary
+This document serves as the master architectural blueprint and Software Design Document (SDD) for a high-performance, deterministic constraint satisfaction puzzle solver (targeting "Star Battle" style 9x9 grid games). 
+
+**The core workflow:** Ingest a 9x9 game board screenshot from the device clipboard, parse the grid mathematically using lightweight Dart isolates, pass the flattened state across a C-ABI bridge, and rely on a Rust-based state machine to compute the exact next logical move without blocking the UI.
+
+---
+
+## 2. Architecture & Tech Stack Rationale
+The application relies on a tri-tier architecture leveraging a pre-existing Flutter/Rust/Julia FFI template.
+
+### 2.1 Flutter/Dart (The Presentation & Intake Layer)
+* **Role:** UI rendering, clipboard management, and raw image pixel-sampling.
+* **Why Dart here?** Keeps the UI running at 60/120fps. By offloading image math to a Dart Isolate, we avoid blocking the main thread while maintaining cross-platform compatibility without external CV libraries.
+
+### 2.2 Rust (The Core Logic Engine)
+* **Role:** The Constraint Satisfaction Problem (CSP) solver and state machine.
+* **Why Rust?** * **Zero Garbage Collection (GC) Pauses:** When the solver hits a roadblock and relies on Depth-First Search (DFS) or bifurcation trees, it creates and destroys thousands of temporary board states. Dart or Go would trigger GC stutters. Rust runs at raw hardware speed.
+  * **Memory Safety:** Deep recursive backtracking in C/C++ risks stack overflows; Rust guarantees safety.
+  * **C-ABI Advantage:** Compiles to a native C-compatible library natively, minimizing overhead across the FFI boundary.
+
+### 2.3 Julia (The Idle Heavyweight)
+* **Role:** Idle / Reserved for Future Expansion.
+* **The "Sledgehammer vs. Scalpel" Strategy:** Julia is unparalleled for massive sparse matrices. However, a 9x9 grid constraint problem is a thumbtack, and Julia is a sledgehammer. The latency of crossing *two* FFI boundaries (Dart -> Rust -> Julia) defeats the purpose.
+* **Action Plan:** Leave the Julia FFI bindings intact in the build scripts to avoid breaking CMake/Gradle configurations, but **do not invoke the Julia runtime**. In production, removing Julia entirely will be necessary to save 50MB-100MB of bundle size and reduce baseline memory footprint.
+
+---
+
+## 3. The Image Processing Pipeline (Flutter)
+Avoid heavy Computer Vision (ML/YOLO) models. The game uses a rigid, predictable grid, meaning standard pixel math is infinitely faster and lighter.
+
+### 3.1 The Isolate-Pixel Method
+1. **Trigger:** The app checks the system clipboard (`pasteboard` package) when brought into focus.
+2. **Off-Main-Thread:** Pass the image bytes immediately into a Dart `compute` function (Isolate).
+3. **Grid Slicing & Sampling Math:**
+   * Scan the image matrix to detect the background boundary.
+   * Divide the resulting square bounding box by 9 to establish `cell_size`.
+   * Iterate $y$ (0 to 8) and $x$ (0 to 8).
+   * Sample the exact center pixel `(x * cell_size + cell_size/2, y * cell_size + cell_size/2)` to map the RGB value to a Region ID (1-9).
+   * Sample an offset pixel (slightly top-left of center) to check for a stark white 'X' or dark Cat pixels.
+4. **Return Payload:** The isolate returns two `Int8List` arrays to the main thread.
+
+---
+
+## 4. Data Structures & FFI Boundary
+To ensure zero-copy (or ultra-fast copy) performance, the 9x9 2D grid must be flattened into 1D memory-contiguous arrays before crossing the C-ABI boundary.
+
+### 4.1 The Data Payload
+1. `state_array` (`[u8; 81]`): The physical state of the board.
+   * `0` = Empty (Unexplored)
+   * `1` = Cat (Placed Piece)
+   * `2` = Blocked (The "X" / Halo)
+2. `region_array` (`[u8; 81]`): The color groupings.
+   * `1` through `9` = Integer IDs representing distinct color zones.
+
+### 4.2 The Rust FFI Signature
+
+code-generated-file-Comprehensive_StarBattle_Solver_SDD.md
+
+```rust
+#[no_mangle]
+pub extern "C" fn calculate_next_move(
+    state_ptr: *const u8,
+    region_ptr: *const u8,
+    len: usize,
+) -> i32 {
+    // 1. Validate length (must be 81)
+    // 2. Reconstruct safe Rust slices: std::slice::from_raw_parts
+    // 3. Instantiate the Board struct
+    // 4. Run the State Machine 
+    // 5. Return the array index (0-80) of the next forced move. Return -1 if stuck.
+}
+

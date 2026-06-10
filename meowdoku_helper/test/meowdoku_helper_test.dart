@@ -1,0 +1,207 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:meowdoku_helper/services/ffi_service.dart';
+
+void main() {
+  group('meowdoku_helper Intelligent Solver Tests', () {
+    setUpAll(() async {
+      // Initialize the FFI service
+      await FfiService.initialize();
+    });
+
+    group('Basic FFI Functions', () {
+      test('should calculate entropy for candidate word', () async {
+        final candidate = 'CRANE';
+        final remaining = ['CRANE', 'SLATE'];
+        
+        final entropy = FfiService.calculateEntropy(
+          candidate,
+          remaining,
+        );
+        
+        expect(entropy, isA<double>());
+        expect(entropy, greaterThanOrEqualTo(0.0));
+      });
+
+      test('should simulate guess patterns correctly', () async {
+        final pattern1 = FfiService.simulateGuessPattern(
+          'CRANE',
+          'CRATE',
+        );
+        expect(pattern1, equals('GGGXG')); // C, R, A match, N doesn't, E
+        // matches
+        
+        final pattern2 = FfiService.simulateGuessPattern(
+          'CRANE',
+          'SLATE',
+        );
+        expect(pattern2, equals('XXGXG')); // Only A and E match
+      });
+
+      test('should filter words based on guess results', () async {
+        final words = ['CRANE', 'SLATE', 'CRATE'];
+        final guessResults = [
+          ('CRANE', ['G', 'Y', 'X', 'X', 'G']), // C=Green, R=Yellow, A=Gray,
+          // N=Gray, E=Green
+        ];
+        
+        final filtered = FfiService.filterWords(
+          words,
+          guessResults,
+        );
+        
+        expect(filtered, isA<List<String>>());
+        expect(filtered.length, lessThan(words.length));
+      });
+
+      test('should get intelligent guess', () async {
+        final allWords = ['CRANE', 'SLATE', 'CRATE'];
+        final remaining = ['CRANE', 'SLATE'];
+        final guessResults = <(String, List<String>)>[];
+        
+        final bestGuess = FfiService.getBestGuess(
+          allWords,
+          remaining,
+          guessResults,
+        );
+        
+        expect(bestGuess, isA<String?>());
+        expect(bestGuess, isNotNull);
+        expect(remaining, contains(bestGuess));
+      });
+    });
+
+    group('Advanced Algorithm Tests', () {
+      test('should handle empty remaining words', () async {
+        final allWords = ['CRANE', 'SLATE', 'CRATE'];
+        final remaining = <String>[];
+        final guessResults = <(String, List<String>)>[];
+        
+        final bestGuess = FfiService.getBestGuess(
+          allWords,
+          remaining,
+          guessResults,
+        );
+        
+        expect(bestGuess, isNull);
+      });
+
+      test('should handle single remaining word', () async {
+        final allWords = ['CRANE', 'SLATE', 'CRATE'];
+        final remaining = ['CRANE'];
+        final guessResults = <(String, List<String>)>[];
+        
+        final bestGuess = FfiService.getBestGuess(
+          allWords,
+          remaining,
+          guessResults,
+        );
+        
+        expect(bestGuess, equals('CRANE'));
+      });
+
+      test('should handle complex guess results', () async {
+        final words = ['CRANE', 'SLATE', 'CRATE', 'PLATE', 'GRATE'];
+        final guessResults = [
+          ('CRANE', ['G', 'Y', 'X', 'X', 'G']), // C=Green, R=Yellow, A=Gray,
+          // N=Gray, E=Green
+          ('SLATE', ['X', 'X', 'G', 'X', 'G']), // S=Gray, L=Gray, A=Green,
+          // T=Gray, E=Green
+        ];
+        
+        final filtered = FfiService.filterWords(
+          words,
+          guessResults,
+        );
+        
+        expect(filtered, isA<List<String>>());
+        // Should filter out words that don't match both patterns
+        expect(filtered.length, lessThan(words.length));
+      });
+    });
+
+    group('Performance Tests', () {
+      test('should complete entropy calculation quickly', () async {
+        final candidate = 'CRANE';
+        final remaining = List.generate(100, (i) => 'WORD$i');
+        
+        final stopwatch = Stopwatch()..start();
+        final entropy = FfiService.calculateEntropy(
+          candidate,
+          remaining,
+        );
+        stopwatch.stop();
+        
+        expect(entropy, isA<double>());
+        expect(stopwatch.elapsedMilliseconds, lessThan(100)); // Should be fast
+      });
+
+      test('should complete intelligent guess quickly', () async {
+        final allWords = List.generate(50, (i) => 'WORD$i');
+        final remaining = allWords.take(10).toList();
+        final guessResults = <(String, List<String>)>[];
+        
+        final stopwatch = Stopwatch()..start();
+        final bestGuess = FfiService.getBestGuess(
+          allWords,
+          remaining,
+          guessResults,
+        );
+        stopwatch.stop();
+        
+        expect(bestGuess, isNotNull);
+        expect(stopwatch.elapsedMilliseconds, lessThan(200)); // Target: < 200ms
+      });
+    });
+
+    group('Edge Cases', () {
+      test('should handle invalid patterns gracefully', () async {
+        final words = ['CRANE', 'SLATE', 'CRATE'];
+        final guessResults = [
+          ('CRANE', ['INVALID', 'Y', 'X', 'X', 'G']), // Invalid pattern should
+          // default to Gray
+        ];
+        
+        final filtered = FfiService.filterWords(
+          words,
+          guessResults,
+        );
+        
+        expect(filtered, isA<List<String>>());
+        // Should still work, treating invalid patterns as Gray
+      });
+
+      test('should handle empty word lists', () async {
+        final words = <String>[];
+        final guessResults = <(String, List<String>)>[];
+        
+        final filtered = FfiService.filterWords(
+          words,
+          guessResults,
+        );
+        
+        expect(filtered, isEmpty);
+      });
+    });
+
+    group('Integration Tests', () {
+      test('should complete basic word filtering workflow', () async {
+        // Test basic word filtering with a simple pattern
+        final allWords = ['CRANE', 'SLATE', 'CRATE', 'PLATE', 'GRATE', 'TRACE'];
+        final guessResults = [
+          ('CRANE', ['G', 'G', 'G', 'G', 'G']), // All green - should match
+          // CRANE exactly
+        ];
+        
+        // Filter remaining words
+        final filtered = FfiService.filterWords(
+          allWords,
+          guessResults,
+        );
+        
+        // Should return only CRANE
+        expect(filtered, isNotEmpty);
+        expect(filtered, equals(['CRANE']));
+      });
+    });
+  });
+}

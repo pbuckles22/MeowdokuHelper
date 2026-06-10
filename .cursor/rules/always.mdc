@@ -1,0 +1,22 @@
+---
+description: Project context — apply in every session
+alwaysApply: true
+---
+
+# MeowdokuHelper + Agentic layer
+
+**Product:** MeowdokuHelper — Star Battle 9×9 solver (clipboard image → Dart isolate → Rust CSP engine). **iOS-first** with macOS and Android support.
+
+**CRITICAL:** The FFI bindings between Flutter, Rust, and iOS are **fragile**. Changes to `ios/`, `rust/Cargo.toml`, `flutter_rust_bridge.yaml`, or `rust_builder/` can break the entire build. Read [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md) before touching these.
+
+Cursor rules, skills, handoff protocol from AgenticTemplate (manual sync — no upstream remote to protect FFI files).
+
+**Source of truth:** [PM_PLAN.md](PM_PLAN.md), [doc/requirements/product.md](doc/requirements/product.md), [AGENT_HANDOFF.md](AGENT_HANDOFF.md), [TECH_DEBT.md](TECH_DEBT.md), [RISKS.md](RISKS.md), [RELEASE.md](RELEASE.md), [INCIDENTS.md](INCIDENTS.md), [docs/](docs/) (SETUP_GUIDE, TESTING_STRATEGY). Skills: [.cursor/skills/](.cursor/skills/) (DEV_GUIDE, TEST_TDD, techwriter, tester, green-and-clean, context-bootstrapper, session-summarizer, code-reviewer, code-quality-gate, tech-lead, github-feature-workflow). **Operating model:** green-and-clean, context-bootstrapper on resume, session-summarizer on handoff.
+
+**TDD:** Read TEST_TDD.md and tester skill first. **Tier 1a:** `cargo test` (Rust). **Tier 1b:** `flutter test` (Flutter). **Tier 2:** `flutter test integration_test/` (device).
+
+**Merge-ready gate:** `cd meowdoku_helper && flutter test && cd rust && cargo test && cd ..` — run before pushing to `main`.
+
+**FFI changes:** Before modifying Rust API (`rust/src/api/*.rs`), regenerate bindings after with `flutter_rust_bridge_codegen generate`. **Never edit** `lib/src/rust/` directly — it's generated.
+
+**Handoff:** When the user wants a handoff, run code review (code-reviewer), tech debt (tech-debt-evaluator), and tests; record in handoff note. See [.cursor/rules/handoff-checklist.mdc](.cursor/rules/handoff-checklist.mdc).
