@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'service_locator.dart';
+import 'package:meowdoku_helper/service_locator.dart';
 
 void main() {
   runApp(const MeowdokuHelperApp());
@@ -8,6 +7,7 @@ void main() {
 
 /// Placeholder shell until Star Battle UI lands (Phase 2/3).
 class MeowdokuHelperApp extends StatefulWidget {
+  /// Creates the root app widget.
   const MeowdokuHelperApp({super.key});
 
   @override
@@ -39,71 +39,66 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MeowdokuHelper',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-      ),
-      home: FutureBuilder<void>(
-        future: _initFuture,
-        builder: (context, snapshot) {
-          final ready = snapshot.connectionState == ConnectionState.done &&
-              !snapshot.hasError;
+  Widget build(BuildContext context) => MaterialApp(
+    title: 'MeowdokuHelper',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+      useMaterial3: true,
+    ),
+    home: FutureBuilder<void>(
+      future: _initFuture,
+      builder: (context, snapshot) {
+        final ready =
+            snapshot.connectionState == ConnectionState.done &&
+            !snapshot.hasError;
 
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('MeowdokuHelper'),
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      ready ? Icons.pets : Icons.hourglass_top,
-                      size: 64,
-                      color: Theme.of(context).colorScheme.primary,
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('MeowdokuHelper'),
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          ),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    ready ? Icons.pets : Icons.hourglass_top,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    ready ? 'Star Battle solver' : 'Starting…',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(_status, textAlign: TextAlign.center),
+                  if (!ready &&
+                      snapshot.connectionState != ConnectionState.done)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 24),
+                      child: CircularProgressIndicator(),
                     ),
-                    const SizedBox(height: 24),
-                    Text(
-                      ready
-                          ? 'Star Battle solver'
-                          : 'Starting…',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      _status,
-                      textAlign: TextAlign.center,
-                    ),
-                    if (!ready && snapshot.connectionState != ConnectionState.done)
-                      const Padding(
-                        padding: EdgeInsets.only(top: 24),
-                        child: CircularProgressIndicator(),
-                      ),
-                    if (snapshot.hasError)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Text(
-                          '${snapshot.error}',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                          textAlign: TextAlign.center,
+                  if (snapshot.hasError)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        '${snapshot.error}',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        );
+      },
+    ),
+  );
 }

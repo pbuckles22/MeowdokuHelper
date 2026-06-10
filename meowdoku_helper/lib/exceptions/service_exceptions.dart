@@ -11,7 +11,7 @@ abstract class ServiceException implements Exception {
 
   /// The main error message
   final String message;
-  
+
   /// Optional additional details about the error
   final String? details;
 
@@ -21,6 +21,7 @@ abstract class ServiceException implements Exception {
 
 /// Exception thrown when FFI initialization fails
 class FfiInitializationException extends ServiceException {
+  /// Creates an FFI initialization failure exception.
   const FfiInitializationException([String? details])
     : super('Failed to initialize FFI', details);
 }

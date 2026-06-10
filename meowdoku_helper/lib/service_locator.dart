@@ -1,4 +1,4 @@
-import 'services/ffi_service.dart';
+import 'package:meowdoku_helper/services/ffi_service.dart';
 
 /// Initializes the Rust FFI bridge. Wordle game services removed in Phase 1b.
 Future<void> setupServices() async {

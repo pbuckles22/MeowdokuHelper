@@ -1,11 +1,11 @@
-import '../exceptions/service_exceptions.dart';
-import '../src/rust/frb_generated.dart';
+import 'package:meowdoku_helper/exceptions/service_exceptions.dart';
+import 'package:meowdoku_helper/src/rust/frb_generated.dart';
 
 /// Thin wrapper around flutter_rust_bridge startup.
 ///
 /// Wordle-specific helpers were removed in Phase 1b. Star Battle board FFI
 /// lands in Phase 3 (`calculate_next_move`).
-class FfiService {
+abstract final class FfiService {
   static bool _isInitialized = false;
 
   static bool get isInitialized => _isInitialized;
@@ -22,9 +22,7 @@ class FfiService {
       if (!e.toString().contains(
         'Should not initialize flutter_rust_bridge twice',
       )) {
-        throw FfiInitializationException(
-          'Failed to initialize Rust FFI: $e',
-        );
+        throw FfiInitializationException('Failed to initialize Rust FFI: $e');
       }
     }
 

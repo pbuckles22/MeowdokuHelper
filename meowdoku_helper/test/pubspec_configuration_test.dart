@@ -16,10 +16,7 @@ void main() {
 
     test('project metadata', () {
       expect(pubspecYaml['name'], equals('meowdoku_helper'));
-      expect(
-        pubspecYaml['description'],
-        contains('Star Battle'),
-      );
+      expect(pubspecYaml['description'], contains('Star Battle'));
       expect(pubspecYaml['publish_to'], equals('none'));
     });
 

@@ -33,8 +33,8 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  
+  cupertino_icons: ^1.0.9
+
   # FFI bridge for calling Rust functions from Dart
   flutter_rust_bridge: 2.11.1
   
@@ -49,7 +49,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   
   # Integration testing (device — run on Mac for iOS)
   integration_test:
