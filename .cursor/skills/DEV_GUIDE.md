@@ -32,7 +32,7 @@ MeowdokuHelper/
 │   ├── integration_test/        # Integration tests
 │   ├── assets/word_lists/       # Game data
 │   └── flutter_rust_bridge.yaml # FFI config
-├── doc/requirements/product.md  # Canonical Star Battle SDD (not geminidata.txt)
+├── doc/requirements/product.md  # Canonical Star Battle SDD
 ├── docs/                        # Template setup/architecture
 ```
 

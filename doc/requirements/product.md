@@ -1,6 +1,6 @@
 # MeowdokuHelper — Product SDD
 
-Canonical product requirements. Do **not** use `geminidata.txt` — it is superseded by this file.
+Canonical product SDD. Do **not** use deprecated scratch exports — this file is source of truth.
 
 ## Executive summary
 

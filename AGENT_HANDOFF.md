@@ -4,7 +4,7 @@
 
 **MeowdokuHelper** is an FFI-accelerated Star Battle puzzle solver (N×N grids; N=9 first). It ingests a board screenshot from the device clipboard, parses the grid in a Dart isolate, and uses a Rust CSP state machine to compute the next logical move.
 
-**Product SDD (canonical):** [doc/requirements/product.md](doc/requirements/product.md) — do not use `geminidata.txt` (superseded).
+**Product SDD (canonical):** [doc/requirements/product.md](doc/requirements/product.md)
 
 Bootstrapped from the updated [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) with full SDD/agentic layer (June 2026).
 
