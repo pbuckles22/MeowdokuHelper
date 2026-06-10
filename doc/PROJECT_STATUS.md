@@ -18,10 +18,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`cleanup/wordle-remnants`** | Current integration work — Phase 1 + Phase 1b.1; **not yet merged to `main`** |
-| `main` | Stable line at last bootstrap / SDD reconcile (`35ac56e` area) — behind feature work |
+| **`bump/flutter-rust-bridge-2.12`** | FFI version bump (FRB 2.11.1 → 2.12.0) — test on branch before merge |
+| `main` | Integration line — Phase 1 + Phase 1b.1 + `flutter_lints` 6 merged |
 
-**New contributors:** clone and checkout **`cleanup/wordle-remnants`** until this file says otherwise.
+**New contributors:** clone and checkout **`main`** (or the active bump branch if noted here).
 
 ---
 
@@ -32,17 +32,18 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | Phase 0 — Bootstrap | Done | Template, rename, SDD, agentic layer |
 | Phase 1 — Rust core | Done | `rust/src/solver/` — size-aware `Board`, Tier 1, N=9 tests |
 | Phase 1b.1 — Wordle removal | Done | UI/tests/assets removed; placeholder app; smoke tests |
+| Lint modernization | Done | `flutter_lints` 6, `flutter analyze` clean on hand-written Dart |
 
-**Verified on Windows:** `cargo test --lib`, `flutter test` (FFI smoke skipped on Windows).
+**FFI build verified (2026-06-10):** `cargo test --lib`, `flutter test`, `flutter analyze`; Android debug APK; `cargo build --target aarch64-apple-ios-sim`.
 
-**Pending:** Mac/iPhone validation — [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**iOS simulator integration:** blocked until **iOS 26.5** platform is installed in Xcode → Settings → Components (Xcode 26.5 SDK vs installed simulator runtimes). Use physical device or install platform, then [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 
 ## Next up
 
-1. **Mac/iPhone smoke** — `flutter test`, `integration_test/app_smoke_test.dart`, `flutter run` on device/simulator
-2. **Merge** `cleanup/wordle-remnants` → `main` after smoke passes
+1. **FRB 2.12 bump** on `bump/flutter-rust-bridge-2.12` — pins + codegen + Tier 1/2 validation
+2. **iOS Tier 2** when Xcode iOS 26.5 platform available (or physical device)
 3. **Phase 2** — Flutter image pipeline (clipboard → isolate → `state`/`regions` arrays). Fixtures: `assets/test_fixtures/`
 
 ---
