@@ -18,11 +18,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`bump/flutter-rust-bridge-2.12`** | Active — FRB 2.11.1 → 2.12.0 bump (branched from integration line) |
-| `cleanup/wordle-remnants` | Integration line — **merge to `main` pending** |
-| `main` | Behind integration work until cleanup branch merges |
+| **`bump/flutter-rust-bridge-2.12`** | Active — FRB 2.11.1 → 2.12.0 upgrade (feature branch from `main`) |
+| `main` | Integration line — Phase 1, Phase 1b.1, lint 6, FFI roundtrip tests |
 
-**New contributors:** checkout **`bump/flutter-rust-bridge-2.12`** or **`cleanup/wordle-remnants`** until `main` catches up.
+**New contributors:** checkout **`main`** or the active bump branch named here.
 
 ---
 
@@ -37,7 +36,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 **FFI build verified (2026-06-10):** `cargo test --lib`, `flutter test`, `flutter analyze`; Android debug APK; `cargo build --target aarch64-apple-ios-sim`.
 
-**iOS simulator integration:** blocked until **iOS 26.5** platform is installed in Xcode → Settings → Components (Xcode 26.5 SDK vs installed simulator runtimes). Use physical device or install platform, then [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**iOS Tier 2 (2026-06-10):** `integration_test/app_smoke_test.dart` green on **iOS 26.5** simulator (iPhone 17 Pro) — placeholder UI + FFI init + `Icons.pets`. See [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 

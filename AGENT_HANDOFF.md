@@ -77,14 +77,14 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `bump/flutter-rust-bridge-2.12` (FRB bump; integration merge to `main` pending)
+- **Active branch:** `bump/flutter-rust-bridge-2.12` (FRB 2.12 upgrade from `main`)
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
-- **Phase 1b.1:** Done — Wordle UI/tests/assets removed; placeholder app; smoke tests (merged to `main`)
+- **Phase 1b.1:** Done — Wordle UI/tests/assets removed; placeholder app; smoke + Rust FFI roundtrip tests
 - **Lint:** `flutter_lints` 6; `flutter analyze` clean on hand-written Dart
-- **FFI verified:** Tier 1 green; Android debug APK + `aarch64-apple-ios-sim` Rust build OK; iOS sim Tier 2 needs Xcode iOS 26.5 platform ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** FRB 2.12 on bump branch → iOS Tier 2 when platform installed → Phase 2 image pipeline
+- **FFI verified:** Tier 1 green; Android debug APK + `aarch64-apple-ios-sim` Rust build OK; **iOS 26.5 sim Tier 2** integration smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
+- **Next:** FRB 2.12 on bump branch → merge integration line to `main` → Phase 2 image pipeline
 - **Legacy API:** Wordle Rust exports in `api/` until Phase 3 — do not extend
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
