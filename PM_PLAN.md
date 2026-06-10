@@ -41,7 +41,9 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - [x] Archive or delete Wordle-only docs (`docs/archive/*`, `WORDLE_SOLVER_ARCHITECTURE_ANALYSIS.md`, etc.)
 - [x] Remove Wordle scripts: `scripts/benchmark_baseline.py`, `precompute_optimal_guesses.rs`, `run_extended_benchmark.sh`
 
-### 1b.2 — FFI-adjacent (defer to Phase 3 unless doing API swap in same branch)
+### 1b.2 — FFI-adjacent Wordle API (still in repo — not gutted yet)
+
+**Status:** UI/assets/tests removed in 1b.1; **~2,600 lines Wordle Rust + FRB exports remain** until API swap. See [doc/QC_STATUS.md](doc/QC_STATUS.md).
 
 **Keep until Star Battle API replaces Wordle exports:**
 

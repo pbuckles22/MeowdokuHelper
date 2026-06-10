@@ -28,12 +28,16 @@ flutter test
 
 ## Tier 2: Integration tests (requires device/simulator)
 
-End-to-end flows, UI interactions, and real FFI performance.
+End-to-end flows, UI interactions, and **real FFI** (native Rust lib linked via Xcode/Gradle).
+
+**Required before merging any FFI or FRB change** — Tier 1b alone can skip native lib in the unit-test host.
 
 ```bash
 cd meowdoku_helper
-flutter test integration_test/
+flutter test integration_test/ -d <ios-simulator-or-device-id>
 ```
+
+See [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md). Latest results: [doc/QC_STATUS.md](doc/QC_STATUS.md).
 
 ---
 

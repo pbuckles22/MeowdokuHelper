@@ -64,6 +64,12 @@ See [TECH_DEBT.md](../TECH_DEBT.md). Top items:
 
 ---
 
+## QC record
+
+Latest full gate (tests, review, debt): [QC_STATUS.md](QC_STATUS.md).
+
+---
+
 ## Reading order for new contributors
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md).
