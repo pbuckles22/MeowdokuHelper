@@ -2,6 +2,12 @@
 
 FFI-accelerated Star Battle puzzle solver (N×N grids; N=9 first): ingest a board screenshot from the clipboard, parse it in a Dart isolate, and compute the next logical move in Rust without blocking the UI.
 
+## New here?
+
+**Start with [CONTRIBUTING.md](CONTRIBUTING.md)** — reading order, setup, branch workflow, and PR expectations.
+
+**Current work:** [doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md) (what's done, active branch, what's next).
+
 ## Stack
 
 - **Flutter/Dart** — UI, clipboard intake, isolate-based image pixel sampling
@@ -12,24 +18,28 @@ FFI-accelerated Star Battle puzzle solver (N×N grids; N=9 first): ingest a boar
 
 ```
 MeowdokuHelper/
-├── meowdoku_helper/     # Flutter + Rust FFI app
-├── docs/                # Architecture and setup (from FFI template)
-├── doc/requirements/    # Product SDD and requirements
-├── .cursor/             # Agentic skills, rules, handoff
-├── AGENT_HANDOFF.md     # Agent source of truth
-└── PM_PLAN.md           # Phased implementation plan
+├── meowdoku_helper/       # Flutter + Rust FFI app
+├── doc/requirements/      # Product SDD (canonical)
+├── doc/PROJECT_STATUS.md  # Current state (tracked — for all contributors)
+├── docs/                  # Setup, architecture, Mac/iOS testing
+├── CONTRIBUTING.md        # Contributor onboarding
+├── AGENT_HANDOFF.md       # Agent + maintainer conventions
+└── PM_PLAN.md             # Phased implementation plan
 ```
 
 ## Quick start
 
 ```bash
+git clone https://github.com/pbuckles22/MeowdokuHelper.git
+cd MeowdokuHelper
+# See doc/PROJECT_STATUS.md for active branch
 cd meowdoku_helper
 flutter pub get
 flutter test
-cd rust && cargo test && cd ..
+cd rust && cargo test --lib && cd ..
 ```
 
-See [AGENT_HANDOFF.md](AGENT_HANDOFF.md) for merge-ready gate, high-risk FFI files, and handoff protocol.
+Full gate and FFI notes: [CONTRIBUTING.md](CONTRIBUTING.md), [AGENT_HANDOFF.md](AGENT_HANDOFF.md).
 
 ## SDD
 

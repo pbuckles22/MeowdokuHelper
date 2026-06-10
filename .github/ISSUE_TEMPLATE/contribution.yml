@@ -1,0 +1,45 @@
+name: Contribution / task
+description: Propose work aligned with PM_PLAN and PROJECT_STATUS
+title: "[phase-N] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read [CONTRIBUTING.md](../../CONTRIBUTING.md) and [doc/PROJECT_STATUS.md](../../doc/PROJECT_STATUS.md) before filing.
+        Canonical SDD: [doc/requirements/product.md](../../doc/requirements/product.md) — not geminidata.txt.
+  - type: dropdown
+    id: phase
+    attributes:
+      label: PM_PLAN phase
+      options:
+        - Phase 2 — Flutter image pipeline
+        - Phase 3 — FFI bridge + UI
+        - Phase 4 — Advanced solver tiers
+        - Phase 1b.2 / debt — Wordle API removal
+        - Docs / tooling / other
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should be true when this is done?
+      placeholder: e.g. N=9 fixture image parses to 81-element state/regions arrays
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Verifiable checks (tests, commands)
+      placeholder: e.g. flutter test passes; fixture test in test/
+    validations:
+      required: true
+  - type: checkboxes
+    id: ffi
+    attributes:
+      label: Touching high-risk FFI?
+      options:
+        - label: This work may touch ios/, rust_builder/, flutter_rust_bridge.yaml, or rust/src/api/
+          required: false

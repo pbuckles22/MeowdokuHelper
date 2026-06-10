@@ -10,14 +10,14 @@ Pure Rust logic (algorithms, data processing, word filtering).
 
 ```bash
 cd meowdoku_helper/rust
-cargo test
+cargo test --lib
 ```
 
 ---
 
 ## Tier 1b: Flutter unit tests (fast)
 
-Dart logic and FFI service integration. Uses the **algorithm-testing word list** (1,273 words) for speed.
+Dart logic, widget smoke tests, and FFI init where the native library is available (see [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md) — FFI smoke may skip on Windows).
 
 ```bash
 cd meowdoku_helper
@@ -43,7 +43,7 @@ Run before every push to `main`:
 
 ```bash
 cd meowdoku_helper
-flutter test && cd rust && cargo test && cd ..
+flutter test && cd rust && cargo test --lib && cd ..
 ```
 
 Same checks should run in CI if you use GitHub Actions.

@@ -34,10 +34,12 @@ Skills: [green-and-clean](.cursor/skills/green-and-clean/SKILL.md), [context-boo
 
 ## Context hierarchy
 
-- **Level 1:** `.cursor/rules/always.mdc`, this file
-- **Level 2:** `PM_PLAN.md`, `TEST_PLAN.md`, `doc/requirements/product.md`
-- **Level 3:** current task plan + acceptance criteria
-- **Level 4:** latest `.cursor/handoff/NNNN-handoff-*.md` or `doc/handoff/NNNN-HANDOFF-*.md`
+Contributors and agents use **tracked docs only** for product truth. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+- **Level 1:** [CONTRIBUTING.md](CONTRIBUTING.md), [doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md), this file
+- **Level 2:** [PM_PLAN.md](PM_PLAN.md), [TEST_PLAN.md](TEST_PLAN.md), [doc/requirements/product.md](doc/requirements/product.md)
+- **Level 3:** current task plan + acceptance criteria from PM_PLAN phase
+- **Level 4 (optional, local only):** `.cursor/handoff/NNNN-handoff-*.md` — gitignored; never sole source of truth
 
 ## Governance
 
@@ -63,15 +65,27 @@ Skills: [green-and-clean](.cursor/skills/green-and-clean/SKILL.md), [context-boo
 - **Tester:** Run test gate after changes; see TEST_PLAN.md
 - **Handoff:** code-reviewer + tech-debt-evaluator + tests → handoff note ([handoff-checklist](.cursor/rules/handoff-checklist.mdc))
 
+## Contributor onboarding (norm)
+
+All contributors (human or agent) bootstrap from tracked files:
+
+1. [CONTRIBUTING.md](CONTRIBUTING.md)
+2. [doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)
+3. [PM_PLAN.md](PM_PLAN.md) → [doc/requirements/product.md](doc/requirements/product.md)
+
+When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, and **Current state** below in the same PR.
+
 ## Current state
 
+- **Active branch:** `cleanup/wordle-remnants` (not merged to `main` — see [doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
-- **SDD:** Reconciled in [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
-- **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9
-- **Phase 1b.1:** Done on `cleanup/wordle-remnants` — Wordle UI/tests/assets removed; placeholder app; `cargo test --lib` + `flutter test` green on Windows (FFI smoke skipped on Windows)
-- **Next:** Mac/iPhone validation ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)), then Phase 2 image pipeline
-- **Legacy API:** Wordle Rust exports in `api/` remain until Phase 3 FRB swap — do not extend
-- **FFI:** Use flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
+- **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
+- **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
+- **Phase 1b.1:** Done — Wordle UI/tests/assets removed; placeholder app; smoke tests
+- **Verified:** Windows — `cargo test --lib`, `flutter test` (FFI smoke skipped on Windows)
+- **Next:** Mac/iPhone validation ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)) → merge branch → Phase 2 image pipeline
+- **Legacy API:** Wordle Rust exports in `api/` until Phase 3 — do not extend
+- **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test
 
@@ -90,7 +104,7 @@ flutter test
 flutter test integration_test/
 ```
 
-**Merge-ready gate:** `flutter test && cd rust && cargo test && cd ..` (from `meowdoku_helper/`)
+**Merge-ready gate:** `flutter test && cd rust && cargo test --lib && cd ..` (from `meowdoku_helper/`)
 
 ## Conventions
 
@@ -113,10 +127,10 @@ flutter test integration_test/
 
 ## Handoff protocol
 
-1. Handoff checklist: code review, tech debt, tests
-2. Update PM_PLAN when scope ships
-3. Session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md))
-4. Update "Current state" only when it helps the next session
+1. Handoff checklist: code review, tech debt, tests ([handoff-checklist](.cursor/rules/handoff-checklist.mdc))
+2. Update [PM_PLAN.md](PM_PLAN.md) when scope ships
+3. Update **[doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)** and **Current state** above (required for contributor-visible changes)
+4. Optional local session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md)) — gitignored; promote decisions to tracked docs
 
 ---
 

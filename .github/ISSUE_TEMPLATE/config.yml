@@ -1,0 +1,8 @@
+blank_issues: true
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/pbuckles22/MeowdokuHelper/blob/main/CONTRIBUTING.md
+  - name: Project status (current work)
+    url: https://github.com/pbuckles22/MeowdokuHelper/blob/main/doc/PROJECT_STATUS.md
+  - name: Product SDD
+    url: https://github.com/pbuckles22/MeowdokuHelper/blob/main/doc/requirements/product.md
