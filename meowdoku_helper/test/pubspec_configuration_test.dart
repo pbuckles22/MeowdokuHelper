@@ -22,7 +22,7 @@ void main() {
 
     test('FFI dependencies present', () {
       final dependencies = pubspecYaml['dependencies'] as Map<dynamic, dynamic>;
-      expect(dependencies['flutter_rust_bridge'], equals('2.11.1'));
+      expect(dependencies['flutter_rust_bridge'], equals('2.12.0'));
       expect(dependencies['rust_lib_meowdoku_helper'], isNotNull);
     });
 

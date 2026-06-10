@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.9
 
   # FFI bridge for calling Rust functions from Dart
-  flutter_rust_bridge: 2.11.1
+  flutter_rust_bridge: 2.12.0
   
   rust_lib_meowdoku_helper:
     path: rust_builder
