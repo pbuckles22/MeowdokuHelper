@@ -19,7 +19,7 @@ Bootstrapped from the updated [Rust_Julia_FFI_Flutter_Template](https://github.c
 ## Source of truth
 
 - **Scope / sprints:** [PM_PLAN.md](PM_PLAN.md)
-- **Epics & stories:** [doc/plan/EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) · [fixtures](doc/plan/FIXTURES.md)
+- **Epics & stories:** [doc/plan/EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) · [fixtures](doc/plan/FIXTURES.md) · [solver algorithms](doc/requirements/solver_algorithms.md)
 - **Product SDD:** [doc/requirements/product.md](doc/requirements/product.md)
 - **Architecture:** [docs/COMPREHENSIVE_ARCHITECTURE.md](docs/COMPREHENSIVE_ARCHITECTURE.md)
 - **Setup:** [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md)
@@ -88,7 +88,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **FFI API:** `init_app` + `calculate_next_move` only (Wordle exports removed)
 - **Phase 1b.2:** Done — Wordle FRB removed; `calculate_next_move` on bridge
 - **Tip:** `main` @ `ab2212c` — epics/stories + Phase 2 handoff docs
-- **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures `assets/test_fixtures/` — **easy levels first** (`EarlyGame` → `lvl3` → … → `lvl21` by filename level)
+- **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures seq `01`–`20` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq `21`–`30` reserved for in-app L21–L30 after L20 solves
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test

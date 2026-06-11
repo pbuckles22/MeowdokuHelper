@@ -72,14 +72,14 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Goal:** Clipboard → isolate → flattened `Uint8List` arrays.
 
-**Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — level order = difficulty; easy first (`EarlyGame` → `lvl3` → … `lvl21`).
+**Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — seq order (`01` … `20`; `21`–`30` reserved for in-app L21–L30).
 
 - [ ] Clipboard trigger on app focus (`pasteboard` package)
 - [ ] Dart `compute` isolate: grid boundary detection, cell sampling
 - [ ] Unique-color pass → detect **N** (color region rule); compute N² array length
 - [ ] Return `state` and `regions` arrays to main thread
 
-**Acceptance:** Golden unit tests on **easy fixtures first** — `EarlyGame.jpg` (N=4) and `lvl3.jpg` (N=6) minimum; then expand up the level order. Optional: `lvl9` (N=9 product target), `lvl15` (N=10).
+**Acceptance:** Golden unit tests on **easy fixtures first** — seq `01` (N=4) and `02` (N=6) minimum; then expand up seq order. Optional: seq `08` (N=9 product target), seq `14` (N=10).
 
 ## Phase 3 — UI highlight + end-to-end wire
 

@@ -32,7 +32,7 @@ class BoardFixture {
     );
   }
 
-  /// Reads raw bytes for [filename] (e.g. `EarlyGame.jpg`).
+  /// Reads raw bytes for [filename] (e.g. `01_L-early_N4_T1.jpg`).
   static Future<List<int>> readBytes(String filename) async {
     final file = File('${fixturesDirectory().path}/$filename');
     if (!file.existsSync()) {

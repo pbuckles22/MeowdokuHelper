@@ -125,7 +125,9 @@ Pointer-based Cargokit plumbing is unchanged; only how slices are sized (N² fro
 
 Do not guess randomly. Run cheapest loops first; escalate only when a tier stalls.
 
-### Tier 1 — Beginner (workhorse)
+**Full algorithm catalog (implementation order, acceptance gates, fixture mapping):** [solver_algorithms.md](solver_algorithms.md)
+
+### Tier 1 — Beginner (workhorse) ✅
 
 Loop until zero state changes:
 

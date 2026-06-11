@@ -37,15 +37,15 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 **Goal:** Clipboard screenshot → Dart isolate → `state` + `regions` `Uint8List` (length N²).
 
-**Fixtures:** [FIXTURES.md](FIXTURES.md) — easy levels first (`EarlyGame` → `lvl3` → …).
+**Fixtures:** [FIXTURES.md](FIXTURES.md) — seq order (`01` … `20`; `21`–`30` reserved).
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Done | Test reads `EarlyGame.jpg` bytes; decode succeeds |
+| US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Done | Test reads seq-01 fixture bytes; decode succeeds |
 | US-2.2 | As a player, grid parsing runs off the UI thread in an isolate. | Planned | `compute()` entrypoint; no jank on main isolate in test harness |
 | US-2.3 | As a player, the app detects N from unique region colors. | Planned | Unique-color count → N; array length N² |
 | US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Planned | Center + offset sampling per product SDD |
-| US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Planned | `EarlyGame` (N=4) + `lvl3` (N=6) expected arrays locked |
+| US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Planned | seq `01` (N=4) + `02` (N=6) expected arrays locked |
 | US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Planned | `pasteboard` on focus; same isolate path as fixtures |
 
 **Branch:** `feature/phase2-image-pipeline`
@@ -78,7 +78,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-5.1 | As a player, 10×10 boards work end-to-end without code changes. | Planned | `lvl15` or equivalent: parse → solve → highlight |
+| US-5.1 | As a player, 10×10 boards work end-to-end without code changes. | Planned | seq `14` (L15, N=10): parse → solve → highlight |
 | US-5.2 | As a developer, N>9 is validated on multiple fixture sizes. | Planned | At least N=10 fixture full path green |
 
 ---
