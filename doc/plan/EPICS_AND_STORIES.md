@@ -39,6 +39,8 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 **Fixtures:** [FIXTURES.md](FIXTURES.md) — seq `01`–`32` (complexity order; L21–L33 at seq 20–32).
 
+**Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>` (e.g. `feature/us-2.2-isolate`). Merge each story to `main` separately.
+
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
 | US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Done | Test reads seq-01 fixture bytes; decode succeeds |
@@ -48,7 +50,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Planned | seq `01` (N=4) + `02` (N=6) expected arrays locked |
 | US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Planned | `pasteboard` on focus; same isolate path as fixtures |
 
-**Branch:** `feature/phase2-image-pipeline`
+**Next branch:** `feature/us-2.2-isolate` (from `main` after US-2.1 merge)
 
 ---
 

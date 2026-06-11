@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (`ab2212c`)
+**Last updated:** 2026-06-10 (post US-2.1 merge — see `main` tip)
 
 ---
 
@@ -18,9 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration — Phase 0–1b complete; Phase 2 next (**local ahead of `origin`**) |
+| **`main`** | Integration — US-2.1 merged; EPIC-2 in progress (**local ahead of `origin`**) |
 
-**New contributors:** checkout **`main`**.
+**New contributors:** checkout **`main`**. Next story: `feature/us-2.2-isolate` off `main`.
 
 ---
 
@@ -32,8 +32,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | Phase 1 — Rust core | Done | `rust/src/solver/` — size-aware `Board`, Tier 1, N=9 tests |
 | Phase 1b.1 — Wordle UI/assets | Done | Placeholder app; Wordle UI/tests/assets removed |
 | Phase 1b.2 — Wordle FRB gut | Done | Wordle `api/` deleted; `calculate_next_move` wired |
-| FRB 2.12 | Done on `main` | Pins + regenerated bindings |
+| FRB 2.12 | Done | Pins + regenerated bindings |
 | Lint modernization | Done | `flutter_lints` 6; analyze clean |
+| **US-2.1** — fixture decode | Done | `lib/image/` + seq-01 decode tests; merged to `main` |
+| Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
 **FFI (2026-06-11):** Tier 1 + Tier 2 green; `calculateNextMove` roundtrip on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
@@ -41,9 +43,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 ## Next up
 
-1. **EPIC-2 / Phase 2** — branch `feature/phase2-image-pipeline`; stories [US-2.1](plan/EPICS_AND_STORIES.md)–[US-2.6](plan/EPICS_AND_STORIES.md)
-2. **Fixtures** — [doc/plan/FIXTURES.md](plan/FIXTURES.md) (seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md))
-3. **Push** `main` to `origin` when ready
+1. **US-2.2** — branch `feature/us-2.2-isolate`; `compute()` entrypoint ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+2. **US-2.3–2.6** — each on its own feature branch; merge per story
+3. **Fixtures** — [FIXTURES.md](plan/FIXTURES.md) (seq order; goldens at US-2.5)
+4. **Push** `main` to `origin` when ready
 
 ---
 
@@ -57,8 +60,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 See [TECH_DEBT.md](../TECH_DEBT.md). Top items:
 
+- Lock golden `state`/`regions` per fixture (US-2.5)
 - Legacy Wordle mentions in archived `docs/`
-- Template repo still Wordle-heavy for new bolt-ons
+- Push `main` (~14 commits ahead of `origin`)
 
 ---
 

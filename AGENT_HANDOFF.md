@@ -78,17 +78,19 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` (Phase 1b complete on `main`)
+- **Active branch:** `main` — US-2.1 merged; EPIC-2 in progress
+- **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
+- **Solver catalog:** [doc/requirements/solver_algorithms.md](doc/requirements/solver_algorithms.md)
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
-- **Phase 1b.1:** Done — Wordle UI/tests/assets removed; placeholder app; smoke + Rust FFI roundtrip tests
-- **Lint:** `flutter_lints` 6; `flutter analyze` clean on hand-written Dart
-- **FFI verified:** Tier 1 green; Android debug APK + `aarch64-apple-ios-sim` Rust build OK; **iOS 26.5 sim Tier 2** integration smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **FFI API:** `init_app` + `calculate_next_move` only (Wordle exports removed)
-- **Phase 1b.2:** Done — Wordle FRB removed; `calculate_next_move` on bridge
-- **Tip:** `main` @ `ab2212c` — epics/stories + Phase 2 handoff docs
-- **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq `20`–`32` = L21–L33 batch (complexity-ordered)
+- **Phase 1b:** Done — Wordle removed; `calculate_next_move` on bridge
+- **US-2.1:** Done — `lib/image/board_fixture.dart`, `jpeg_decode.dart`, seq-01 decode tests
+- **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
+- **Lint:** `flutter_lints` 6; Tier 1 green (8 Flutter + 8 Rust)
+- **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
+- **Next:** **US-2.2** — `git checkout -b feature/us-2.2-isolate` from `main`; `compute()` isolate entrypoint
+- **Push:** `main` ahead of `origin` — push when ready
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test
