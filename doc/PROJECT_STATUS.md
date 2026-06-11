@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-2.1 merge — see `main` tip)
+**Last updated:** 2026-06-10 (post US-2.3 merge — see `main` tip)
 
 ---
 
@@ -20,7 +20,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 |--------|------|
 | **`main`** | Integration — US-2.1 merged; EPIC-2 in progress (**local ahead of `origin`**) |
 
-**New contributors:** checkout **`main`**. Next story: `feature/us-2.2-isolate` off `main`.
+**New contributors:** checkout **`main`**. Next story: `feature/us-2.4-cell-sample` off `main`.
 
 ---
 
@@ -36,6 +36,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | Lint modernization | Done | `flutter_lints` 6; analyze clean |
 | **US-2.1** — fixture decode | Done | seq-01 decode tests |
 | **US-2.2** — isolate entry | Done | `compute()` + `decode_isolate.dart` |
+| **US-2.3** — N detect | Done | `n_detect.dart`; seq-01 → N=4, N² shells |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
 **FFI (2026-06-11):** Tier 1 + Tier 2 green; `calculateNextMove` roundtrip on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
@@ -44,8 +45,8 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 ## Next up
 
-1. **US-2.3** — branch `feature/us-2.3-n-detect`; unique-color count → N ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
-2. **US-2.4–2.6** — each on its own feature branch; merge per story
+1. **US-2.4** — branch `feature/us-2.4-cell-sample`; center + offset cell sampling ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+2. **US-2.5–2.6** — each on its own feature branch; merge per story
 3. **Fixtures** — [FIXTURES.md](plan/FIXTURES.md) (seq order; goldens at US-2.5)
 4. **Push** `main` to `origin` when ready
 

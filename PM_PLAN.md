@@ -76,7 +76,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 - [ ] Clipboard trigger on app focus (`pasteboard` package)
 - [ ] Dart `compute` isolate: grid boundary detection, cell sampling
-- [ ] Unique-color pass → detect **N** (color region rule); compute N² array length
+- [x] Unique-color pass → detect **N** (color region rule); compute N² array length
 - [ ] Return `state` and `regions` arrays to main thread
 
 **Acceptance:** Golden unit tests on **easy fixtures first** — seq `01` (N=4) and `02` (N=6) minimum; then expand up seq order. Optional: seq `08` (N=9 product target), seq `14` (N=10).
