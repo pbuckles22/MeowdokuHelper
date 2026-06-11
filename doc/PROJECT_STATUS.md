@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | US-4.4 merged @ `a26ace6`; EPIC-4 closed; pushed `origin` |
+| **`main`** | US-4.4 @ `5766ca7`; EPIC-4 closed; tip `43440e3` on `origin` |
 
 **New contributors:** checkout **`main`**.
 
