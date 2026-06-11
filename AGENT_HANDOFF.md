@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `799545c` — US-4.4 merged and pushed; EPIC-4 closed
+- **Active branch:** `main` @ `a26ace6` — US-4.4 merged and pushed; EPIC-4 closed
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -94,7 +94,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-3.1:** Done — `solveParsedGrid()` flat FRB wire; clipboard parse → `calculateNextMove` in `main.dart`
 - **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
 - **US-3.3:** Done — Tier 2 integration: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
-- **Ship status:** **EPIC-4 merged to `main`** @ `799545c` (pushed `origin`)
+- **Ship status:** **EPIC-4 merged to `main`** @ `a26ace6` (pushed `origin`)
 - **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2`; 12 Rust tests
 - **US-4.2:** Done — `tier3.rs` 2×2 trap + N-locked sets; `run_tiers_1_through_3` in `calculate_next_move`; 15 Rust tests
 - **US-4.3:** Done — `tier4.rs` DFS bifurcation; `run_tiers_1_through_4` in `calculate_next_move`
