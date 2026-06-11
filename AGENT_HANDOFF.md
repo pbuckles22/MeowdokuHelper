@@ -89,11 +89,12 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-2.2:** Done — `decodeJpegInBackground()` via `compute()`; pure-Dart `image` package (dart:ui cannot decode off main isolate)
 - **US-2.3:** Done — `detectGridSize()` + `gridParseShell()` in `lib/image/n_detect.dart`; seq-01 → N=4, N² arrays
 - **US-2.4:** Done — `parseGridFromImage()` + `parseJpegInBackground()`; center/offset sampling; bbox refine for UI chrome
-- **Ship status:** US-2.4 merged to `main`; EPIC-2 in progress
+- **US-2.5:** Done — golden `state`/`regions` for seq 01+02 in `grid_goldens.dart`
+- **Ship status:** US-2.5 merged to `main`; EPIC-2 in progress
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
-- **Lint:** `flutter_lints` 6; Tier 1 green (12 Flutter + 8 Rust)
+- **Lint:** `flutter_lints` 6; Tier 1 green (15 Flutter + 8 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **US-2.5** — `git checkout -b feature/us-2.5-golden` from `main`; lock seq 01+02 expected arrays
+- **Next:** **US-2.6** — `git checkout -b feature/us-2.6-clipboard` from `main`; pasteboard on app focus
 - **Push:** `main` ahead of `origin` — push when ready
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

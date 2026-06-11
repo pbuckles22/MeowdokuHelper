@@ -79,7 +79,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - [x] Unique-color pass → detect **N** (color region rule); compute N² array length
 - [x] Return `state` and `regions` arrays to main thread (`parseGridFromImage`)
 
-**Acceptance:** Golden unit tests on **easy fixtures first** — seq `01` (N=4) and `02` (N=6) minimum; then expand up seq order. Optional: seq `08` (N=9 product target), seq `14` (N=10).
+**Acceptance:** Golden unit tests on **easy fixtures first** — seq `01` (N=4) and `02` (N=6) minimum **[done]**; then expand up seq order. Optional: seq `08` (N=9 product target), seq `14` (N=10).
 
 ## Phase 3 — UI highlight + end-to-end wire
 
