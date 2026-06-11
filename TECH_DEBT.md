@@ -15,23 +15,48 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 - (none)
 
+---
+
 ## Fix soon
 
 (High ROI; frequent pain; not blocking.)
 
-- **Parser tuning** — N-detect / cell-sampling thresholds tuned for JPEG fixtures; may need adjustment for PNG or new capture formats.
-- **Golden coverage** — seq 01+02 locked; expand up fixture order as parser evolves ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
-- **seq-08 N mismatch** — Catalog/fixture name says N=9; parser detects N=8 on `08_L09_N9_T1.jpg`. Integration test locks N=8 + index 11 (re-audited post EPIC-4 solver); fix N-detect when expanding goldens (image pipeline).
-- **Integration fixture copy** — seq-08 duplicated under `integration_test/fixtures/` (~100KB) for device `rootBundle`; repo-root `assets/test_fixtures/` remains Tier 1 source of truth.
+- **Golden coverage** — seq 01–02 locked with solve indices; seq 03–08 have parse smoke tests (`parse_ladder_test.dart`) but **no locked goldens yet**; 24 fixtures still without parse+solve gates ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
+- **seq-08 N mismatch** — Catalog/fixture name says N=9; parser detects N=8 on `08_L09_N9_T1.jpg`. Integration test locks N=8 + index 11; fix N-detect when expanding goldens.
+- **Integration fixture copy** — Four fixtures duplicated under `integration_test/fixtures/` for device `rootBundle`.
 - **Android clipboard** — `pasteboard` may need FileProvider setup before device clipboard testing.
-- **Wordle template remnants** — Rust FRB Wordle API removed (1b.2). **Remaining:** legacy Wordle mentions in archived `docs/`; upstream template cleanup ([docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)).
-- **Upstream FFI template** — [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) still contains Wordle bolt-on; execute [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md) so future bolt-ons start clean. Do not git-merge template into MeowdokuHelper.
+- **Wordle template remnants** — Archived `docs/` only; upstream template cleanup ([docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)).
+- **Upstream FFI template** — Execute template cleanup plan; do not git-merge template into MeowdokuHelper.
+- **Duplicate T4 golden data** — `t4_solver_goldens.dart` and `t4_fixtures.rs` mirror ~400 lines; golden codegen still needed.
+- **Solver dedup (production)** — Test helpers deduped; production tier1/tier2 row/col/region iteration still duplicated; DFS paths not merged.
+- **`calculate_next_move` clone-diff** — O(n²) per call; defer until EPIC-6.
+- **Generated FRB doc comment** — `lib/src/rust/api/meowdoku.dart` still says "Tier-1"; fix Rust source comment + regenerate bindings.
 
 ## Accept for now
 
 (Isolated + workaround + revisit trigger.)
 
-- **Fixture `T` suffix vs ladder** — Filenames use `_T4_` for “needs DFS today.” Target T1–T6 ladder documented in [solver_algorithms.md](doc/requirements/solver_algorithms.md); relabel after EPIC-6 (Phase 6).
+- **Fixture `T` suffix vs ladder** — Relabel after EPIC-6 (Phase 6).
+- **Solver O(n³) scans at N≤12** — Acceptable for 9×9/10×10 today.
+- **`solve_parsed_grid.dart` pass-through** — Intentional test seam.
+- **FFI tests skip when native lib absent** — Explicit skip via `test/support/native_ffi.dart`; Tier 2 validates on device.
+
+---
+
+## Audit remediation waves (2026-06-11)
+
+Source: [PROJECT_HEALTH_AUDIT.md](.cursor/handoff/PROJECT_HEALTH_AUDIT.md).
+
+| Wave | Status | Notes |
+|------|--------|-------|
+| **1** Docs + dead code | **Done** | README, DEV_GUIDE, TEST_TDD, QC_STATUS; deleted `80_chars_*.txt`; trimmed exceptions |
+| **2** Test integrity | **Done** | Explicit FFI skip; seq 01–02 solve locked; `ffi_service_test.dart` |
+| **3** Comment + copy | **Done** | Tier copy fixed; n_detect/solver/tier3 docs |
+| **4** Structure | **Done** | `clipboard_flow.dart` extracted; `clipboard_flow_test.dart` |
+| **5** Solver maintainability | **Partial** | `test_helpers.rs`; HashSet in locked sets; DFS merge + prod dedup deferred |
+| **6** Coverage + SSOT | **Partial** | Error-path tests; parse ladder 03–08 smoke; TESTING_STRATEGY deprecated; full goldens + Tier 2 expansion remain |
+
+**Next:** Lock parse goldens for seq 03–08; expand Tier 2 E2E; golden codegen Rust↔Dart.
 
 ---
 
@@ -39,3 +64,9 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 Score each: Impact (0–2) + Frequency (0–2) + RiskReduction (0–2) + Effort (0–2, reverse scale). Sort descending.
 
+| Item | Impact | Freq | Risk↓ | Effort | Score |
+|------|--------|------|-------|--------|-------|
+| Golden coverage seq 03–21 | 2 | 1 | 2 | 0 | **5** |
+| Duplicate T4 goldens | 1 | 1 | 2 | 1 | **5** |
+| Tier 2 E2E expansion | 2 | 1 | 2 | 1 | **6** |
+| Prod solver dedup | 1 | 1 | 1 | 0 | **3** |

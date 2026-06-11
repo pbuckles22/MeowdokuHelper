@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meowdoku_helper/app/puzzle_grid_preview.dart';
+import 'package:meowdoku_helper/image/n_detect.dart';
 
 void main() {
   Widget wrap(Widget child) {
@@ -52,6 +53,21 @@ void main() {
         ),
       );
       expect(ring, isNotNull);
+    });
+
+    testWidgets('renders cat and blocked cell icons', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          const PuzzleGridPreview(
+            gridSize: 2,
+            state: [cellCat, cellBlocked, 0, 0],
+            highlightIndex: -1,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.pets), findsOneWidget);
+      expect(find.byIcon(Icons.close), findsOneWidget);
     });
 
     testWidgets('renders 12x12 grid for N>9 boards', (tester) async {

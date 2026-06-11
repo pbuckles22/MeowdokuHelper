@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -7,11 +6,12 @@ import 'package:meowdoku_helper/image/board_fixture.dart';
 import 'package:meowdoku_helper/image/jpeg_decode.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
 import 'package:meowdoku_helper/image/t4_solver_goldens.dart';
-import 'package:meowdoku_helper/src/rust/frb_generated.dart';
 
-/// US-4.4 — T4 fixture gate seq 22–30: locked parse arrays + expected move index.
-void main() {
+import 'support/native_ffi.dart';
+
+Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
+  final skip = await nativeFfiSkipReason();
 
   group('US-4.4 T4 parse goldens', () {
     for (final golden in t4FixtureGate) {
@@ -33,11 +33,7 @@ void main() {
       test(
         '${golden.fixture} solve returns move ${golden.expectedMove}',
         () async {
-          try {
-            await RustLib.init();
-          } on Object {
-            return;
-          }
+          await ensureRustLibInitialized();
 
           final shell = GridParseShell(
             gridSize: golden.gridSize,
@@ -46,9 +42,7 @@ void main() {
           );
           expect(solveParsedGrid(shell), golden.expectedMove);
         },
-        skip: Platform.isWindows
-            ? 'Native Rust lib — run on Mac/iOS'
-            : false,
+        skip: skip,
       );
     }
   });

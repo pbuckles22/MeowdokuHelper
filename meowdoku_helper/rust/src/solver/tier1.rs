@@ -153,16 +153,7 @@ pub fn run_tier1(board: &mut Board) -> bool {
 mod tests {
     use super::*;
     use crate::solver::board::Board;
-
-    fn checkerboard_regions(size: u32) -> Vec<u8> {
-        let n = size as usize;
-        (0..n * n)
-            .map(|idx| {
-                let (x, y) = (idx % n, idx / n);
-                (((x + y) % n) + 1) as u8
-            })
-            .collect()
-    }
+    use crate::solver::test_helpers::checkerboard_regions;
 
     fn empty_board(size: u32) -> Board {
         let len = (size * size) as usize;

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meowdoku_helper/app/clipboard_flow.dart';
 import 'package:meowdoku_helper/app/clipboard_lifecycle.dart';
 import 'package:meowdoku_helper/app/puzzle_grid_preview.dart';
-import 'package:meowdoku_helper/app/solve_parsed_grid.dart';
-import 'package:meowdoku_helper/image/clipboard_parse.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
 import 'package:meowdoku_helper/service_locator.dart';
 
@@ -61,31 +60,17 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
     });
 
     try {
-      final result = await parseClipboardImageIfJpeg(
-        readClipboardBytes: readPasteboardImageBytes,
-      );
+      final outcome = await runClipboardParseFlow();
 
       if (!mounted) {
         return;
       }
 
-      if (result == null) {
-        setState(() {
-          _parsedShell = null;
-          _highlightIndex = null;
-          _status = 'Clipboard: no JPEG image';
-        });
-      } else {
-        final shell = result.parsed;
-        final idx = solveParsedGrid(shell);
-        setState(() {
-          _parsedShell = shell;
-          _highlightIndex = idx;
-          _status = idx >= 0
-              ? 'Next move: cell $idx (N=${shell.gridSize})'
-              : 'Parsed N=${shell.gridSize} — no Tier-1 move';
-        });
-      }
+      setState(() {
+        _parsedShell = outcome.parsedShell;
+        _highlightIndex = outcome.highlightIndex;
+        _status = outcome.status;
+      });
     } on Exception catch (e) {
       if (mounted) {
         setState(() => _status = 'Clipboard parse failed: $e');

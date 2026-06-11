@@ -37,7 +37,7 @@ class PuzzleGridPreview extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
-                  'Board stalled / no Tier-1 moves available',
+                  'Board stalled — no deterministic move (Tiers 1–4)',
                   key: const Key(stalledBannerKey),
                   style: theme.textTheme.titleSmall?.copyWith(
                     color: theme.colorScheme.error,

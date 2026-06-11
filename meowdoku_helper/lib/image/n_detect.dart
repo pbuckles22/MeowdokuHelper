@@ -1,3 +1,9 @@
+/// Image parsing heuristics for Star Battle board screenshots.
+///
+/// Thresholds below were tuned against JPEG fixtures in `assets/test_fixtures/`.
+/// See `_isCatMarker`, `_isBlockedMarker`, and `_clusterRegionPalette`.
+library;
+
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -42,6 +48,7 @@ GridParseShell parseGridFromImage(img.Image image) {
       final top = bbox.top + y * cellH;
       final centerX = (left + cellW / 2).round().clamp(0, image.width - 1);
       final centerY = (top + cellH / 2).round().clamp(0, image.height - 1);
+      // Sample center plus offset/corner to survive anti-aliasing at cell edges.
       final offsetX =
           (centerX - cellW * 0.15).round().clamp(0, image.width - 1);
       final offsetY =
@@ -188,7 +195,7 @@ int _trimProfileEdge(
   if (profile.isEmpty) return axisStart;
   final maxCount = profile.reduce(max);
   if (maxCount == 0) return axisStart;
-  final threshold = (maxCount * 0.55).round();
+  final threshold = (maxCount * 0.55).round(); // 55% of peak row/col fill density
 
   if (fromStart) {
     for (var i = 0; i < profile.length; i++) {
@@ -254,7 +261,7 @@ int _classifyCellState(int cr, int cg, int cb, int or, int og, int ob) {
   return cellEmpty;
 }
 
-/// Cat face: light center with dark feature at offset (top-left of center).
+/// Cat face: light center (min RGB ≥ 170) with dark feature at offset (max RGB ≤ 75).
 bool _isCatMarker(int cr, int cg, int cb, int or, int og, int ob) {
   final centerLight = min(cr, min(cg, cb)) >= 170;
   final offsetDark = max(or, max(og, ob)) <= 75;
@@ -280,8 +287,8 @@ Map<String, int> _sampleRegionColorBuckets(
   ({int left, int top, int right, int bottom}) bbox,
 ) {
   final buckets = <String, int>{};
-  const sampleStep = 4;
-  const quantStep = 16;
+  const sampleStep = 4; // Pixel stride when building color histogram
+  const quantStep = 16; // Quantize channels to reduce noise before clustering
 
   for (var y = bbox.top; y <= bbox.bottom; y += sampleStep) {
     for (var x = bbox.left; x <= bbox.right; x += sampleStep) {
@@ -303,8 +310,8 @@ List<List<int>> _clusterRegionPalette(Map<String, int> buckets) {
     throw StateError('No region fill colors found in grid area');
   }
 
-  const mergeThreshold = 32.0;
-  const minFractionOfDominant = 0.03;
+  const mergeThreshold = 32.0; // Euclidean RGB distance to merge similar fills
+  const minFractionOfDominant = 0.03; // Drop buckets below 3% of largest cluster
 
   final sorted = buckets.entries.toList()
     ..sort((a, b) => b.value.compareTo(a.value));
@@ -362,7 +369,7 @@ bool isRegionFill(int r, int g, int b) {
   if (_isBackground(r, g, b)) return false;
   final maxC = max(r, max(g, b));
   final minC = min(r, min(g, b));
-  return (maxC - minC) >= 20 && maxC >= 80;
+  return (maxC - minC) >= 20 && maxC >= 80; // Saturated fill, not gray background
 }
 
 double _colorDistance(List<int> a, List<int> b) {

@@ -6,7 +6,7 @@
 - **Continuous:** Run tests after adding or changing logic; keep the suite green.
 - **Three-tier:** Rust unit tests (fastest), Flutter unit tests (fast), integration tests (slowest).
 
-See [docs/TESTING_STRATEGY.md](../../docs/TESTING_STRATEGY.md) for the algorithm-testing word list approach.
+See [TEST_PLAN.md](../../../TEST_PLAN.md) for tier definitions and merge gate.
 
 ---
 
@@ -18,11 +18,11 @@ See [docs/TESTING_STRATEGY.md](../../docs/TESTING_STRATEGY.md) for the algorithm
 
 ### Tier 1a: Rust unit tests (fastest)
 
-Use for pure Rust logic (algorithms, data processing, word filtering).
+Use for pure Rust logic (solver tiers, board, FRB API).
 
 ```bash
 cd meowdoku_helper/rust
-cargo test
+cargo test --lib
 ```
 
 1. **Red** — Add a test in the `#[cfg(test)]` module that fails.
@@ -30,7 +30,7 @@ cargo test
 
 ### Tier 1b: Flutter unit tests (fast)
 
-Use for Dart logic and FFI service integration. Uses the **algorithm-testing word list** (1,273 words) for speed.
+Use for Dart parse pipeline, widget tests, and FFI roundtrips (when native lib is linked).
 
 ```bash
 cd meowdoku_helper
@@ -40,9 +40,11 @@ flutter test
 1. **Red** — Add a test in `test/` that fails.
 2. **Green** — Implement until `flutter test` passes.
 
+**FFI on host:** Tests that need `RustLib.init` must use explicit `skip` when the native library is unavailable — never silently pass.
+
 ### Tier 2: Integration tests (requires device/simulator)
 
-Use for end-to-end flows, UI interactions, and real FFI performance.
+Use for end-to-end flows: app launch, real FFI, fixture parse → solve pipeline.
 
 ```bash
 cd meowdoku_helper
@@ -74,10 +76,8 @@ Run before every push to `main`:
 
 ```bash
 cd meowdoku_helper
-flutter test && cd rust && cargo test && cd ..
+flutter analyze && flutter test && cd rust && cargo test --lib && cd ..
 ```
-
-Same checks should run in CI if you use GitHub Actions.
 
 ---
 
@@ -85,17 +85,13 @@ Same checks should run in CI if you use GitHub Actions.
 
 | Category | Location | Purpose |
 |----------|----------|---------|
-| FFI service tests | `test/ffi_service_*_test.dart` | Validate Rust function accessibility |
-| Performance tests | `test/performance/` | Benchmark FFI call overhead |
-| Widget tests | `test/widgets/` | UI component behavior |
-| Algorithm tests | `test/*_algorithm_test.dart` | Solver correctness |
-| Integration tests | `integration_test/` | End-to-end on device |
-| Rust unit tests | `rust/src/api/*.rs` | Pure Rust logic |
+| FFI smoke / roundtrip | `test/ffi_smoke_test.dart`, `test/rust_ffi_roundtrip_test.dart` | Native lib init + `calculateNextMove` |
+| FFI service | `test/ffi_service_test.dart` | FfiService init, double-init, errors |
+| Image pipeline | `test/n_detect_test.dart`, `test/grid_golden_test.dart`, `test/decode_isolate_test.dart`, … | Parse, goldens, isolate |
+| Solver bridge | `test/solve_parsed_grid_test.dart`, `test/t4_fixture_gate_test.dart` | Parse → FRB solve |
+| Clipboard | `test/clipboard_parse_test.dart`, `test/clipboard_lifecycle_test.dart` | Pasteboard path |
+| Widget / shell | `test/puzzle_grid_preview_test.dart`, `test/main_shell_test.dart` | UI smoke |
+| Integration E2E | `integration_test/app_smoke_test.dart` | Device launch + fixture pipeline |
+| Rust unit tests | `rust/src/solver/*.rs`, `rust/src/api/*.rs` | Pure Rust logic |
 
----
-
-## Algorithm-testing word list
-
-Tests use a curated 1,273-word list (not the full 17,169-word production list) for speed. This list maintains algorithm coverage while being 13x faster.
-
-See [docs/TESTING_STRATEGY.md](../../docs/TESTING_STRATEGY.md) for details.
+Fixtures: repo root `assets/test_fixtures/` (Tier 1); `integration_test/fixtures/` (Tier 2 bundled subset).

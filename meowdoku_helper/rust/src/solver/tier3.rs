@@ -62,11 +62,12 @@ fn apply_locked_columns(board: &mut Board, cols: &[usize]) -> bool {
         return false;
     }
 
+    let col_set: HashSet<usize> = cols.iter().copied().collect();
     let mut changed = false;
     for &region_id in &regions {
         for y in 0..size {
             for x in 0..size {
-                if !cols.contains(&x)
+                if !col_set.contains(&x)
                     && board.region_at(x, y) == region_id
                     && board.get(x, y) == EMPTY
                 {
@@ -93,11 +94,12 @@ fn apply_locked_rows(board: &mut Board, rows: &[usize]) -> bool {
         return false;
     }
 
+    let row_set: HashSet<usize> = rows.iter().copied().collect();
     let mut changed = false;
     for &region_id in &regions {
         for y in 0..size {
             for x in 0..size {
-                if !rows.contains(&y)
+                if !row_set.contains(&y)
                     && board.region_at(x, y) == region_id
                     && board.get(x, y) == EMPTY
                 {
@@ -111,6 +113,9 @@ fn apply_locked_rows(board: &mut Board, rows: &[usize]) -> bool {
 }
 
 /// N columns/rows whose empties span exactly N regions → block those regions outside the lines.
+///
+/// Uses **consecutive** column/row windows of width 2–4 only (not arbitrary subsets).
+/// Sufficient for shipped fixtures; may miss exotic locked-set patterns on harder boards.
 pub fn apply_locked_sets(board: &mut Board) -> bool {
     let size = board.size() as usize;
     let mut changed = false;
@@ -166,10 +171,7 @@ pub fn run_tiers_1_through_3(board: &mut Board) -> bool {
 mod tests {
     use super::*;
     use crate::solver::board::{Board, BLOCKED, EMPTY};
-
-    fn idx(x: usize, y: usize, n: usize) -> usize {
-        y * n + x
-    }
+    use crate::solver::test_helpers::idx;
 
     fn split_2x2_regions(size: u32) -> Vec<u8> {
         let n = size as usize;

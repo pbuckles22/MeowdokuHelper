@@ -151,7 +151,7 @@ fn dfs_solve(board: &mut Board) -> bool {
     }
 }
 
-/// One bifurcation step when Tiers 1–3 stall: try cat at first empty, recurse, or block.
+/// One bifurcation step when Tiers 1–3 stall: try cat at first empty, recurse via [dfs_solve], or block.
 pub fn dfs_bifurcation(board: &mut Board) -> bool {
     let Some((x, y)) = first_empty(board) else {
         return false;
@@ -197,23 +197,7 @@ pub fn run_tiers_1_through_4(board: &mut Board) -> bool {
 mod tests {
     use super::*;
     use crate::solver::board::Board;
-
-    fn idx(x: usize, y: usize, n: usize) -> usize {
-        y * n + x
-    }
-
-    fn quadrant_regions(size: u32) -> Vec<u8> {
-        let n = size as usize;
-        let half = n / 2;
-        (0..n * n)
-            .map(|i| {
-                let (x, y) = (i % n, i / n);
-                let qx = if x < half { 0 } else { 1 };
-                let qy = if y < half { 0 } else { 1 };
-                (qy * 2 + qx + 1) as u8
-            })
-            .collect()
-    }
+    use crate::solver::test_helpers::{idx, quadrant_regions};
 
     #[test]
     fn illegal_when_row_has_no_cats_and_no_empties() {

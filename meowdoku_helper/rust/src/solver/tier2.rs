@@ -120,23 +120,7 @@ pub fn run_tiers_1_and_2(board: &mut Board) -> bool {
 mod tests {
     use super::*;
     use crate::solver::board::{Board, BLOCKED, CAT, EMPTY};
-
-    fn quadrant_regions(size: u32) -> Vec<u8> {
-        let n = size as usize;
-        let half = n / 2;
-        (0..n * n)
-            .map(|idx| {
-                let (x, y) = (idx % n, idx / n);
-                let qx = if x < half { 0 } else { 1 };
-                let qy = if y < half { 0 } else { 1 };
-                (qy * 2 + qx + 1) as u8
-            })
-            .collect()
-    }
-
-    fn idx(x: usize, y: usize, n: usize) -> usize {
-        y * n + x
-    }
+    use crate::solver::test_helpers::{idx, quadrant_regions};
 
     #[test]
     fn region_claims_line_blocks_outside_empties_on_shared_row() {

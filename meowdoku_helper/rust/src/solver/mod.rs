@@ -1,9 +1,21 @@
+//! Star Battle CSP solver — tiered propagation ending in DFS bifurcation.
+//!
+//! **Propagation model:** Each tier applies local rules until stall, then the next
+//! tier runs. When a higher tier blocks cells, lower tiers restart (see
+//! `run_tiers_1_and_2`, `run_tiers_1_through_3`, `run_tiers_1_through_4`).
+//!
+//! **Shipped ladder (historical names):** tier1 → tier2 → tier3 → tier4 (DFS).
+//! EPIC-6 will insert Phantom (T4) and Crowding (T5) and rename DFS to T6.
+
 pub mod board;
 pub mod tier1;
 pub mod tier2;
 pub mod tier3;
 pub mod tier4;
 pub mod t4_fixtures;
+
+#[cfg(test)]
+pub mod test_helpers;
 
 pub use board::Board;
 pub use tier1::{apply_halo_enforcer, apply_naked_singles, run_tier1};

@@ -2,8 +2,8 @@
 
 ## Tech stack
 
-- **Frontend:** Flutter 3.9.2+ (iOS, macOS, Android)
-- **Backend:** Rust 1.70+ with flutter_rust_bridge 2.11.1
+- **Frontend:** Flutter 3.9.2+ (iOS, Android app runners; macOS via rust_builder for FFI builds)
+- **Backend:** Rust 1.70+ with flutter_rust_bridge 2.12.0
 - **Julia:** Template build only — **not invoked at runtime** (see product SDD)
 - **FFI bridge:** flutter_rust_bridge for seamless Dart ↔ Rust calls
 - **Build system:** Cargokit (rust_builder/) for cross-platform Rust compilation
@@ -12,37 +12,39 @@
 
 ```
 MeowdokuHelper/
-├── meowdoku_helper/                  # Main Flutter project
-│   ├── lib/                     # Dart source code
-│   │   ├── main.dart            # App entry point
+├── assets/test_fixtures/        # Canonical board JPEGs (Tier 1 source)
+├── meowdoku_helper/             # Main Flutter project
+│   ├── lib/
+│   │   ├── main.dart            # App entry + clipboard orchestration
+│   │   ├── app/                 # UI layer (preview, lifecycle, solve bridge)
+│   │   ├── image/               # JPEG parse pipeline (isolate)
 │   │   ├── services/            # FFI service layer
-│   │   ├── controllers/         # State management
-│   │   ├── screens/             # UI screens
-│   │   ├── widgets/             # Reusable widgets
+│   │   ├── exceptions/          # FfiInitializationException
 │   │   └── src/rust/            # Generated FFI bindings (DO NOT EDIT)
-│   ├── rust/                    # Rust backend
+│   ├── rust/
 │   │   ├── src/
-│   │   │   ├── lib.rs           # Library entry point
-│   │   │   └── api/             # FFI-exposed functions
-│   │   └── Cargo.toml           # Rust dependencies
+│   │   │   ├── lib.rs           # api + solver modules
+│   │   │   ├── api/             # FRB-exposed functions
+│   │   │   └── solver/          # Board + tier1..tier4
+│   │   └── Cargo.toml
 │   ├── rust_builder/            # Cargokit FFI plugin
-│   ├── ios/                     # iOS project (Xcode, Podfile)
-│   ├── android/                 # Android project
-│   ├── test/                    # Flutter tests
-│   ├── integration_test/        # Integration tests
-│   ├── assets/word_lists/       # Game data
-│   └── flutter_rust_bridge.yaml # FFI config
-├── doc/requirements/product.md  # Canonical Star Battle SDD
-├── docs/                        # Template setup/architecture
+│   ├── ios/, android/
+│   ├── test/                    # Tier 1b Flutter tests
+│   ├── integration_test/        # Tier 2 E2E (+ bundled fixtures)
+│   └── flutter_rust_bridge.yaml
+├── doc/requirements/product.md  # Canonical Star Battle SDD (authoritative)
+├── doc/plan/FIXTURES.md         # Fixture catalog
+└── docs/                        # Setup, archive (template-era docs)
 ```
 
-**Solver module (Phase 1+):** `meowdoku_helper/rust/src/` — size-aware `Board` (`Vec<u8>`, `size: u32`); algorithms use `self.size`, not hardcoded 9. See [doc/requirements/product.md](../../doc/requirements/product.md).
+**Solver module:** `meowdoku_helper/rust/src/solver/` — size-aware `Board` (`Vec<u8>`, `size: u32`); algorithms use `self.size`, not hardcoded 9. See [doc/requirements/product.md](../../doc/requirements/product.md).
 
-## Solver FFI (Phase 3+)
+## Solver FFI
 
 Expose the solver via **flutter_rust_bridge**, not raw `extern "C"`:
 
 ```rust
+// rust/src/api/meowdoku.rs
 #[flutter_rust_bridge::frb(sync)]
 pub fn calculate_next_move(
     state: Vec<u8>,
@@ -51,13 +53,13 @@ pub fn calculate_next_move(
 ) -> i32
 ```
 
-Add in `meowdoku_helper/rust/src/api/` (new module, e.g. `solver.rs`), then regenerate bindings.
+Init lives in `rust/src/api/simple.rs` (`init_app`). Dart bindings: `lib/src/rust/frb_generated.dart` + `lib/src/rust/api/meowdoku.dart`.
 
-## FFI workflow (template pattern)
+## FFI workflow
 
 ### Adding a new Rust function
 
-1. **Define in Rust** (`meowdoku_helper/rust/src/api/simple.rs` or new module):
+1. **Define in Rust** (`meowdoku_helper/rust/src/api/`):
    ```rust
    #[flutter_rust_bridge::frb(sync)]
    pub fn my_new_function(input: String) -> String {
@@ -73,13 +75,12 @@ Add in `meowdoku_helper/rust/src/api/` (new module, e.g. `solver.rs`), then rege
 
 3. **Use in Dart** (bindings appear in `lib/src/rust/api/`):
    ```dart
-   import 'package:meowdoku_helper/src/rust/api/simple.dart';
-   final result = myNewFunction(input: "test");
+   import 'package:meowdoku_helper/src/rust/api/meowdoku.dart';
    ```
 
 4. **Test both sides:**
-   - Rust: Add test in `rust/src/api/simple.rs` `#[cfg(test)]` module
-   - Flutter: Add test in `test/`
+   - Rust: `#[cfg(test)]` in the API or solver module
+   - Flutter: `test/` for Dart-side; `integration_test/` for full native FFI
 
 ### Attribute reference
 
@@ -104,24 +105,23 @@ Add in `meowdoku_helper/rust/src/api/` (new module, e.g. `solver.rs`), then rege
 - **Pure functions:** Prefer pure functions in Rust for testability.
 - **Error handling:** Use `Result<T, E>` in Rust; catch in Dart.
 - **Memory:** Rust owns data; pass copies across FFI boundary.
-- **Testing:** Test Rust logic with `cargo test`, Flutter integration with `flutter test`.
-- **Documentation:** Update docs/ when architecture changes.
+- **Testing:** Tier 1a `cargo test`, Tier 1b `flutter test`, Tier 2 `integration_test/`. See TEST_TDD.md.
+- **Documentation:** Update `doc/` for product changes; `docs/` for setup/architecture.
 
 ## Commands reference
 
 ```bash
 # Flutter
-flutter pub get           # Install dependencies
-flutter run               # Run app
-flutter test              # Unit tests
-flutter build ios         # iOS release build
+flutter pub get
+flutter analyze
+flutter run
+flutter test
+flutter test integration_test/
 
 # Rust
 cd meowdoku_helper/rust
-cargo build               # Debug build
-cargo build --release     # Release build
-cargo test                # Run tests
-cargo clippy              # Linting
+cargo test --lib
+cargo clippy
 
 # FFI regeneration
 cd meowdoku_helper

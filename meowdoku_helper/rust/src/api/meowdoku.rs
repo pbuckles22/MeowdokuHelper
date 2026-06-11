@@ -26,16 +26,7 @@ pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> 
 mod tests {
     use super::*;
     use crate::solver::board::{BLOCKED, CAT, EMPTY};
-
-    fn checkerboard_regions(size: u32) -> Vec<u8> {
-        let n = size as usize;
-        (0..n * n)
-            .map(|idx| {
-                let (x, y) = (idx % n, idx / n);
-                (((x + y) % n) + 1) as u8
-            })
-            .collect()
-    }
+    use crate::solver::test_helpers::{checkerboard_regions, quadrant_regions};
 
     #[test]
     fn returns_choke_point_index_at_nine() {
@@ -65,18 +56,34 @@ mod tests {
     }
 
     #[test]
+    fn seq01_phase2_golden_returns_forced_move() {
+        let state = vec![
+            0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ];
+        let regions = vec![
+            2, 1, 3, 1, 2, 1, 1, 1, 2, 2, 3, 1, 2, 3, 3, 1,
+        ];
+        assert_eq!(calculate_next_move(state, regions, 4), 4);
+    }
+
+    #[test]
+    fn seq02_phase2_golden_returns_forced_move() {
+        let state = vec![
+            0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        ];
+        let regions = vec![
+            2, 2, 2, 2, 2, 3, 2, 1, 6, 2, 2, 2, 5, 1, 1, 1, 1, 2, 1, 1, 3, 3, 2, 2,
+            1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 4, 3,
+        ];
+        assert_eq!(calculate_next_move(state, regions, 6), 8);
+    }
+
+    #[test]
     fn tier2_intersection_board_returns_forced_index() {
         let size = 4u32;
         let n = size as usize;
-        let half = n / 2;
-        let regions: Vec<u8> = (0..n * n)
-            .map(|idx| {
-                let (x, y) = (idx % n, idx / n);
-                let qx = if x < half { 0 } else { 1 };
-                let qy = if y < half { 0 } else { 1 };
-                (qy * 2 + qx + 1) as u8
-            })
-            .collect();
+        let regions = quadrant_regions(size);
 
         let mut state = vec![BLOCKED; n * n];
         state[0] = EMPTY;

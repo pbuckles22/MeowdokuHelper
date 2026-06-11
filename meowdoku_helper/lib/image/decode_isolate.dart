@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:meowdoku_helper/image/jpeg_decode.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
