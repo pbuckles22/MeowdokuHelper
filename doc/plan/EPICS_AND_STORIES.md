@@ -71,7 +71,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
 | US-4.1 | As a player, Tier 2 intersection logic solves boards Tier 1 cannot. | Done | Region/line claims; `cargo test` intersection boards |
-| US-4.2 | As a player, Tier 3 handles locked ecosystems and 2×2 traps. | Planned | `cargo test` locked-set boards |
+| US-4.2 | As a player, Tier 3 handles locked ecosystems and 2×2 traps. | Done | `cargo test` locked-set boards |
 | US-4.3 | As a player, Tier 4 DFS finds moves or returns stuck safely. | Planned | Complex boards; `-1` when truly stuck; no panic |
 
 ---

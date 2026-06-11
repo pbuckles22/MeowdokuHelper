@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-4.1 — Tier 2 intersection logic)
+**Last updated:** 2026-06-10 (post US-4.2 — Tier 3 traps + locked sets)
 
 ---
 
@@ -18,9 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | US-4.1 merged @ `6a824d2`; next US-4.2 Tier 3 |
+| **`feature/us-4.2-locked-ecosystems`** | US-4.2 Tier 3 — ready to merge to `main` |
 
-**New contributors:** checkout **`main`**. Active work: US-4.2 Tier 3 traps.
+**New contributors:** checkout **`main`**. Next: US-4.3 DFS bifurcation.
 
 ---
 
@@ -45,16 +45,17 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **US-3.2** — grid preview | Done | `PuzzleGridPreview` highlight / stalled banner |
 | **US-3.3** — E2E integration | Done | seq-08 → isolate parse → FFI → index 41 on iOS 26.5 sim |
 | **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
-| **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims; 12 Rust tests |
+| **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims |
+| **US-4.2** — traps + locked sets | Done | `tier3.rs`; 15 Rust tests |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
-**FFI (2026-06-10):** Tier 1 (27 Flutter + 12 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**FFI (2026-06-10):** Tier 1 (27 Flutter + 15 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 
 ## Next up
 
-1. **US-4.2** — Tier 3 locked ecosystems + 2×2 traps ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+1. **US-4.3** — Tier 4 DFS bifurcation ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
 2. **Fixtures** — expand golden/parse coverage up seq order; seq-08 catalog N=9 vs parser N=8 ([FIXTURES.md](plan/FIXTURES.md))
 
 ---

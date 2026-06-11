@@ -106,8 +106,8 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 ### Phase 4b — Tier 3 (locked ecosystems)
 
-- [ ] 2×2 trap avoidance
-- [ ] Locked multiples (N-locked column/region sets)
+- [x] 2×2 trap avoidance
+- [x] Locked multiples (N-locked column/region sets)
 
 **Acceptance:** `cargo test` for locked-set boards.
 

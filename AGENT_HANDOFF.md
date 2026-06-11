@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `6a824d2` — US-4.1 merged; next US-4.2
+- **Active branch:** `feature/us-4.2-locked-ecosystems` — US-4.2 Tier 3 traps + locked sets (`main` @ `a0b219c`)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -95,11 +95,12 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
 - **US-3.3:** Done — Tier 2 integration: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
 - **Ship status:** **EPIC-3 merged to `main`** @ `8d541f0`
-- **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2` wired in `calculate_next_move`; 12 Rust tests
+- **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2`; 12 Rust tests
+- **US-4.2:** Done — `tier3.rs` 2×2 trap + N-locked sets; `run_tiers_1_through_3` in `calculate_next_move`; 15 Rust tests
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
-- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 12 Rust)
+- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 15 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **US-4.2** — Tier 3 locked ecosystems + 2×2 traps
+- **Next:** **US-4.3** — Tier 4 DFS bifurcation
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

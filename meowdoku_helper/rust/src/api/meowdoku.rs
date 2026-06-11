@@ -1,7 +1,7 @@
 use crate::solver::board::{Board, CAT};
-use crate::solver::tier2::run_tiers_1_and_2;
+use crate::solver::tier3::run_tiers_1_through_3;
 
-/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–2), or -1.
+/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–3), or -1.
 #[flutter_rust_bridge::frb(sync)]
 pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> i32 {
     let expected = (grid_size * grid_size) as usize;
@@ -11,7 +11,7 @@ pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> 
 
     let before = state.clone();
     let mut board = Board::new(state, regions, grid_size);
-    if !run_tiers_1_and_2(&mut board) {
+    if !run_tiers_1_through_3(&mut board) {
         return -1;
     }
 

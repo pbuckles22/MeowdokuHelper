@@ -4,7 +4,7 @@ Canonical reference for Rust solver development order. **Run the cheapest math f
 
 Maps to [product.md](product.md) tiers, [PM_PLAN.md](../../PM_PLAN.md) Phase 4, and EPIC-4 stories (US-4.1–4.3).
 
-**Implementation status:** Tier 1–2 shipped (Phase 1, Phase 4a). Tiers 3–4 planned (Phase 4b–4c).
+**Implementation status:** Tier 1–3 shipped (Phase 1, Phase 4a–4b). Tier 4 planned (Phase 4c).
 
 ---
 
@@ -44,8 +44,8 @@ When Levels 1–2 stall, use geometry-specific impossibilities.
 
 | # | Algorithm | Role | Rust module (target) |
 |---|-----------|------|----------------------|
-| 5 | **2×2 trap avoidance** | Two cats cannot both sit in a 2×2 empty block (halo rule). If placing a cat in cell A would force two cats in a 2×2 elsewhere in the region, mark A blocked. | `tier3::trap_2x2` |
-| 6 | **N-locked sets** (hidden pairs/triples) | Closed ecosystems: N columns whose empties lie in exactly N regions → those regions are locked to those columns; block those colors elsewhere. | `tier3::locked_sets` |
+| 5 | **2×2 trap avoidance** | Two cats cannot both sit in a 2×2 empty block (halo rule). If placing a cat in cell A would force two cats in a 2×2 elsewhere in the region, mark A blocked. | `tier3::trap_2x2` ✅ |
+| 6 | **N-locked sets** (hidden pairs/triples) | Closed ecosystems: N columns whose empties lie in exactly N regions → those regions are locked to those columns; block those colors elsewhere. | `tier3::locked_sets` ✅ |
 
 **Acceptance:** `cargo test` locked-set boards; fixture gate **T3**.
 
