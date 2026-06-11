@@ -1,7 +1,7 @@
 # QC status — MeowdokuHelper
 
-**Last QC run:** 2026-06-11 (pre–Phase 6 doc sync)  
-**Branch:** `main` @ `fce4b73`  
+**Last QC run:** 2026-06-11 (US-6.1 Phantom tier)  
+**Branch:** `main` — US-6.1 merged  
 **Audit:** [.cursor/handoff/PROJECT_HEALTH_AUDIT.md](../.cursor/handoff/PROJECT_HEALTH_AUDIT.md)
 
 ---
@@ -11,7 +11,7 @@
 | Item | Status |
 |------|--------|
 | Tier 1b `flutter test` | **PASS** — 50 passed, 15 skipped (FFI when native lib absent) |
-| Tier 1a `cargo test --lib` | **PASS** — 22 tests |
+| Tier 1a `cargo test --lib` | **PASS** — 25 tests (+3 phantom) |
 | `flutter analyze` | **PASS** |
 | Tier 2 integration | **PASS** (last run) — 6 tests on iOS sim; **re-run after EPIC-6** |
 | Wordle API removed | **YES** |
@@ -37,7 +37,7 @@
 | `init_app()` | `RustLib.init()` |
 | `calculate_next_move(state, regions, grid_size) -> i32` | `calculateNextMove(...)` |
 
-**Today:** Tiers 1–4 inside `calculate_next_move` (DFS = historical `tier4`).  
+**Today:** Tiers 1–3 + T4 Phantom + DFS inside `calculate_next_move` (DFS = historical `tier4`).  
 **EPIC-6:** Add Phantom + Crowding internally; still one move index out — no FRB API change.
 
 ---

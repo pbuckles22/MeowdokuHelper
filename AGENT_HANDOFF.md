@@ -78,19 +78,20 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `5208d6d` — Phase 6 docs + SDLC gates; audit remediation on `fce4b73`; **only `main` exists**
+- **Active branch:** `main` — US-6.1 Phantom (T4) merged; **EPIC-6 in progress** (2 stories remain)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
 - **Phases 0–5:** Done (bootstrap through EPIC-5 progressive sizing)
-- **Health audit (2026-06-11):** Done — reports in [.cursor/handoff/PROJECT_HEALTH_AUDIT.md](.cursor/handoff/PROJECT_HEALTH_AUDIT.md) + [AUDIT_BASELINE.md](.cursor/handoff/AUDIT_BASELINE.md); remediation waves 1–4 complete; 5–6 partial ([TECH_DEBT.md](TECH_DEBT.md))
-- **Solver (shipped):** Tiers 1–3 + DFS in `tier4.rs` (`run_tiers_1_through_4`); historical name “tier4” = DFS until EPIC-6 renames to T6
+- **US-6.1:** Done — `tier4_phantom.rs`; wired before DFS in `run_tiers_1_through_4`; 3 synthetic tests
+- **Solver (shipped):** T1–T3 + **T4 Phantom** + DFS in `tier4.rs` (`run_tiers_1_through_4`); historical `tier4` = DFS until US-6.3 renames to T6
+- **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–4 stalled” banner
-- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens locked seq 01–02 (+ solve indices 4, 8), seq 22–30; parse **smoke** seq 03–08 (`parse_ladder_test.dart`)
-- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent on host); **22 Rust** (`cargo test --lib`)
-- **Tier 2:** 6 integration tests green on iOS 26.5 sim (last run pre-audit; re-run after EPIC-6 if solver/FFI changes)
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens locked seq 01–02; parse smoke seq 03–08
+- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent); **25 Rust** (`cargo test --lib`)
+- **Tier 2:** 6 integration tests green on iOS 26.5 sim (re-run after EPIC-6 completes)
 - **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
-- **Next:** **Phase 6 / EPIC-6** — T4 Phantom + T5 Crowding; DFS → T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md), [EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md))
-- **Pre-EPIC-6 debt (optional but high ROI):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
+- **Next:** **US-6.2** Region Crowding (`tier5.rs`) → **US-6.3** DFS→T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
+- **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test
 

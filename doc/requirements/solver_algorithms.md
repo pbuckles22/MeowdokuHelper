@@ -13,7 +13,7 @@ Maps to [product.md](product.md), [PM_PLAN.md](../../PM_PLAN.md), and epics in [
 | **T1** | Halo + Naked Singles | Deterministic | `tier1` | ✅ Shipped |
 | **T2** | Intersection logic | Deterministic | `tier2` | ✅ Shipped |
 | **T3** | 2×2 traps + N-locked sets | Deterministic | `tier3` | ✅ Shipped |
-| **T4** | Phantom Cat Projection (overlap halos) | Deterministic | `tier4_phantom` (planned) | 📋 EPIC-6 |
+| **T4** | Phantom Cat Projection (overlap halos) | Deterministic | `tier4_phantom` | ✅ Shipped (US-6.1) |
 | **T5** | Region-to-Region Crowding | Deterministic | `tier5` (planned) | 📋 EPIC-6 |
 | **T6** | DFS / bifurcation (ultimate failsafe) | Search | `tier6` or rename from `tier4` | ✅ Shipped as `tier4` today |
 
