@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-4.4 — EPIC-4 closed)
+**Last updated:** 2026-06-11 (post US-4.4 — EPIC-4 closed)
 
 ---
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`feature/us-4.4-t4-fixture-gate`** | US-4.4 ready to merge; EPIC-4 closed |
+| **`main`** | US-4.4 merged @ `5766ca7`; EPIC-4 closed |
 
 **New contributors:** checkout **`main`**.
 

@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `feature/us-4.4-t4-fixture-gate` — US-4.4 T4 gate seq 22–30 (ready to merge)
+- **Active branch:** `main` @ `5766ca7` — US-4.4 merged; EPIC-4 closed
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -98,7 +98,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2`; 12 Rust tests
 - **US-4.2:** Done — `tier3.rs` 2×2 trap + N-locked sets; `run_tiers_1_through_3` in `calculate_next_move`; 15 Rust tests
 - **US-4.3:** Done — `tier4.rs` DFS bifurcation; `run_tiers_1_through_4` in `calculate_next_move`
-- **US-4.4:** Done — T4 fixture gate seq 22–30; `t4_fixtures.rs` + `t4_solver_goldens.dart`; 20 Rust + 45 Flutter tests
+- **US-4.4:** Done — T4 fixture gate seq 22–30; fixtures seq 33–42; hint UX reference; EPIC-6 docs
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); L34–L52 + L50; UX reference in `assets/reference/`
 - **Lint:** `flutter_lints` 6; Tier 1 green (45 Flutter + 20 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
