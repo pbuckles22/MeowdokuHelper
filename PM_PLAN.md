@@ -74,7 +74,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — seq order (`01` … `32`; L21–L33 batch at seq 20–32).
 
-- [ ] Clipboard trigger on app focus (`pasteboard` package)
+- [x] Clipboard trigger on app focus (`pasteboard` package; `AppLifecycleState.resumed`)
 - [x] Dart `compute` isolate: grid boundary detection, cell sampling (`parseJpegInBackground`)
 - [x] Unique-color pass → detect **N** (color region rule); compute N² array length
 - [x] Return `state` and `regions` arrays to main thread (`parseGridFromImage`)

@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-2.5 merge — see `main` tip)
+**Last updated:** 2026-06-10 (post US-2.6 merge — EPIC-2 complete)
 
 ---
 
@@ -18,9 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration — US-2.1 merged; EPIC-2 in progress (**local ahead of `origin`**) |
+| **`main`** | Integration — EPIC-2 complete; EPIC-3 next |
 
-**New contributors:** checkout **`main`**. Next story: `feature/us-2.6-clipboard` off `main`.
+**New contributors:** checkout **`main`**. Next: EPIC-3 (parse → solve → highlight).
 
 ---
 
@@ -39,6 +39,8 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **US-2.3** — N detect | Done | `n_detect.dart`; seq-01 → N=4, N² shells |
 | **US-2.4** — cell sample | Done | `parseGridFromImage()`; isolate parse path |
 | **US-2.5** — goldens | Done | seq 01+02 locked in `grid_goldens.dart` |
+| **US-2.6** — clipboard | Done | `pasteboard` on resume; JPEG magic-byte gate |
+| **EPIC-2** — image pipeline | Done | Clipboard → isolate → `GridParseShell` |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
 **FFI (2026-06-11):** Tier 1 + Tier 2 green; `calculateNextMove` roundtrip on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
@@ -47,10 +49,8 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 ## Next up
 
-1. **US-2.6** — branch `feature/us-2.6-clipboard`; pasteboard on app focus ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
-2. **EPIC-3** — wire parse output → `calculateNextMove` → UI highlight
-3. **Fixtures** — [FIXTURES.md](plan/FIXTURES.md) (seq order; goldens at US-2.5)
-4. **Push** `main` to `origin` when ready
+1. **EPIC-3** — wire `GridParseShell` → `calculateNextMove` → UI highlight ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+2. **Fixtures** — expand golden/parse coverage up seq order ([FIXTURES.md](plan/FIXTURES.md))
 
 ---
 

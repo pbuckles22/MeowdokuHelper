@@ -48,9 +48,9 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | US-2.3 | As a player, the app detects N from unique region colors. | Done | Unique-color count → N; array length N² |
 | US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Done | Center + offset sampling per product SDD |
 | US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Done | seq `01` (N=4) + `02` (N=6) expected arrays locked |
-| US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Planned | `pasteboard` on focus; same isolate path as fixtures |
+| US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Done | `pasteboard` on focus; same isolate path as fixtures |
 
-**Next branch:** `feature/us-2.6-clipboard` (pasteboard on app focus)
+**Next:** EPIC-3 — wire parse output → `calculateNextMove` → UI highlight
 
 ---
 
