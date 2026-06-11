@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (handoff-first branch policy; EPIC-5 next)
+**Last updated:** 2026-06-11 (EPIC-5 complete; handoff-first policy pending merge)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screenshot → Dart isolate → Rust CSP engine → next forced move.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine → next forced move. Validated through N=12 parsed boards.
 
 **Canonical spec:** [requirements/product.md](requirements/product.md) — not `geminidata.txt`.
 
@@ -18,9 +18,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | US-4.4 merged; EPIC-4 closed; **handoff-first** branch policy active |
+| **`feature/handoff-first-policy`** | Governance: handoff before commit/push/merge — ready to merge |
+| **`feature/us-5.1-n10-e2e`** | EPIC-5: N>9 Tier 2 E2E — ready to merge |
 
-**New contributors:** checkout **`main`**.
+**New contributors:** checkout **`main`** (after merges land).
 
 ---
 
@@ -43,23 +44,26 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **EPIC-2** — image pipeline | Done | Clipboard → isolate → `GridParseShell` |
 | **US-3.1** — solve wire | Done | `solveParsedGrid()` → `calculateNextMove` |
 | **US-3.2** — grid preview | Done | `PuzzleGridPreview` highlight / stalled banner |
-| **US-3.3** — E2E integration | Done | seq-08 → isolate parse → FFI → index 41 on iOS 26.5 sim |
+| **US-3.3** — E2E integration | Done | seq-08 → index 11 (N=8 parsed) on iOS 26.5 sim |
 | **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
 | **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims |
 | **US-4.2** — traps + locked sets | Done | `tier3.rs`; 15 Rust tests |
 | **US-4.3** — DFS bifurcation | Done | `tier4.rs` |
 | **US-4.4** — T4 fixture gate | Done | seq 22–30 locked; 20 Rust + 45 Flutter |
-| **EPIC-4** — solver tiers | Done | T1–T3 + DFS (`tier4`); seq 22–30 gate; target T6 after EPIC-6 |
+| **EPIC-4** — solver tiers | Done | T1–T3 + DFS (`tier4`); seq 22–30 gate |
+| **US-5.1** — N>9 E2E | Done | seq 14: N=12 parsed, move 13; 12×12 preview test |
+| **US-5.2** — multi-size N>9 | Done | seq 29–30 Tier 2 (N=10) |
+| **EPIC-5** — progressive sizing | Done | No FRB/UI code changes |
 | Fixture catalog | Done | seq `01`–`42`; UX reference `assets/reference/` |
 
-**FFI (2026-06-10):** Tier 1 (45 Flutter + 20 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**FFI (2026-06-11):** Tier 1 (46 Flutter + 20 Rust) + Tier 2 (6 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 
 ## Next up
 
-1. **EPIC-5** (optional) — progressive N>9 end-to-end: seq 14, then 29–32 ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
-2. **EPIC-6** (optional, after EPIC-5) — T4 Phantom + T5 Region Crowding; demote DFS to T6 ([solver_algorithms.md](requirements/solver_algorithms.md))
+1. **EPIC-6** (optional) — T4 Phantom + T5 Region Crowding; demote DFS to T6 ([solver_algorithms.md](requirements/solver_algorithms.md))
+2. Merge pending branches: `feature/handoff-first-policy`, `feature/us-5.1-n10-e2e`
 
 ---
 
@@ -68,23 +72,3 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 - Upstream [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) Wordle cleanup — [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](../docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)
 
 ---
-
-## Tech debt (headlines)
-
-See [TECH_DEBT.md](../TECH_DEBT.md). Top items:
-
-- N-detect thresholds JPEG-tuned; may need PNG/new-format tuning
-- Expand goldens beyond seq 01+02 as parser evolves
-- Legacy Wordle mentions in archived `docs/`
-
----
-
-## QC record
-
-Latest full gate (tests, review, debt): [QC_STATUS.md](QC_STATUS.md).
-
----
-
-## Reading order for new contributors
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md).

@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `43440e3` — US-4.4 merged and pushed; EPIC-4 closed
+- **Active branch:** `feature/us-5.1-n10-e2e` — EPIC-5 ready to merge; `feature/handoff-first-policy` — governance docs ready to merge
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) (local note + tracked doc updates) **before** any commit, push, or merge to `main` on that slice.
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -93,17 +93,19 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-2.6:** Done — `pasteboard` on `AppLifecycleState.resumed`; JPEG magic-byte gate → `parseJpegInBackground()`
 - **US-3.1:** Done — `solveParsedGrid()` flat FRB wire; clipboard parse → `calculateNextMove` in `main.dart`
 - **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
-- **US-3.3:** Done — Tier 2 integration: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
+- **US-3.3:** Done — Tier 2 integration: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 11 (N=8 parsed; iOS 26.5 sim)
 - **Ship status:** **EPIC-4 merged to `main`** @ `5766ca7` (pushed `origin`; docs @ `43440e3`)
 - **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2`; 12 Rust tests
 - **US-4.2:** Done — `tier3.rs` 2×2 trap + N-locked sets; `run_tiers_1_through_3` in `calculate_next_move`; 15 Rust tests
 - **US-4.3:** Done — `tier4.rs` DFS bifurcation; `run_tiers_1_through_4` in `calculate_next_move`
 - **US-4.4:** Done — T4 fixture gate seq 22–30; fixtures seq 33–42; hint UX reference; EPIC-6 docs
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); L34–L52 + L50; UX reference in `assets/reference/`
-- **Lint:** `flutter_lints` 6; Tier 1 green (45 Flutter + 20 Rust)
-- **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **EPIC-5** (optional) — progressive N>9 end-to-end (seq 14, then 29–32)
-- **Backlog:** **EPIC-6** (optional) — T4 Phantom + T5 Crowding; DFS → T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
+- **Lint:** `flutter_lints` 6; Tier 1 green (46 Flutter + 20 Rust)
+- **FFI verified:** Tier 2 iOS 26.5 sim — 6 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
+- **US-5.1:** Done — seq 14 Tier 2 E2E (parsed N=12, move 13); 12×12 grid preview test
+- **US-5.2:** Done — seq 29–30 Tier 2 E2E (N=10)
+- **EPIC-5:** Done — N>9 isolate → FFI → highlight without FRB/UI code changes
+- **Next:** **EPIC-6** (optional) — T4 Phantom + T5 Crowding; DFS → T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

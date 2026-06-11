@@ -54,6 +54,23 @@ void main() {
       expect(ring, isNotNull);
     });
 
+    testWidgets('renders 12x12 grid for N>9 boards', (tester) async {
+      await tester.pumpWidget(
+        wrap(
+          PuzzleGridPreview(
+            gridSize: 12,
+            state: List<int>.filled(144, 0),
+            highlightIndex: 47,
+          ),
+        ),
+      );
+
+      expect(find.byKey(const ValueKey('puzzle-cell-0')), findsOneWidget);
+      expect(find.byKey(const ValueKey('puzzle-cell-143')), findsOneWidget);
+      expect(find.byKey(const ValueKey('puzzle-cell-144')), findsNothing);
+      expect(find.byKey(const Key(PuzzleGridPreview.highlightRingKey)), findsOneWidget);
+    });
+
     testWidgets('shows stalled banner when highlight index is -1', (tester) async {
       await tester.pumpWidget(
         wrap(

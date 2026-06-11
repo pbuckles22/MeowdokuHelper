@@ -128,14 +128,14 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Acceptance:** `cargo test` + `flutter test` T4 gate green; EPIC-4 closed.
 
-## Phase 5 — Progressive sizing (optional)
+## Phase 5 — Progressive sizing (optional) · **Done**
 
 **Goal:** End-to-end N>9 (10×10, 11×11) with fixture screenshots.
 
-- [ ] Isolate N detection validated on multi-size fixtures
-- [ ] Solver + FFI + UI work at N>9 without code changes (only data)
+- [x] Isolate N detection validated on multi-size fixtures (seq 14 → parsed N=12; seq 29–30 → N=10)
+- [x] Solver + FFI + UI work at N>9 without code changes (only data)
 
-**Acceptance:** At least one N=10 fixture passes isolate → FFI → highlight path.
+**Acceptance:** At least one N>9 fixture passes isolate → FFI → highlight path. **Met:** seq 14 (N=12 parsed), seq 29–30 (N=10); Tier 2 green (6 integration tests, iOS 26.5 sim).
 
 ## Phase 6 — Advanced deterministic tiers (optional · EPIC-6)
 

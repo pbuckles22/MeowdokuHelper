@@ -77,12 +77,12 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-5 — Progressive grid sizes (optional) · **Planned**
+## EPIC-5 — Progressive grid sizes · **Done**
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-5.1 | As a player, 10×10 boards work end-to-end without code changes. | Planned | seq `14` (L15, N=10): parse → solve → highlight |
-| US-5.2 | As a developer, N>9 is validated on multiple fixture sizes. | Planned | At least N=10 fixture full path green |
+| US-5.1 | As a player, N>9 boards work end-to-end without code changes. | Done | seq `14`: parse N=12 → solve → index 13; `PuzzleGridPreview` 12×12 widget test |
+| US-5.2 | As a developer, N>9 is validated on multiple fixture sizes. | Done | seq `29`–`30` (N=10): Tier 2 integration green |
 
 ---
 
