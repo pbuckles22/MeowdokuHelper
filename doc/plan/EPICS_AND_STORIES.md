@@ -54,7 +54,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-3 — End-to-end solve + highlight · **In progress**
+## EPIC-3 — End-to-end solve + highlight · **Done**
 
 **Note:** FRB `calculate_next_move` shipped in EPIC-1b.
 
@@ -62,7 +62,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 |----|-------|--------|------------|
 | US-3.1 | As a player, parsed board state is sent to Rust and returns the next move index. | Done | `solveParsedGrid()` → `calculateNextMove` from clipboard parse in `main.dart` |
 | US-3.2 | As a player, the suggested cell is highlighted on a minimal grid. | Done | `PuzzleGridPreview` — highlight ring or stalled banner |
-| US-3.3 | As a developer, integration test covers image → parse → FFI → index. | Planned | Tier 2: fixture at N=9 → expected index |
+| US-3.3 | As a developer, integration test covers image → parse → FFI → index. | Done | Tier 2: seq-08 fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 |
 
 ---
 

@@ -93,11 +93,12 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-2.6:** Done — `pasteboard` on `AppLifecycleState.resumed`; JPEG magic-byte gate → `parseJpegInBackground()`
 - **US-3.1:** Done — `solveParsedGrid()` flat FRB wire; clipboard parse → `calculateNextMove` in `main.dart`
 - **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
-- **Ship status:** US-3.1+3.2 on `main`; **EPIC-3 in progress** (US-3.3 Tier 2 on `feature/us-3.3-integration`)
+- **US-3.3:** Done — Tier 2: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
+- **Ship status:** **EPIC-3 done** on `feature/us-3.3-integration`; merge to `main` when ready
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
 - **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 8 Rust)
-- **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **US-3.3** — Tier 2 integration: fixture → parse → FFI → expected index
+- **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
+- **Next:** **EPIC-4** — Tier 2+ intersection logic; expand fixture goldens up seq order
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

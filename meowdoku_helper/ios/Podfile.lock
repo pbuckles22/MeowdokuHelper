@@ -2,12 +2,15 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
+  - pasteboard (0.0.1):
+    - Flutter
   - rust_lib_meowdoku_helper (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
   - rust_lib_meowdoku_helper (from `.symlinks/plugins/rust_lib_meowdoku_helper/ios`)
 
 EXTERNAL SOURCES:
@@ -15,12 +18,15 @@ EXTERNAL SOURCES:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  pasteboard:
+    :path: ".symlinks/plugins/pasteboard/ios"
   rust_lib_meowdoku_helper:
     :path: ".symlinks/plugins/rust_lib_meowdoku_helper/ios"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  pasteboard: bfa22da3a15aff2c2cd3d5d17bc595439b172895
   rust_lib_meowdoku_helper: 19c97133be2c8957fff2c5b77f2c6a86ed5f585e
 
 PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e

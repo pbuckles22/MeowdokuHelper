@@ -81,16 +81,16 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Acceptance:** Golden unit tests on **easy fixtures first** — seq `01` (N=4) and `02` (N=6) minimum **[done]**; then expand up seq order. Optional: seq `08` (N=9 product target), seq `14` (N=10).
 
-## Phase 3 — UI highlight + end-to-end wire
+## Phase 3 — UI highlight + end-to-end wire — done
 
 **Goal:** Wire Phase 2 isolate output through existing FRB API; show result on grid.
 
 **Note:** `calculate_next_move` shipped in Phase 1b.2 (FRB + Tier 1 roundtrip tests).
 
-- [ ] Flutter calls `calculateNextMove` from parsed board state (not test fixtures only)
-- [ ] UI highlights returned cell index; `-1` = stuck
+- [x] Flutter calls `calculateNextMove` from parsed board state (not test fixtures only)
+- [x] UI highlights returned cell index; `-1` = stuck
 
-**Acceptance:** Integration test at N=9: fixture image → isolate arrays → FFI → expected index on screen.
+**Acceptance:** Integration test: seq-08 fixture → isolate arrays → FFI → expected index (index 41; parser N=8). Tier 2 green on iOS 26.5 sim.
 
 ## Phase 4 — Advanced logic + fallback
 

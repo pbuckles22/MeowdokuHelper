@@ -72,3 +72,5 @@ flutter:
   uses-material-design: true
 
   # Star Battle board fixtures live at repo root assets/test_fixtures/ (Phase 2)
+  assets:
+    - integration_test/fixtures/08_L09_N9_T1.jpg
