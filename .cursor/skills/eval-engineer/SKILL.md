@@ -63,4 +63,6 @@ Pick the smallest set that fits:
 - Writing evals that are too slow to run
 - Treating logs as proof without a pass/fail signal
 - Adding evals without documenting when to run them
+- **Coder capturing oracles from own implementation** (e.g. `expected_move` from solver under test) — regression-lock only; label and schedule QA re-audit ([TEST_PLAN.md](../../../TEST_PLAN.md) → QA / Coder separation)
+- **Same session as implementer writing fixture expectations** — use QA role in a fresh session
 

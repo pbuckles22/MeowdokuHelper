@@ -41,7 +41,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 **Fixtures:** [FIXTURES.md](FIXTURES.md) — seq `01`–`32` (complexity order; L21–L33 at seq 20–32).
 
-**Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>` (e.g. `feature/us-2.2-isolate`). Merge each story to `main` separately. **Handoff first:** complete [handoff checklist](../../.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
+**Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>` (e.g. `feature/us-2.2-isolate`). Merge each story to `main` separately. **Settle first:** [handoff checklist](../../.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](../../TEST_PLAN.md).
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|

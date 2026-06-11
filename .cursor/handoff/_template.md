@@ -2,11 +2,19 @@
 
 (Filename: `NNNN-handoff-YYYY-MM-DD_HHmm.md` — monotonic serial + date + 24h time required.)
 
-**Before writing this note:** Run code review (code-reviewer skill), tech debt (tech-debt-evaluator skill), and your **tests/coverage** commands documented in AGENT_HANDOFF.md. Then fill the sections below.
+**Recorded:** YYYY-MM-DDTHH:mm (ISO-8601)
+
+**When to write this file:** **Last** — after Phase B (commit → push → merge → CI) is settled. Tracked docs (`AGENT_HANDOFF`, `PROJECT_STATUS`, `PM_PLAN`) were already updated before commit. This note is the peer copy-paste summary.
+
+**Before writing:** Complete [handoff-checklist.mdc](../rules/handoff-checklist.mdc) Phase A + B. Do not write this note until CI (or confirmed local gate on `main`) is green.
 
 ## TL;DR (1–2 sentences)
 
 (Current state + the single most important thing the next agent must know.)
+
+## Ship status
+
+(done | WIP | blocked — and `main` @ `<sha>`, push/CI state)
 
 ## Decisions made (decision + rationale)
 
@@ -27,7 +35,15 @@
 
 ## Code coverage
 
-(Required. Your documented test/coverage command — green? one-line summary if useful.)
+(Required. Merge-ready gate — green? pass/skip counts.)
+
+## CI
+
+(Required when Actions exist: run URL, conclusion, or "no CI — local gate green on `main` @ `<sha>`".)
+
+## Tier 2
+
+(Run result, waiver, or N/A.)
 
 ## Project readiness
 

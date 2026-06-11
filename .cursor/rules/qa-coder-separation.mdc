@@ -1,0 +1,68 @@
+---
+description: Coder must not edit QA-owned tests or oracles — even when expectations do not match implementation. Escalate to QA instead.
+alwaysApply: true
+---
+
+# QA / Coder separation — hard boundary
+
+**Canonical protocol:** [TEST_PLAN.md](../../TEST_PLAN.md) → QA / Coder separation.
+
+## Coder — forbidden edits (non-negotiable)
+
+In **Coder** role (implementing production code), you **must not** modify:
+
+- `meowdoku_helper/test/**` (expectations, assertions, fixtures referenced by tests)
+- `meowdoku_helper/integration_test/**` (specs and expectations)
+- `meowdoku_helper/lib/image/*_goldens.dart`
+- `meowdoku_helper/rust/src/solver/*_fixtures.rs`
+- Synthetic `#[test]` **expectations** in `tier*.rs` when acting as Coder (QA writes those tests in a prior session)
+- [doc/plan/FIXTURES.md](../../doc/plan/FIXTURES.md) oracle / tier columns
+
+This applies **even when**:
+
+- The test "doesn't fit" your implementation
+- You believe the test or oracle is wrong
+- Changing one line / one `expected_move` would make CI green
+- The failure looks like a typo in the golden array
+
+**Tuning tests to match code is not TDD.** It is self-grading.
+
+## When a test fails and you are Coder
+
+1. **Stop** editing QA-owned files.
+2. **Implement** only in production paths (`rust/src/solver/`, `lib/app/`, `lib/image/` parse pipeline, etc.).
+3. If still failing after good-faith implementation:
+   - Record: failing test name, actual vs expected, why you think oracle may be wrong.
+   - **Escalate** — fresh **QA** session (or user as oracle). QA may change the test; Coder may not.
+4. **Spec bug:** QA updates spec + test, or user decides. Coder does not silently align test to implementation.
+
+## QA — forbidden edits
+
+In **QA** role, you **must not** modify production solver/parser implementation to make a test pass. Write or adjust the test/oracle only.
+
+Use a **fresh agent session** when switching roles. Same session = role bleed.
+
+## Exceptions (only these)
+
+- User explicitly says: **"Act as QA"** or **"Re-audit oracle for seq N"** in this session.
+- **Docs-only** FIXTURES.md oracle column update during a scheduled **P1/P2 blind re-audit** (QA session).
+- Mechanical codegen from an already QA-approved oracle SSOT (future golden codegen).
+
+No other exceptions. "It would be faster to fix the test" is not an exception.
+
+## Role check (start of session)
+
+Before editing files, declare role:
+
+- **Implementing / fixing solver or app code** → Coder → tests are read-only.
+- **Writing failing tests or locking oracles** → QA → `tier*.rs` / solver internals are read-only (spec + assets only).
+
+## Backward audit (already-shipped tests)
+
+Git cannot prove Coder never tuned a test. To verify or recover:
+
+1. `./scripts/qa_oracle_audit.sh` — coupled commits + manifest `pending`
+2. [doc/QA_ORACLE_AUDIT.md](../../doc/QA_ORACLE_AUDIT.md) — blind re-derivation protocol
+3. [doc/qa_oracle_manifest.yaml](../../doc/qa_oracle_manifest.yaml) — set `spec-verified` / `human-verified` only after blind compare
+
+Tests are **not** spec-clean until manifest says so.

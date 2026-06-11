@@ -79,7 +79,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 ## Current state
 
 - **Active branch:** `main` — **EPIC-6 complete** (T1–T6 ladder shipped)
-- **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
+- **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh`.
 - **Phases 0–6:** Done (bootstrap through EPIC-6 advanced tiers)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
 - **Solver (shipped):** T1–T3 + T4 phantom + T5 crowding + T6 DFS (`tier4.rs`); orchestrator `run_tiers_1_through_6`
@@ -88,10 +88,10 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–6 stalled” banner
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–02
 - **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped); **28 Rust** (`cargo test --lib`)
-- **Tier 2:** 6 integration tests — **re-run on iOS sim** post EPIC-6
+- **Tier 2:** 6 integration tests — **green** iPhone 13 sim 2026-06-11 post-EPIC-6
 - **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
-- **Next:** Tier 2 iOS re-run; optional remaining `_T4_` fixture re-audit; hint UI epic (FRB)
+- **Next:** Phase 7 Q1 human-verify t6 moves ([qa_derivations/t6-seq22-30-human.md](doc/qa_derivations/t6-seq22-30-human.md)); Q3–Q5; hint UI epic (FRB)
 - **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test
@@ -126,24 +126,26 @@ flutter test integration_test/
 
 1. **Integration branch:** `main`
 2. **Feature branches:** `feature/<topic>`, `fix/<topic>` — [github-feature-workflow](.cursor/skills/github-feature-workflow/SKILL.md)
-3. **Before commit / push / merge:** run the [handoff checklist](.cursor/rules/handoff-checklist.mdc) — code review, tech debt, merge-ready gate (and Tier 2 when applicable); write `.cursor/handoff/` note; update **AGENT_HANDOFF**, **doc/PROJECT_STATUS.md**, **PM_PLAN** when scope changed. **Do not commit, push, or merge until handoff is complete.**
-4. **After handoff:** merge-ready gate green; commit on feature branch; push; merge to `main`; push `main`
-5. **After push:** verify CI with `gh run watch` when Actions exist
+3. **Before commit / push / merge:** run [handoff checklist](.cursor/rules/handoff-checklist.mdc) **Phase A** — code review, tech debt, merge-ready gate (+ Tier 2 when applicable); update **AGENT_HANDOFF**, **doc/PROJECT_STATUS.md**, **PM_PLAN**. **Do not commit until Phase A is complete.**
+4. **Phase B:** commit → push → merge to `main` → push `main` → **CI verify** (`gh run watch` when Actions exist). No loose strings.
+5. **Phase C (last):** write gitignored `.cursor/handoff/` peer summary (includes CI URL/conclusion). This is for the next agent — not checked in.
 6. **After merge:** delete feature branch
 
 ---
 
 ## Handoff protocol
 
-**Order:** handoff **before** git — never commit, push, or merge to `main` until this protocol is complete.
+**Order:** technical settlement → tracked docs → git + CI → **local handoff note last**.
 
-1. Handoff checklist: code review, tech debt, tests ([handoff-checklist](.cursor/rules/handoff-checklist.mdc))
+1. **Phase A** — [handoff-checklist](.cursor/rules/handoff-checklist.mdc): code review, tech debt, tests (+ Tier 2 when required)
 2. **Epic closure** (when last story of an epic): [epic-closure-gate](.cursor/skills/epic-closure-gate/SKILL.md) + `./scripts/epic_closure_check.sh` — see [doc/SDLC.md](doc/SDLC.md)
 3. **Project health audit** (phase boundary): [project-health-audit](.cursor/skills/project-health-audit/SKILL.md)
 4. Update [PM_PLAN.md](PM_PLAN.md) when scope ships
-5. Update **[doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)** and **Current state** above (required for contributor-visible changes)
-6. Local session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md)) — gitignored; promote decisions to tracked docs
-7. **Then** commit → push → merge (see *Git workflow* above)
+5. Update **[doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)** and **Current state** above (required — on GitHub)
+6. **Phase B** — commit → push → merge → CI verify (`gh run watch` when Actions exist)
+7. **Phase C (last)** — local session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md)) — gitignored peer summary with CI conclusion; copy-paste for next agent
+
+**QA / Coder:** Tests and oracles are QA-owned; implementation is Coder-owned. See [TEST_PLAN.md](TEST_PLAN.md) → QA / Coder separation. **Backward audit:** `./scripts/qa_oracle_audit.sh` + [doc/QA_ORACLE_AUDIT.md](doc/QA_ORACLE_AUDIT.md) + [doc/qa_oracle_manifest.yaml](doc/qa_oracle_manifest.yaml).
 
 ---
 

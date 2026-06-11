@@ -8,4 +8,6 @@ alwaysApply: false
 - **Tier 1:** Fast feedback (unit tests, headless checks, local runs). Document the exact command in TEST_PLAN.md. Keep green after any logic or test change.
 - **Tier 2:** Integration, browser, device, or E2E tests when behavior spans a real runtime. Document commands in TEST_PLAN.md.
 - **New behavior:** If the behavior needs Tier 2 to validate, add tests and run them before considering the feature done. See TEST_TDD.md and the tester skill.
+- **QA / Coder separation:** QA writes tests and oracles; Coder implements. Fresh session when switching roles. See TEST_PLAN.md → QA / Coder separation.
 - **Merge-ready:** If AGENT_HANDOFF.md documents a single **CI** or **merge-ready** command, run it before merge when your team uses that gate; keep it aligned with CI (if any).
+- **Handoff order:** Technical settlement → git + CI → local handoff note **last** ([handoff-checklist.mdc](handoff-checklist.mdc)).

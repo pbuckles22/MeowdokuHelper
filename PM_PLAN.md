@@ -155,6 +155,23 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Starting EPIC-6:** Branch from `main` @ latest; read [solver_algorithms.md](doc/requirements/solver_algorithms.md) Levels 4–6 and [EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) US-6.1–6.3. Synthetic tests before fixture re-gate.
 
+## Phase 7 — QA hardening & oracle proof (recommended next)
+
+**Goal:** TDD process settled (QA/Coder separation); prove oracles and close fixture gaps without new solver features.
+
+**Eval:** [doc/TEST_COVERAGE_EVAL.md](doc/TEST_COVERAGE_EVAL.md) (2026-06-11 TL + QA)
+
+- [ ] **Q1** — P1 blind audit t6 seq 22–30 (`human-verified` in manifest) — **partial:** pre-audit test + derivation doc
+- [x] **Q2** — Tier 2 iOS re-run post–EPIC-6 (iPhone 13 sim, 6/6, 2026-06-11)
+- [ ] **Q3** — P3 spec-verify tier synthetics (batched per tier)
+- [ ] **Q4** — Lock parse goldens seq 03–08
+- [ ] **Q5** — T2/T3 fixture gate seq 09–19 (QA oracles first)
+- [ ] **Q6** — P2 audit integration + seq 01–02 solve goldens
+
+**Acceptance:** `./scripts/qa_oracle_audit.sh --strict` passes P1/P2; Tier 2 green on iOS sim; tracked docs synced.
+
+**Not in scope:** Full 42-fixture gate (incremental); line-coverage tooling (optional M8).
+
 ---
 
 Keep this file in sync with AGENT_HANDOFF "Current state" and `doc/requirements/product.md`.

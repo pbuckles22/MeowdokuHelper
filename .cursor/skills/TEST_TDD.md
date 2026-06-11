@@ -16,6 +16,17 @@ See [TEST_PLAN.md](../../../TEST_PLAN.md) for tier definitions and merge gate.
 
 **Merge bar:** Tier 1a + Tier 1b + `flutter analyze` always; **Tier 2** required for any FFI/native change (see [TEST_PLAN.md](../../../TEST_PLAN.md)).
 
+### QA / Coder separation (mandatory)
+
+Two minds; they **only meet at test time**:
+
+- **QA** (this skill + [tester](../tester/SKILL.md)): writes failing tests and oracles from spec/assets/human — **no** solver implementation, **no** capturing `expected_move` from the solver under test.
+- **Coder**: implements production code until QA tests pass — **no** editing `*_goldens.dart`, `*_fixtures.rs`, fixture gate expectations, or FIXTURES.md oracle rows — **even if the test doesn't fit**. Escalate to QA; do not self-grade.
+
+Use a **fresh session** when switching roles. Same-session implement + lock solve goldens is forbidden.
+
+Hard rule: [.cursor/rules/qa-coder-separation.mdc](../../rules/qa-coder-separation.mdc) (`alwaysApply`). Full protocol: [TEST_PLAN.md](../../../TEST_PLAN.md) → QA / Coder separation.
+
 ### Tier 1a: Rust unit tests (fastest)
 
 Use for pure Rust logic (solver tiers, board, FRB API).

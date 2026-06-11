@@ -169,7 +169,7 @@ Screenshot fixtures use **seq-prefixed filenames** under `assets/test_fixtures/`
 
 **Filename `T{n}` suffix:** seq 22–30 gate uses `_T6_` (requires DFS). Remaining `_T4_` fixtures (seq 18–21, 31–42) are historical — re-audit individually when those boards are re-gated.
 
-Implement and validate algorithms in tier order; add synthetic tests **before** fixture re-gating.
+Implement and validate algorithms in tier order. **QA** adds synthetic tests from this doc **before** Coder implements; **QA** assigns fixture tier/oracle **before** fixture re-gating ([TEST_PLAN.md](../../TEST_PLAN.md) → QA / Coder separation). Coder does not capture solve goldens from own solver output.
 
 ---
 

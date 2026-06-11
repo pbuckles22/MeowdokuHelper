@@ -78,10 +78,11 @@ See [TEST_PLAN.md](TEST_PLAN.md) for tier details.
 1. **`main`** — integration branch (when no other branch is named in PROJECT_STATUS)
 2. Create **`feature/<topic>`** or **`fix/<topic>`** from latest `main`
 3. Run merge-ready gate locally
-4. **Handoff first** — [handoff checklist](.cursor/rules/handoff-checklist.mdc): code review, tech debt, tests; local note; update **AGENT_HANDOFF**, **doc/PROJECT_STATUS.md**, **PM_PLAN** as needed — **before** commit, push, or merge
-5. Commit, push, merge to `main` (see [AGENT_HANDOFF.md](AGENT_HANDOFF.md) → *Git workflow*)
-6. Open a PR using the template checklist (when using PR flow)
-7. Delete the feature branch after merge
+4. **Settle first** — [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A: code review, tech debt, tests; update **AGENT_HANDOFF**, **doc/PROJECT_STATUS.md**, **PM_PLAN** — **before** commit
+5. Phase B — commit, push, merge to `main`, CI verify (see [AGENT_HANDOFF.md](AGENT_HANDOFF.md) → *Git workflow*)
+6. Phase C — local handoff note **last** (gitignored peer summary)
+7. Open a PR using the template checklist (when using PR flow)
+8. Delete the feature branch after merge
 
 Do not git-merge the upstream [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) into this repo (FFI fracture risk). See [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md) for template maintenance.
 

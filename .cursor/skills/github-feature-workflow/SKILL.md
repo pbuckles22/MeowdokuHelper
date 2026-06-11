@@ -21,7 +21,7 @@ description: >-
 - **Do** treat **green merge-ready** plus [tester](../tester/SKILL.md) / [TEST_TDD.md](../TEST_TDD.md) discipline as **commit-ready**.
 - **If** the user wants a PR or external review: follow their request.
 
-**Completion mental model:** one branch ≈ one purpose → **handoff first** ([handoff-checklist](../../.cursor/rules/handoff-checklist.mdc): review, tech debt, gate, local note, tracked docs) → **full gate green on every code commit** → **commit** → **push** → merge to `main` (re-run gate after merge if needed) → delete the feature branch.
+**Completion mental model:** one branch ≈ one purpose → **technical settlement** ([handoff-checklist](../../.cursor/rules/handoff-checklist.mdc) Phase A: review, tech debt, gate, tracked docs) → **full gate green on every code commit** → **commit** → **push** → merge to `main` → **CI verify** → **local handoff note last** (Phase C, peer summary) → delete the feature branch.
 
 **Commit discipline (all projects):** Every `git commit` that touches application code, tests, native/FFI, or build config must leave the repo **clean**. Run the **full merge-ready gate before each such commit**. Do **not** batch testing only at merge; merge is a **second confirmation**, not the first gate.
 
@@ -85,7 +85,9 @@ When steps 1–2 (and any applicable *optional* steps) are green: **commit**. Re
 
 | When | Gate |
 |------|------|
-| **Before commit / push / merge** | [Handoff checklist](../../.cursor/rules/handoff-checklist.mdc) — local note + **AGENT_HANDOFF** / **PROJECT_STATUS** / **PM_PLAN** updates **first** |
+| **Before commit / push / merge** | [Handoff checklist](../../.cursor/rules/handoff-checklist.mdc) Phase A — review, gate, **AGENT_HANDOFF** / **PROJECT_STATUS** / **PM_PLAN** (tracked docs before commit) |
+| **After push / merge** | Phase B — CI verify when Actions exist |
+| **Last (peer handoff)** | Phase C — gitignored `.cursor/handoff/` note with CI conclusion |
 | **Each code commit** | Full merge-ready (+ *optional* tiers per above) — **primary discipline** |
 | **Before merge to `main`** | Full gate again on feature branch tip |
 | **After merge to `main`** | Full gate on `main`; *repeat Tier 2 / FFI tier if that slice touched bridge/native* |
@@ -97,26 +99,27 @@ When steps 1–2 (and any applicable *optional* steps) are green: **commit**. Re
 1. **Start from `main` (or agreed base):** `git fetch origin`; `git status`.
 2. **Create branch:** `git checkout -b feature/<topic>` — **before** production code for the slice.
 3. **Implement** with **red → green** per [TEST_TDD.md](../TEST_TDD.md).
-4. **Gate → handoff → commit → repeat:** full [exit criteria](#exit-criteria-before-every-code-commit-ship-bar); if green, run [handoff checklist](../../.cursor/rules/handoff-checklist.mdc) (note + tracked docs), then **commit**. Multiple commits per slice are fine — **each ship commit gets handoff + full gate**.
+4. **Gate → settle → commit → repeat:** full [exit criteria](#exit-criteria-before-every-code-commit-ship-bar); if green, update tracked docs (Phase A), then **commit**. Multiple commits per slice are fine — **each ship commit gets full gate**. **Local handoff note only once per slice**, after CI (Phase C).
 5. **Commit message:** imperative subject; short body if it helps.
-6. **Push:** `git push -u origin <branch>` (first time) — **after** handoff on that slice.
-7. **Integrate to `main`:** local merge or user-directed flow — **after** handoff; **do not** nudge toward PR by default.
-8. *Optional — verify CI after push* when Actions exist:
+6. **Push:** `git push -u origin <branch>` (first time) — **after** Phase A tracked-doc updates on that slice.
+7. **Integrate to `main`:** local merge or user-directed flow; **do not** nudge toward PR by default.
+8. **CI verify** when Actions exist (Phase B — before local handoff note):
 
    ```bash
    RUN=$(gh run list --repo OWNER/REPO --limit 1 --json databaseId -q '.[0].databaseId')
    gh run watch "$RUN" --exit-status
    ```
 
-9. **After merge:** `git checkout main && git pull`; delete feature branch when done.
+9. **Local handoff note (Phase C):** write `.cursor/handoff/NNNN-…md` with CI conclusion — **last**, for peer copy-paste.
+10. **After merge:** `git checkout main && git pull`; delete feature branch when done.
 
 **PR:** only when the user explicitly requests it.
 
-Tracked docs (**PM_PLAN**, **PROJECT_STATUS**, **AGENT_HANDOFF**) are updated during **handoff** (step 4), before commit/merge — not as a post-merge afterthought.
+Tracked docs (**PM_PLAN**, **PROJECT_STATUS**, **AGENT_HANDOFF**) are updated in **Phase A**, before commit — not in the gitignored handoff note.
 
 ## What this skill does _not_ do
 
-- Replace the **handoff checklist** — handoff (review, note, tracked docs) runs **before** commit/push/merge; see [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) and `.cursor/rules/handoff-checklist.mdc`.
+- Replace the **handoff checklist** — technical settlement + tracked docs run **before** commit; **local handoff note runs last** after CI; see [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) and `.cursor/rules/handoff-checklist.mdc`.
 - Replace **TEST_PLAN.md** — projects must document exact commands there; this skill defines **cadence** (every commit).
 
 ---

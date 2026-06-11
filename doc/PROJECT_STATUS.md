@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (`main` — EPIC-6 complete, US-6.3 merged)
+**Last updated:** 2026-06-11 (`main` — Phase 7 QA hardening in progress; uncommitted local changes)
 
 ---
 
@@ -33,17 +33,20 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) |
 | Fixture catalog | Done | seq `01`–`42`; UX reference `assets/reference/` |
 
-**Tests (2026-06-11):** Tier 1b — 50 passed, 15 skipped (FFI); Tier 1a — **28 Rust**; `flutter analyze` clean. Tier 2 — re-run on iOS sim recommended post EPIC-6. See [QC_STATUS.md](QC_STATUS.md).
+**Tests (2026-06-11):** Tier 1b — **59** passed, 15 skipped (FFI); Tier 1a — **28 Rust**; `flutter analyze` clean. Tier 2 — **6/6 green** iPhone 13 sim post-EPIC-6. See [QC_STATUS.md](QC_STATUS.md), [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md).
 
 ---
 
 ## Next up
 
-No active epic on `main`. Candidates from [PM_PLAN.md](../PM_PLAN.md):
+**Phase 7 — QA hardening** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- Tier 2 re-run on iOS sim (solver ladder changed)
-- Optional: re-audit remaining `_T4_` fixtures (seq 18–21, 31–42)
-- Hint UI / multi-cell highlights (FRB change — deferred)
+- [x] Q2 Tier 2 iOS re-run
+- [ ] Q1 human-verify t6 seq 22–30 ([qa_derivations/t6-seq22-30-human.md](qa_derivations/t6-seq22-30-human.md))
+- [ ] Q3 spec-verify tier synthetics (one tier / QA session)
+- [ ] Commit + push governance + Phase 7 test/doc changes on `main`
+
+Then: hint UI epic (FRB) when Phase 7 acceptance met.
 
 ---
 

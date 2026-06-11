@@ -1,45 +1,68 @@
 ---
-description: Before commit, push, or merge — run code review, tech debt evaluation, tests/coverage, write handoff note, update tracked docs; then git
+description: Before commit, push, or merge — technical settlement, tracked docs, git, CI; local handoff note LAST for peer summary
 globs: "**/.cursor/handoff/*.md,**/doc/handoff/*.md,AGENT_HANDOFF.md"
 alwaysApply: false
 ---
 
 # Handoff checklist (mandatory before commit, push, or merge)
 
-**Branch policy:** Complete this checklist **before** any `git commit`, `git push`, or merge to **`main`** on a feature slice — not only when the user asks for a handoff. Handoff first; git second.
+**Branch policy:** Complete **technical settlement** (steps 1–6) before any `git commit`, `git push`, or merge to **`main`**. The **local handoff note** (step 10) is the **last** step — after CI — so the peer summary includes final evidence.
 
-When you are writing or updating a handoff note (e.g. **`doc/handoff/*-HANDOFF-*.md`** / **`doc/handoff/HANDOFF-*.md`** or **`.cursor/handoff/*-handoff-*.md`** / **`.cursor/handoff/handoff-*.md`** — often **gitignored**, not on **`main`**) or **AGENT_HANDOFF** "Current state":
+**Mental model:** Settle all technical work → perfect commit with no loose strings → CI confirms → **then** tell your peer via the handoff note.
 
-## When to create a handoff (timing)
+---
 
-- **Right time:** You are at a real stopping point: scope is done **or** you are intentionally handing off **mid-flight** with a clear label (e.g. **WIP**, **blocked**, **needs decision**).
-- **Wrong time:** Do **not** write a handoff that reads "ship complete" if delivery is not actually finished (e.g. commits on `main` that were never pushed, CI not run, or known follow-ups omitted). If work is incomplete, **say so explicitly** in **Ship status** or a **Not done** section at the top — not only in **Next up**.
-- **Git order:** Handoff note + tracked doc updates (steps 1–6 and bullets below) come **before** commit, push, or merge. Do **not** commit until the handoff note records review, tech debt, and test results.
-- **Push:** After handoff is complete and you merged to **`main`**, run **`git push origin main`** before ending unless the user asked you not to push, or push failed (then record the failure and that **`main` is ahead of origin**).
+## Phase A — Technical settlement (before git)
 
-**You must run all four and record results in the handoff note. Do not skip any.**
+Run these while the slice is still on the feature branch. Record results; you will copy them into the handoff note in Phase C.
 
-1. **Code review** — Use the **code-reviewer** skill (`.cursor/skills/code-reviewer/SKILL.md`). Review the changed or relevant code since last handoff (or main branch). Output PASS/WARN/FAIL and a short summary. Put the summary in the handoff note under **Code review**.
-2. **Tech debt evaluation** — Use the **tech-debt-evaluator** skill (`.cursor/skills/tech-debt-evaluator/SKILL.md`). Assess current debt; produce prioritized list. Put the short summary or "Do first" items in the handoff note under **Tech debt**.
-   - If a “Do first” item persists across handoffs or blocks progress, promote it into `TECH_DEBT.md` (ranked).
-3. **Tests / coverage** — Run the **merge-ready** command documented in **AGENT_HANDOFF.md** / **TEST_PLAN.md** (e.g. `npm run ci` if that is your gate). Note whether Tier 1 is green and, if useful, a one-line summary. Put in the handoff note under **Code coverage** (or **Tests**).
-4. **Project readiness (optional)** — If you maintain a readiness checklist or skill for this product, use it and put the summary under **Project readiness**. Otherwise note "N/A" or skip that section.
-5. **Security review (when relevant)** — If the work touched credentials, logging, remote access, networking, firewall, or installed software, run a lightweight **security-reviewer** pass and record PASS/WARN/FAIL.
+1. **Code review** — Use the **code-reviewer** skill (`.cursor/skills/code-reviewer/SKILL.md`). Review changed code since last handoff (or `main`). Output PASS/WARN/FAIL + short summary.
+2. **Tech debt evaluation** — Use the **tech-debt-evaluator** skill (`.cursor/skills/tech-debt-evaluator/SKILL.md`). Prioritized list; promote persistent items to `TECH_DEBT.md`.
+3. **Tests / coverage** — Run the **merge-ready** command in **AGENT_HANDOFF.md** / **TEST_PLAN.md**. Tier 1 must be green. Note pass/skip counts.
+4. **Project readiness (optional)** — Readiness skill summary, or N/A.
+5. **Security review (when relevant)** — Credentials, logging, remote access, networking, installed software → **security-reviewer** PASS/WARN/FAIL; else N/A.
+6. **Tier 2 (integration / E2E) if needed** — When the change touches solver ladder, FFI, or device behavior per **TEST_PLAN.md**. Record run or explicit waiver.
 
-6. **Tier 2 (integration / E2E) if needed** — If you added or changed behavior that requires integration or E2E validation, run the Tier 2 command from TEST_PLAN.md. Note in the handoff whether Tier 2 was run and the result. See `.cursor/rules/testing.mdc` and TEST_PLAN.md.
-
-7. **Write handoff note** — Create or update **`doc/handoff/`** or `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` with review, tech debt, tests, ship status, and next steps.
-
-Then update tracked docs (still **before** git):
+**Tracked docs (before commit — contributor-visible truth on GitHub):**
 
 - Update **PM_PLAN** when scope changed
-- Update **[doc/PROJECT_STATUS.md](../../doc/PROJECT_STATUS.md)** and **AGENT_HANDOFF.md** → *Current state* (required — contributor-visible truth on GitHub)
+- Update **[doc/PROJECT_STATUS.md](../../doc/PROJECT_STATUS.md)** and **AGENT_HANDOFF.md** → *Current state*
 
-**Only after the handoff note and tracked docs are complete:**
+Do **not** write the gitignored handoff note yet.
 
-8. **Git commit** — Stage and `git commit` with a short message (merge-ready gate must still be green).
-9. **Push + merge** — Push feature branch; merge to **`main`**; **`git push origin main`**. See **AGENT_HANDOFF.md** → *Git workflow*. Treat "committed but not pushed" as **unfinished** unless the user asked to stop before push.
+---
 
-When you summarize **Done this session** for humans, use the **two-audience** approach (see **techwriter** skill → *Dual-audience blurbs*).
+## Phase B — Git + CI (no loose strings)
 
-**Filename and timestamp:** Prefer **`doc/handoff/NNNN-HANDOFF-YYYY-MM-DD_HHmm.md`** (monotonic `NNNN`, date, 24h time — Windows-safe) so multiple handoffs per day get unique files. Add a **`Recorded:`** line under the H1 (ISO-8601 or local offset). See **AGENT_HANDOFF.md** → handoff protocol.
+7. **Git commit** — Stage and `git commit`. Merge-ready gate must still be green. Imperative subject; body if helpful.
+8. **Push + merge** — Push feature branch; merge to **`main`**; **`git push origin main`**. Treat "committed but not pushed" as **unfinished** unless the user asked to stop before push.
+9. **CI verify** — When GitHub Actions (or equivalent) exist:
+
+   ```bash
+   RUN=$(gh run list --repo OWNER/REPO --limit 1 --json databaseId -q '.[0].databaseId')
+   gh run watch "$RUN" --exit-status
+   ```
+
+   Record run URL and conclusion. If no CI yet, Phase B ends when local merge-ready + Tier 2 (if required) are green on `main`.
+
+**Ship status:** Do not mark a slice **done** in tracked docs or handoff until Phase B is complete (including CI when it exists).
+
+---
+
+## Phase C — Peer handoff (LAST)
+
+10. **Write local handoff note** — Create `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` (or `doc/handoff/`) with:
+    - Code review, tech debt, tests, Tier 2, security summaries from Phase A
+    - **CI run URL + conclusion** from Phase B (or "no CI; local gate green on `main` @ `<sha>`")
+    - Ship status, decisions, next steps for the next agent/human
+
+This note is **gitignored** — it is the copy-paste peer summary, not the source of truth. Tracked docs were updated in Phase A.
+
+**When to create a handoff (timing)**
+
+- **Right time:** Real stopping point — scope done, or intentional **WIP** / **blocked** / **needs decision** mid-flight.
+- **Wrong time:** Before Phase B settles; or "ship complete" while CI failed, push pending, or known follow-ups omitted. Say incomplete explicitly in **Ship status** / **Not done**.
+
+When you summarize **Done this session**, use the **two-audience** approach (see **techwriter** skill → *Dual-audience blurbs*).
+
+**Filename and timestamp:** `NNNN-handoff-YYYY-MM-DD_HHmm.md` (monotonic `NNNN`). Add **`Recorded:`** under the H1 (ISO-8601). See **AGENT_HANDOFF.md** → handoff protocol.

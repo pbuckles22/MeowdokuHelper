@@ -1,5 +1,6 @@
 //! Locked parse output + expected next-move index for T6 fixture gate (seq 22–30).
-//! Parse arrays captured from Dart `parseGridFromImage`; move indices from `calculate_next_move`.
+//! Parse arrays: parse-lock. expected_move: regression-lock (QA re-audit P1 — TEST_PLAN.md).
+//! QA-owned oracle — Coder must not edit to force green. See doc/plan/FIXTURES.md.
 
 pub struct T6SolverGolden {
     pub fixture: &'static str,

@@ -1,5 +1,6 @@
 /// Locked parse output + expected move for T6 fixture gate (seq 22–30).
-/// Mirrors `rust/src/solver/t6_fixtures.rs`.
+/// QA-owned oracle (regression-lock — P1 re-audit). Mirrors `rust/src/solver/t6_fixtures.rs`.
+/// Coder must not edit to force green. See doc/plan/FIXTURES.md.
 class T6SolverGolden {
   const T6SolverGolden({
     required this.fixture,

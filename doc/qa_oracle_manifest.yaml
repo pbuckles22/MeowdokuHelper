@@ -1,0 +1,156 @@
+# QA oracle manifest — provenance SSOT for test/oracle artifacts.
+# Updated by QA sessions only (not Coder). See doc/QA_ORACLE_AUDIT.md.
+#
+# audit_status:
+#   pending           — not yet independently verified
+#   spec-verified     — QA re-derived expectation from solver_algorithms.md only
+#   human-verified    — human solve / manual trace
+#   regression-accepted — regression-lock kept intentionally; not correctness proof
+#
+# oracle:
+#   spec | human | parse-lock | regression-lock | unaudited | coupled-commit-risk
+
+version: 1
+last_audit_run: 2026-06-11  # scripts/qa_oracle_audit.sh + Q1 pre-audit
+
+artifacts:
+
+  # --- Solver synthetics (co-located in tier modules — high bleed risk) ---
+
+  - id: tier1-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier1.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-1--the-sweepers-beginner--t1-
+    priority: P3
+    notes: Co-located with implementation; requires blind spec re-derivation.
+
+  - id: tier2-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier2.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-2--intersection-logic-medium--t2-
+    priority: P3
+
+  - id: tier3-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier3.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-3--structural-traps-advanced--t3-
+    priority: P3
+
+  - id: tier4-phantom-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier4_phantom.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-4--phantom-cat-projection-overlap-halos--t4-
+    priority: P3
+    notes: EPIC-6 US-6.1; same-session implement+risk.
+
+  - id: tier5-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier5.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-5--region-to-region-crowding--t5-
+    priority: P3
+    notes: crowding_trap_board helper — verify from spec only.
+
+  - id: tier4-dfs-synthetics
+    paths: [meowdoku_helper/rust/src/solver/tier4.rs]
+    scope: "#[cfg(test)]"
+    tier: solver-synthetic
+    oracle: unaudited
+    audit_status: pending
+    spec_ref: doc/requirements/solver_algorithms.md#level-6--dfs--bifurcation-ultimate-failsafe--t6-
+    priority: P3
+
+  # --- Fixture solve gates ---
+
+  - id: t6-fixture-gate
+    paths:
+      - meowdoku_helper/rust/src/solver/t6_fixtures.rs
+      - meowdoku_helper/lib/image/t6_solver_goldens.dart
+      - meowdoku_helper/test/t6_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t6_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: pending
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P1
+    fixtures: seq 22-30
+    derivation: doc/qa_derivations/t6-seq22-30-human.md
+    notes: >-
+      Parse-lock + EMPTY preconditions green (2026-06-11). Human-verify 9 moves
+      pending before human-verified.
+
+  # --- Parse goldens ---
+
+  - id: phase2-parse-goldens
+    paths:
+      - meowdoku_helper/lib/image/grid_goldens.dart
+      - meowdoku_helper/test/grid_golden_test.dart
+    tier: parse-golden
+    oracle: parse-lock
+    audit_status: regression-accepted
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P4
+    fixtures: seq 01-02
+    notes: Parser regression; human spot-check on next parser change.
+
+  - id: phase2-solve-goldens
+    paths:
+      - meowdoku_helper/lib/image/grid_goldens.dart
+      - meowdoku_helper/test/solve_parsed_grid_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: pending
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 01-02
+    notes: expectedMove in grid_goldens — verify human/spec.
+
+  # --- Integration E2E ---
+
+  - id: integration-smoke
+    paths: [meowdoku_helper/integration_test/app_smoke_test.dart]
+    tier: integration-e2e
+    oracle: regression-lock
+    audit_status: pending
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: subset 08, 14, 29, 30
+    notes: >-
+      Tier 2 re-run 2026-06-11 iPhone 13 sim — 6/6 pass post-EPIC-6. Move
+      indices still regression-lock; human-verify pending.
+
+  # --- Pipeline / FFI (lower solver-oracle risk) ---
+
+  - id: parse-ladder-smoke
+    paths: [meowdoku_helper/test/parse_ladder_test.dart]
+    tier: pipeline
+    oracle: parse-lock
+    audit_status: regression-accepted
+    priority: P4
+    fixtures: seq 03-08
+    notes: Parse-only smoke; no solve oracle.
+
+  - id: ffi-roundtrip
+    paths:
+      - meowdoku_helper/test/ffi_smoke_test.dart
+      - meowdoku_helper/test/rust_ffi_roundtrip_test.dart
+      - meowdoku_helper/test/ffi_service_test.dart
+    tier: ffi
+    oracle: spec
+    audit_status: regression-accepted
+    priority: P4
+    notes: Init/roundtrip behavior; not board oracle.
