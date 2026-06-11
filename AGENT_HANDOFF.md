@@ -87,7 +87,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **FFI verified:** Tier 1 green; Android debug APK + `aarch64-apple-ios-sim` Rust build OK; **iOS 26.5 sim Tier 2** integration smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
 - **FFI API:** `init_app` + `calculate_next_move` only (Wordle exports removed)
 - **Phase 1b.2:** Done — Wordle FRB removed; `calculate_next_move` on bridge
-- **Merged:** `cleanup/wordle-api` → `main` @ `e17102b` (2026-06-10)
+- **Tip:** `main` @ `ab2212c` — epics/stories + Phase 2 handoff docs
 - **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures `assets/test_fixtures/` — **easy levels first** (`EarlyGame` → `lvl3` → … → `lvl21` by filename level)
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
