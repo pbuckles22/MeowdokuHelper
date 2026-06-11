@@ -66,7 +66,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-4 — Advanced solver tiers · **Done** (merge US-4.3 to `main`)
+## EPIC-4 — Advanced solver tiers · **Done**
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|

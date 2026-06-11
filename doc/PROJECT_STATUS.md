@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (US-4.3 — Tier 4 DFS on feature branch)
+**Last updated:** 2026-06-10 (post US-4.3 — EPIC-4 complete)
 
 ---
 
@@ -18,10 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`feature/us-4.3-dfs-bifurcation`** | US-4.3 ready to merge |
-| **`main`** | US-4.2 @ `c712a37` |
+| **`main`** | US-4.3 merged @ `3ef2924`; EPIC-4 complete |
 
-**New contributors:** checkout **`main`**. US-4.3 lands after merge.
+**New contributors:** checkout **`main`**.
 
 ---
 
@@ -48,7 +47,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
 | **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims |
 | **US-4.2** — traps + locked sets | Done | `tier3.rs`; 15 Rust tests |
-| **US-4.3** — DFS bifurcation | Done (branch) | `tier4.rs`; 19 Rust tests |
+| **US-4.3** — DFS bifurcation | Done | `tier4.rs`; 19 Rust tests |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
 **FFI (2026-06-10):** Tier 1 (27 Flutter + 19 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
@@ -57,8 +56,8 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 ## Next up
 
-1. **Merge US-4.3** — Tier 4 DFS to `main` ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
-2. **Fixtures** — expand golden/parse coverage up seq order; seq-08 catalog N=9 vs parser N=8 ([FIXTURES.md](plan/FIXTURES.md))
+1. **EPIC-5** (optional) — progressive N>9 end-to-end ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+2. **Fixtures** — expand golden/parse coverage up seq order; T4 gate seq 22–30 ([FIXTURES.md](plan/FIXTURES.md))
 
 ---
 

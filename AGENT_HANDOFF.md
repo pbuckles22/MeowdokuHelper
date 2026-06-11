@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `feature/us-4.3-dfs-bifurcation` — US-4.3 ready to merge
+- **Active branch:** `main` @ `3ef2924` — US-4.3 merged; EPIC-4 complete
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -101,7 +101,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
 - **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 19 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** Merge US-4.3 → `main`; **EPIC-4** complete; optional **EPIC-5** progressive sizing
+- **Next:** Optional **EPIC-5** progressive sizing; fixture expansion (T4 gate seq 22–30)
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
