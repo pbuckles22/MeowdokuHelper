@@ -41,7 +41,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Planned | Test reads `EarlyGame.jpg` bytes; decode succeeds |
+| US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Done | Test reads `EarlyGame.jpg` bytes; decode succeeds |
 | US-2.2 | As a player, grid parsing runs off the UI thread in an isolate. | Planned | `compute()` entrypoint; no jank on main isolate in test harness |
 | US-2.3 | As a player, the app detects N from unique region colors. | Planned | Unique-color count → N; array length N² |
 | US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Planned | Center + offset sampling per product SDD |
