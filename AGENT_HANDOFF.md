@@ -79,7 +79,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 ## Current state
 
 - **Active branch:** `main` @ `43440e3` — US-4.4 merged and pushed; EPIC-4 closed
-- **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
+- **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) (local note + tracked doc updates) **before** any commit, push, or merge to `main` on that slice.
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
 - **Solver catalog:** [doc/requirements/solver_algorithms.md](doc/requirements/solver_algorithms.md)
@@ -139,18 +139,22 @@ flutter test integration_test/
 
 1. **Integration branch:** `main`
 2. **Feature branches:** `feature/<topic>`, `fix/<topic>` — [github-feature-workflow](.cursor/skills/github-feature-workflow/SKILL.md)
-3. **Before push:** merge-ready gate green; FFI tests must pass
-4. **After push:** verify CI with `gh run watch` when Actions exist
-5. **After merge:** delete feature branch
+3. **Before commit / push / merge:** run the [handoff checklist](.cursor/rules/handoff-checklist.mdc) — code review, tech debt, merge-ready gate (and Tier 2 when applicable); write `.cursor/handoff/` note; update **AGENT_HANDOFF**, **doc/PROJECT_STATUS.md**, **PM_PLAN** when scope changed. **Do not commit, push, or merge until handoff is complete.**
+4. **After handoff:** merge-ready gate green; commit on feature branch; push; merge to `main`; push `main`
+5. **After push:** verify CI with `gh run watch` when Actions exist
+6. **After merge:** delete feature branch
 
 ---
 
 ## Handoff protocol
 
+**Order:** handoff **before** git — never commit, push, or merge to `main` until this protocol is complete.
+
 1. Handoff checklist: code review, tech debt, tests ([handoff-checklist](.cursor/rules/handoff-checklist.mdc))
 2. Update [PM_PLAN.md](PM_PLAN.md) when scope ships
 3. Update **[doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)** and **Current state** above (required for contributor-visible changes)
-4. Optional local session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md)) — gitignored; promote decisions to tracked docs
+4. Local session note: `.cursor/handoff/NNNN-handoff-YYYY-MM-DD_HHmm.md` ([template](.cursor/handoff/_template.md)) — gitignored; promote decisions to tracked docs
+5. **Then** commit → push → merge (see *Git workflow* above)
 
 ---
 

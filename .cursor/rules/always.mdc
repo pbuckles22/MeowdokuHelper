@@ -19,4 +19,4 @@ Cursor rules, skills, handoff protocol from AgenticTemplate (manual sync — no 
 
 **FFI changes:** Before modifying Rust API (`rust/src/api/*.rs`), regenerate bindings after with `flutter_rust_bridge_codegen generate`. **Never edit** `lib/src/rust/` directly — it's generated.
 
-**Handoff:** When the user wants a handoff, run code review (code-reviewer), tech debt (tech-debt-evaluator), and tests; record in handoff note. See [.cursor/rules/handoff-checklist.mdc](.cursor/rules/handoff-checklist.mdc).
+**Branch policy:** One feature branch per user story; **handoff first** — complete [.cursor/rules/handoff-checklist.mdc](.cursor/rules/handoff-checklist.mdc) (review, tech debt, tests, local note, tracked docs) **before** commit, push, or merge to `main`.
