@@ -22,9 +22,9 @@ class ClipboardFlowResult {
 String clipboardMoveStatus(GridParseShell shell, int index) =>
     'Next move: cell $index (N=${shell.gridSize})';
 
-/// Status line when Tiers 1–4 stall (`index == -1`).
+/// Status line when Tiers 1–6 stall (`index == -1`).
 String clipboardStalledStatus(GridParseShell shell) =>
-    'Parsed N=${shell.gridSize} — no solver move (Tiers 1–4 stalled)';
+    'Parsed N=${shell.gridSize} — no solver move (Tiers 1–6 stalled)';
 
 /// Reads clipboard JPEG (if any), parses in isolate, and runs the solver.
 Future<ClipboardFlowResult> runClipboardParseFlow({

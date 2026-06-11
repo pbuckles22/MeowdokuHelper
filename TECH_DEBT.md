@@ -27,7 +27,7 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 - **Android clipboard** — `pasteboard` may need FileProvider setup before device clipboard testing.
 - **Wordle template remnants** — Archived `docs/` only; upstream template cleanup ([docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)).
 - **Upstream FFI template** — Execute template cleanup plan; do not git-merge template into MeowdokuHelper.
-- **Duplicate T4 golden data** — `t4_solver_goldens.dart` and `t4_fixtures.rs` mirror ~400 lines; golden codegen still needed.
+- **Duplicate T6 golden data** — `t6_solver_goldens.dart` and `t6_fixtures.rs` mirror ~400 lines; golden codegen still needed.
 - **Solver dedup (production)** — Test helpers deduped; production tier1/tier2 row/col/region iteration still duplicated; DFS paths not merged.
 - **`calculate_next_move` clone-diff** — O(n²) per call; defer until EPIC-6.
 - **Generated FRB doc comment** — `lib/src/rust/api/meowdoku.dart` still says "Tier-1"; fix Rust source comment + regenerate bindings.
@@ -67,6 +67,6 @@ Score each: Impact (0–2) + Frequency (0–2) + RiskReduction (0–2) + Effort 
 | Item | Impact | Freq | Risk↓ | Effort | Score |
 |------|--------|------|-------|--------|-------|
 | Golden coverage seq 03–21 | 2 | 1 | 2 | 0 | **5** |
-| Duplicate T4 goldens | 1 | 1 | 2 | 1 | **5** |
+| Duplicate T6 goldens | 1 | 1 | 2 | 1 | **5** |
 | Tier 2 E2E expansion | 2 | 1 | 2 | 1 | **6** |
 | Prod solver dedup | 1 | 1 | 1 | 0 | **3** |

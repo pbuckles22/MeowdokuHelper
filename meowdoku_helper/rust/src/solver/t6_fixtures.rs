@@ -1,7 +1,7 @@
-//! Locked parse output + expected next-move index for T4 fixture gate (seq 22–30).
+//! Locked parse output + expected next-move index for T6 fixture gate (seq 22–30).
 //! Parse arrays captured from Dart `parseGridFromImage`; move indices from `calculate_next_move`.
 
-pub struct T4SolverGolden {
+pub struct T6SolverGolden {
     pub fixture: &'static str,
     pub grid_size: u32,
     pub state: &'static [u8],
@@ -91,65 +91,65 @@ const SEQ30_REGIONS: [u8; 100] = [
     4, 8, 6, 6,
 ];
 
-pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
-    T4SolverGolden {
-        fixture: "22_L31_N8_T4.jpeg",
+pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
+    T6SolverGolden {
+        fixture: "22_L31_N8_T6.jpeg",
         grid_size: 8,
         state: &SEQ22_STATE,
         regions: &SEQ22_REGIONS,
         expected_move: 0,
     },
-    T4SolverGolden {
-        fixture: "23_L22_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "23_L22_N9_T6.jpeg",
         grid_size: 9,
         state: &SEQ23_STATE,
         regions: &SEQ23_REGIONS,
         expected_move: 8,
     },
-    T4SolverGolden {
-        fixture: "24_L27_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "24_L27_N9_T6.jpeg",
         grid_size: 10,
         state: &SEQ24_STATE,
         regions: &SEQ24_REGIONS,
         expected_move: 9,
     },
-    T4SolverGolden {
-        fixture: "25_L32_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "25_L32_N9_T6.jpeg",
         grid_size: 10,
         state: &SEQ25_STATE,
         regions: &SEQ25_REGIONS,
         expected_move: 1,
     },
-    T4SolverGolden {
-        fixture: "26_L29_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "26_L29_N9_T6.jpeg",
         grid_size: 9,
         state: &SEQ26_STATE,
         regions: &SEQ26_REGIONS,
         expected_move: 7,
     },
-    T4SolverGolden {
-        fixture: "27_L24_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "27_L24_N9_T6.jpeg",
         grid_size: 9,
         state: &SEQ27_STATE,
         regions: &SEQ27_REGIONS,
         expected_move: 4,
     },
-    T4SolverGolden {
-        fixture: "28_L30_N9_T4.jpeg",
+    T6SolverGolden {
+        fixture: "28_L30_N9_T6.jpeg",
         grid_size: 10,
         state: &SEQ28_STATE,
         regions: &SEQ28_REGIONS,
         expected_move: 9,
     },
-    T4SolverGolden {
-        fixture: "29_L23_N10_T4.jpeg",
+    T6SolverGolden {
+        fixture: "29_L23_N10_T6.jpeg",
         grid_size: 10,
         state: &SEQ29_STATE,
         regions: &SEQ29_REGIONS,
         expected_move: 2,
     },
-    T4SolverGolden {
-        fixture: "30_L25_N10_T4.jpeg",
+    T6SolverGolden {
+        fixture: "30_L25_N10_T6.jpeg",
         grid_size: 10,
         state: &SEQ30_STATE,
         regions: &SEQ30_REGIONS,
@@ -163,8 +163,8 @@ mod tests {
     use crate::api::meowdoku::calculate_next_move;
 
     #[test]
-    fn t4_fixture_gate_returns_expected_moves() {
-        for golden in T4_FIXTURE_GATE {
+    fn t6_fixture_gate_returns_expected_moves() {
+        for golden in T6_FIXTURE_GATE {
             let idx = calculate_next_move(
                 golden.state.to_vec(),
                 golden.regions.to_vec(),

@@ -15,7 +15,7 @@ Repo root: `assets/test_fixtures/`
 | `N{grid}` | Grid size N×N when known |
 | `T{tier}` | Solver gate: minimum tier (1–6 target ladder) before E2E solve must pass |
 
-**Tier suffix today:** Filenames use `_T1_` … `_T4_` from the **shipped** ladder (T4 = DFS in `tier4.rs`). After **EPIC-6**, re-audit against the T1–T6 catalog in [solver_algorithms.md](../requirements/solver_algorithms.md) (T4 = Phantom, T5 = Crowding, T6 = DFS) and rename suffixes where the minimum tier drops.
+**Tier suffix (seq 22–30 gate):** Filenames use `_T6_` — minimum tier = DFS after EPIC-6. Other `_T4_` fixtures (seq 18–21, 31–42) retain historical suffix until individually re-audited.
 
 **Legacy names** (`EarlyGame.jpg`, `lvl3.jpg`, UUID exports) are retired.
 
@@ -58,15 +58,15 @@ Added June 2026. **Start after seq 19 (`L20`) parses and solves.** One duplicate
 |-----|------|------|--------|-------------|----------------------|
 | 20 | `20_L21_N8_T3.jpeg` | 21 | 8 | T3 | 2 single-cell regions; refreshed capture |
 | 21 | `21_L26_N8_T4.jpeg` | 26 | 8 | T4 | 2 forced singles; smallest N in batch |
-| 22 | `22_L31_N8_T4.jpeg` | 31 | 8 | T4 | 2 forced singles |
-| 23 | `23_L22_N9_T4.jpeg` | 22 | 9 | T4 | 1 forced single (purple) |
-| 24 | `24_L27_N9_T4.jpeg` | 27 | 9 | T4 | 1 forced single + tight cascades |
-| 25 | `25_L32_N9_T4.jpeg` | 32 | 9 | T4 | 2 forced singles |
-| 26 | `26_L29_N9_T4.jpeg` | 29 | 9 | T4 | 1 forced single |
-| 27 | `27_L24_N9_T4.jpeg` | 24 | 9 | T4 | Small regions; no singleton |
-| 28 | `28_L30_N9_T4.jpeg` | 30 | 9 | T4 | ★HARD — defer despite singleton |
-| 29 | `29_L23_N10_T4.jpeg` | 23 | 10 | T4 | 2 singles; large fragmented regions |
-| 30 | `30_L25_N10_T4.jpeg` | 25 | 10 | T4 | 1 single; sprawling regions |
+| 22 | `22_L31_N8_T6.jpeg` | 31 | 8 | T6 | 2 forced singles |
+| 23 | `23_L22_N9_T6.jpeg` | 22 | 9 | T6 | 1 forced single (purple) |
+| 24 | `24_L27_N9_T6.jpeg` | 27 | 9 | T6 | 1 forced single + tight cascades |
+| 25 | `25_L32_N9_T6.jpeg` | 32 | 9 | T6 | 2 forced singles |
+| 26 | `26_L29_N9_T6.jpeg` | 29 | 9 | T6 | 1 forced single |
+| 27 | `27_L24_N9_T6.jpeg` | 24 | 9 | T6 | Small regions; no singleton |
+| 28 | `28_L30_N9_T6.jpeg` | 30 | 9 | T6 | ★HARD — defer despite singleton |
+| 29 | `29_L23_N10_T6.jpeg` | 23 | 10 | T6 | 2 singles; large fragmented regions |
+| 30 | `30_L25_N10_T6.jpeg` | 25 | 10 | T6 | 1 single; sprawling regions |
 | 31 | `31_L28_N10_T4.jpeg` | 28 | 10 | T4 | Smallest region = 2 cells; no singleton |
 | 32 | `32_L33_N10_T4.jpeg` | 33 | 10 | T4 | Largest sprawl; last in batch |
 

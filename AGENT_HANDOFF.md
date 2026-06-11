@@ -78,21 +78,20 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — US-6.2 Crowding (T5) merged; **EPIC-6 in progress** (1 story remains)
+- **Active branch:** `main` — **EPIC-6 complete** (T1–T6 ladder shipped)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
-- **Phases 0–5:** Done (bootstrap through EPIC-5 progressive sizing)
-- **US-6.1:** Done — `tier4_phantom.rs`; wired before DFS in `run_tiers_1_through_4`; 3 synthetic tests
-- **US-6.2:** Done — `tier5.rs`; wired between phantom and DFS; 3 synthetic tests
-- **Solver (shipped):** T1–T3 + **T4 Phantom** + **T5 Crowding** + DFS in `tier4.rs` (`run_tiers_1_through_4`); historical `tier4` = DFS until US-6.3 renames to T6
+- **Phases 0–6:** Done (bootstrap through EPIC-6 advanced tiers)
+- **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
+- **Solver (shipped):** T1–T3 + T4 phantom + T5 crowding + T6 DFS (`tier4.rs`); orchestrator `run_tiers_1_through_6`
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
-- **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–4 stalled” banner
-- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens locked seq 01–02; parse smoke seq 03–08
-- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent); **28 Rust** (`cargo test --lib`)
-- **Tier 2:** 6 integration tests green on iOS 26.5 sim (re-run after EPIC-6 completes)
+- **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–6 stalled” banner
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–02
+- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped); **28 Rust** (`cargo test --lib`)
+- **Tier 2:** 6 integration tests — **re-run on iOS sim** post EPIC-6
 - **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
-- **Next:** **US-6.3** DFS→T6 rename + fixture suffix re-audit ([solver_algorithms.md](doc/requirements/solver_algorithms.md)); branch `feature/us-6.3-dfs-rename-tier`
-- **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md) — FFI buffers, layouts, pure compute, toolchain immutability
+- **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
+- **Next:** Tier 2 iOS re-run; optional remaining `_T4_` fixture re-audit; hint UI epic (FRB)
 - **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test

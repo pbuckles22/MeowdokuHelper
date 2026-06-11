@@ -75,5 +75,5 @@ flutter:
   assets:
     - integration_test/fixtures/08_L09_N9_T1.jpg
     - integration_test/fixtures/14_L15_N10_T3.jpeg
-    - integration_test/fixtures/29_L23_N10_T4.jpeg
-    - integration_test/fixtures/30_L25_N10_T4.jpeg
+    - integration_test/fixtures/29_L23_N10_T6.jpeg
+    - integration_test/fixtures/30_L25_N10_T6.jpeg

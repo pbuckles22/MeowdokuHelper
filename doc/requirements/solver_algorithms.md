@@ -15,11 +15,11 @@ Maps to [product.md](product.md), [PM_PLAN.md](../../PM_PLAN.md), and epics in [
 | **T3** | 2×2 traps + N-locked sets | Deterministic | `tier3` | ✅ Shipped |
 | **T4** | Phantom Cat Projection (overlap halos) | Deterministic | `tier4_phantom` | ✅ Shipped (US-6.1) |
 | **T5** | Region-to-Region Crowding | Deterministic | `tier5` | ✅ Shipped (US-6.2) |
-| **T6** | DFS / bifurcation (ultimate failsafe) | Search | `tier6` or rename from `tier4` | ✅ Shipped as `tier4` today |
+| **T6** | DFS / bifurcation (ultimate failsafe) | Search | `tier4` (DFS module; T6 in ladder) | ✅ Shipped (US-6.3) |
 
 **Correctness note:** T6 (DFS + propagation + `is_illegal`) is mathematically sufficient for every valid board. T4 and T5 are **not required for correctness** — they reduce DFS depth, latency, and “guessing” before the failsafe runs. Implement them only from the exact steps below; do not ask an agent to invent 2D spatial rules.
 
-**Code mapping (today vs target):** Shipped code uses `run_tiers_1_through_4` where historical “Tier 4” = DFS in `tier4.rs`. EPIC-6 inserts T4/T5 modules and renames/wraps DFS as T6 without changing the FRB signature.
+**Code mapping:** Shipped code uses `run_tiers_1_through_6` — T1–T3 in tier modules, T4 `tier4_phantom`, T5 `tier5`, T6 DFS in `tier4.rs`. FRB signature unchanged.
 
 ---
 
@@ -111,7 +111,7 @@ When T1–T4 stall. **Deterministic** — simulates one placement, then reverts.
 
 ---
 
-## Level 6 — DFS / Bifurcation (Ultimate Failsafe) · T6 ✅ (shipped as `tier4`)
+## Level 6 — DFS / Bifurcation (Ultimate Failsafe) · T6 ✅
 
 When T1–T5 stall. DFS is the end of the line for valid puzzles — recursive guess-and-check with propagation.
 
@@ -119,7 +119,7 @@ When T1–T5 stall. DFS is the end of the line for valid puzzles — recursive g
 |---|-----------|------|-------------|
 | 7 | **DFS / bifurcation** | Pick first empty cell; clone board; try cat; recursively run T1–T5 (today: T1–T3). On contradiction (row/col/region with zero cats and zero empties), revert, permanently block that cell, return to T1. On full solve, return winning move. | `tier4::dfs_bifurcation` ✅ today |
 
-**Acceptance:** Complex boards in `cargo test`; returns `-1` when truly stuck; no panic. Fixture gate **T6** (filenames still use `_T4_` until EPIC-6 relabel — see [FIXTURES.md](../plan/FIXTURES.md)): seq 22–30 locked in `t4_fixtures.rs` / `t4_solver_goldens.dart`.
+**Acceptance:** Complex boards in `cargo test`; returns `-1` when truly stuck; no panic. Fixture gate **T6**: seq 22–30 locked in `t6_fixtures.rs` / `t6_solver_goldens.dart`.
 
 ---
 
@@ -155,7 +155,7 @@ flowchart TD
   T6 -->|exhausted| Stuck
 ```
 
-**Shipped today (EPIC-4):** T1 → T2 → T3 → DFS (`tier4`) — diagram above with T4/T5 skipped.
+**Shipped (EPIC-6):** Full T1–T6 ladder per escalation diagram below.
 
 ---
 
@@ -167,7 +167,7 @@ Screenshot fixtures use **seq-prefixed filenames** under `assets/test_fixtures/`
 - **Pipeline gate** — Phase 2 parse goldens (image → `state`/`regions`)
 - **Solver gate** — minimum tier before end-to-end solve must pass
 
-**Filename `T{n}` suffix:** Until EPIC-6 relabel, `_T4_` in filenames means **requires DFS today** (historical gate). After EPIC-6, re-audit fixtures against the T1–T6 ladder and update suffixes (e.g. seq 22–30 may become `_T6_` if only DFS still needed).
+**Filename `T{n}` suffix:** seq 22–30 gate uses `_T6_` (requires DFS). Remaining `_T4_` fixtures (seq 18–21, 31–42) are historical — re-audit individually when those boards are re-gated.
 
 Implement and validate algorithms in tier order; add synthetic tests **before** fixture re-gating.
 
@@ -179,4 +179,4 @@ Implement and validate algorithms in tier order; add synthetic tests **before** 
 |------|------|---------|
 | T1–T3 + DFS + seq 22–30 gate | EPIC-4 (done) | Phase 4 |
 | N>9 end-to-end | EPIC-5 (planned) | Phase 5 |
-| T4 Phantom + T5 Crowding + DFS→T6 rename | EPIC-6 (planned) | Phase 6 |
+| T4 Phantom + T5 Crowding + DFS→T6 rename | EPIC-6 | Phase 6 ✅ |

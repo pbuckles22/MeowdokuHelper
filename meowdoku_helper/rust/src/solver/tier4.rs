@@ -117,10 +117,30 @@ fn first_empty(board: &Board) -> Option<(usize, usize)> {
     None
 }
 
+/// Deterministic tiers T1–T5 to fixed point (no DFS).
+pub fn run_tiers_1_through_5(board: &mut Board) -> bool {
+    let mut any = false;
+    loop {
+        if run_tiers_1_through_3(board) {
+            any = true;
+        }
+        if apply_phantom_projection(board) {
+            any = true;
+            continue;
+        }
+        if apply_region_crowding(board) {
+            any = true;
+            continue;
+        }
+        break;
+    }
+    any
+}
+
 /// Recursively guess on a trial board until solved or exhausted.
 fn dfs_solve(board: &mut Board) -> bool {
     loop {
-        run_tiers_1_through_3(board);
+        run_tiers_1_through_5(board);
 
         if is_illegal(board) {
             return false;
@@ -135,7 +155,7 @@ fn dfs_solve(board: &mut Board) -> bool {
 
         let mut trial = board.clone();
         trial.set(x, y, CAT);
-        run_tiers_1_through_3(&mut trial);
+        run_tiers_1_through_5(&mut trial);
 
         if is_illegal(&trial) {
             board.set(x, y, BLOCKED);
@@ -153,7 +173,7 @@ fn dfs_solve(board: &mut Board) -> bool {
     }
 }
 
-/// One bifurcation step when Tiers 1–3 stall: try cat at first empty, recurse via [dfs_solve], or block.
+/// One bifurcation step when Tiers 1–5 stall: try cat at first empty, recurse via [dfs_solve], or block.
 pub fn dfs_bifurcation(board: &mut Board) -> bool {
     let Some((x, y)) = first_empty(board) else {
         return false;
@@ -161,7 +181,7 @@ pub fn dfs_bifurcation(board: &mut Board) -> bool {
 
     let mut trial = board.clone();
     trial.set(x, y, CAT);
-    run_tiers_1_through_3(&mut trial);
+    run_tiers_1_through_5(&mut trial);
 
     if is_illegal(&trial) {
         board.set(x, y, BLOCKED);
@@ -180,20 +200,12 @@ pub fn dfs_bifurcation(board: &mut Board) -> bool {
     true
 }
 
-/// Run Tiers 1–5 until all stall. Phantom/crowding blocks and DFS steps restart at lower tiers.
-pub fn run_tiers_1_through_4(board: &mut Board) -> bool {
+/// Full ladder T1–T6: deterministic tiers to fixed point, then DFS fallback when all stall.
+pub fn run_tiers_1_through_6(board: &mut Board) -> bool {
     let mut any = false;
     loop {
-        if run_tiers_1_through_3(board) {
+        if run_tiers_1_through_5(board) {
             any = true;
-        }
-        if apply_phantom_projection(board) {
-            any = true;
-            continue;
-        }
-        if apply_region_crowding(board) {
-            any = true;
-            continue;
         }
         if !dfs_bifurcation(board) {
             break;
@@ -252,7 +264,7 @@ mod tests {
     }
 
     #[test]
-    fn tier4_board_returns_forced_cat_via_calculate_next_move() {
+    fn tier6_board_returns_forced_cat_via_calculate_next_move() {
         let size = 4u32;
         let n = size as usize;
         let regions = quadrant_regions(size);

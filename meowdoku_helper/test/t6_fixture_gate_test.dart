@@ -5,7 +5,7 @@ import 'package:meowdoku_helper/app/solve_parsed_grid.dart';
 import 'package:meowdoku_helper/image/board_fixture.dart';
 import 'package:meowdoku_helper/image/jpeg_decode.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
-import 'package:meowdoku_helper/image/t4_solver_goldens.dart';
+import 'package:meowdoku_helper/image/t6_solver_goldens.dart';
 
 import 'support/native_ffi.dart';
 
@@ -13,8 +13,8 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final skip = await nativeFfiSkipReason();
 
-  group('US-4.4 T4 parse goldens', () {
-    for (final golden in t4FixtureGate) {
+  group('US-6.3 T6 parse goldens', () {
+    for (final golden in t6FixtureGate) {
       test('${golden.fixture} parse matches locked arrays', () async {
         final bytes = Uint8List.fromList(
           await BoardFixture.readBytes(golden.fixture),
@@ -28,8 +28,8 @@ Future<void> main() async {
     }
   });
 
-  group('US-4.4 T4 solver goldens', () {
-    for (final golden in t4FixtureGate) {
+  group('US-6.3 T6 solver goldens', () {
+    for (final golden in t6FixtureGate) {
       test(
         '${golden.fixture} solve returns move ${golden.expectedMove}',
         () async {

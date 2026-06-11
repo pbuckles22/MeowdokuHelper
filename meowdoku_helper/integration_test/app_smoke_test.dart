@@ -82,7 +82,7 @@ void main() {
   testWidgets('US-5.2 seq-29 fixture parse solve FFI pipeline', (tester) async {
     await _expectFixturePipeline(
       tester,
-      fixture: '29_L23_N10_T4.jpeg',
+      fixture: '29_L23_N10_T6.jpeg',
       parsedGridSize: 10,
       expectedMoveIndex: 2,
     );
@@ -91,7 +91,7 @@ void main() {
   testWidgets('US-5.2 seq-30 fixture parse solve FFI pipeline', (tester) async {
     await _expectFixturePipeline(
       tester,
-      fixture: '30_L25_N10_T4.jpeg',
+      fixture: '30_L25_N10_T6.jpeg',
       parsedGridSize: 10,
       expectedMoveIndex: 6,
     );

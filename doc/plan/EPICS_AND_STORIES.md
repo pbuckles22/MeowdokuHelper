@@ -86,7 +86,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-6 — Advanced deterministic tiers (optional) · **Next**
+## EPIC-6 — Advanced deterministic tiers (optional) · **Done**
 
 Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote current DFS to T6. **Do not implement from prose alone** — follow [solver_algorithms.md](../requirements/solver_algorithms.md) exact steps.
 
@@ -96,7 +96,7 @@ Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote c
 |----|-------|--------|------------|
 | US-6.1 | As a player, Phantom Cat Projection blocks cells without guessing. | Done | `tier4_phantom`; synthetic boards; wired before DFS in `run_tiers_1_through_4` |
 | US-6.2 | As a player, Region Crowding blocks traps before DFS. | Done | `tier5`; synthetic boards where T1–T4 stall, T5 deduces |
-| US-6.3 | As a developer, DFS is T6 only; fixture gates re-audited. | Planned | `run_tiers_1_through_6`; seq 22–30 still green; update `_T{n}_` suffixes where tier drops |
+| US-6.3 | As a developer, DFS is T6 only; fixture gates re-audited. | Done | `run_tiers_1_through_6`; seq 22–30 `_T6_` gate green |
 
 **Priority:** After EPIC-5. T4/T5 are performance/elegance, not correctness (T6 already sufficient).
 

@@ -28,4 +28,18 @@ See also: [SETUP_GUIDE.md](SETUP_GUIDE.md) (FFI plumbing), [AGENT_HANDOFF.md](..
 
 **Threading (Dart):** Main isolate for UI + sync FRB only. JPEG decode and grid parse run in `Isolate`s (`compute()`). See `lib/image/`.
 
-**Solver structure:** Modular tier functions called by an orchestrator loop — no monolithic nested solver loops. Escalation: T1 → T2 → T3 → T4 phantom → T5 crowding → DFS (T6 rename in US-6.3).
+**Solver structure:** Modular tier functions called by an orchestrator loop — no monolithic nested solver loops. Escalation: T1 → T2 → T3 → T4 phantom → T5 crowding → T6 DFS (`run_tiers_1_through_6`).
+
+---
+
+## Algorithmic tier escalation & solver guardrails
+
+* **Strict Tier Escalation:** The solver engine must follow a deterministic execution order. The orchestration loop (`run_tiers_1_through_6`) must exhaustively run lower-cost logic tiers (T1 through T5) to hit a fixed point before ever invoking the heavy Tier 6 DFS fallback.
+* **Pure Functional Constraints:** All localized deduction passes (e.g., cell masking inside phantom or crowding layers) must act as stateless functions operating on the board structure. Do not store ephemeral search path properties on the global `Board` struct.
+* **Auto-Generated & Bridge Immutability:** Do not allow modifications to generated FFI layers (`frb_generated.rs`), platform bridge structures, or directory paths under `ios/` or `rust_builder/` when refactoring inner algorithmic loops.
+
+**US-6.3+ invariants:**
+
+1. **Orchestrator stack:** `[T1: Halo + Singles] → [T2: Intersection] → [T3: Traps] → [T4: Phantoms] → [T5: Crowding] → [T6: DFS Fallback]`
+2. **FFI signature frozen:** `calculate_next_move(state, regions, grid_size) -> i32` — tier reorganization is internal to `rust/src/solver/`.
+3. **Fixture gate labeling:** seq 22–30 use `_T6_` suffix (minimum tier = DFS); deterministic tiers are T1–T5.

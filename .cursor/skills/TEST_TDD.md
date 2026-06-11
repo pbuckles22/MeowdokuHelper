@@ -88,7 +88,7 @@ flutter analyze && flutter test && cd rust && cargo test --lib && cd ..
 | FFI smoke / roundtrip | `test/ffi_smoke_test.dart`, `test/rust_ffi_roundtrip_test.dart` | Native lib init + `calculateNextMove` |
 | FFI service | `test/ffi_service_test.dart` | FfiService init, double-init, errors |
 | Image pipeline | `test/n_detect_test.dart`, `test/grid_golden_test.dart`, `test/decode_isolate_test.dart`, … | Parse, goldens, isolate |
-| Solver bridge | `test/solve_parsed_grid_test.dart`, `test/t4_fixture_gate_test.dart` | Parse → FRB solve |
+| Solver bridge | `test/solve_parsed_grid_test.dart`, `test/t6_fixture_gate_test.dart` | Parse → FRB solve |
 | Clipboard | `test/clipboard_parse_test.dart`, `test/clipboard_lifecycle_test.dart` | Pasteboard path |
 | Widget / shell | `test/puzzle_grid_preview_test.dart`, `test/main_shell_test.dart` | UI smoke |
 | Integration E2E | `integration_test/app_smoke_test.dart` | Device launch + fixture pipeline |

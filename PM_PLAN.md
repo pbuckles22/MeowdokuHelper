@@ -145,9 +145,9 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 - [x] **T4 Phantom** — overlap halo intersection for regions with 2–3 empties (`tier4_phantom.rs`; US-6.1)
 - [x] **T5 Crowding** — simulate cat in region A; block if adjacent region loses all empties (`tier5.rs`; US-6.2)
-- [ ] **T6 rename** — current `tier4.rs` DFS → T6 in state machine; `run_tiers_1_through_6`
-- [ ] Synthetic tests per tier before fixture re-gate
-- [ ] Re-audit fixture `_T{n}_` suffixes (seq 22–30 may move from `_T4_` to `_T6_`)
+- [x] **T6 rename** — `run_tiers_1_through_6`; DFS propagation uses T1–T5; seq 22–30 `_T6_` gate (`US-6.3`)
+- [x] Synthetic tests per tier before fixture re-gate
+- [x] Re-audit fixture `_T{n}_` suffixes for seq 22–30 (`_T4_` → `_T6_`)
 
 **Acceptance:** All existing solver gates still green; at least one synthetic board proves T4 and T5 without entering T6.
 

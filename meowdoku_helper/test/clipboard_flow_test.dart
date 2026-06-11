@@ -43,9 +43,9 @@ Future<void> main() async {
   });
 
   group('clipboard status helpers', () {
-    test('stalled status mentions Tiers 1–4', () {
+    test('stalled status mentions Tiers 1–6', () {
       final shell = gridParseShell(9);
-      expect(clipboardStalledStatus(shell), contains('Tiers 1–4'));
+      expect(clipboardStalledStatus(shell), contains('Tiers 1–6'));
     });
   });
 }

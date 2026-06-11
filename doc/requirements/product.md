@@ -160,7 +160,7 @@ When Tier 4 stalls. Deterministic mutual-destruction blocks across adjacent regi
 
 ### Tier 6 — DFS / bifurcation (ultimate failsafe) ✅
 
-When deterministic tiers stall. Shipped today as **`tier4.rs`** / `run_tiers_1_through_4` (historical “Tier 4” before EPIC-6 renumber):
+When deterministic tiers stall. Shipped as **`tier4.rs`** (T6 DFS module) / **`run_tiers_1_through_6`**:
 
 1. Pick first empty cell; clone board
 2. Try cat (`1`); run Tiers 1–3 recursively (target: T1–T5 after EPIC-6)
