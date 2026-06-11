@@ -1,0 +1,43 @@
+---
+description: >-
+  When an epic ships or before starting the next epic — run epic-closure-gate
+  (branch cleanup, doc sync, debt, tests). Phase boundaries also require
+  project-health-audit.
+globs: "doc/plan/EPICS_AND_STORIES.md,PM_PLAN.md,doc/PROJECT_STATUS.md,AGENT_HANDOFF.md"
+alwaysApply: false
+---
+
+# Epic closure gate (SDLC)
+
+When **marking an epic Done**, **merging the last story of an epic**, or **starting a new epic**, run the **epic-closure-gate** skill (`.cursor/skills/epic-closure-gate/SKILL.md`).
+
+## Cadence
+
+| Event | Required gate |
+|-------|----------------|
+| Each **epic** completes (all stories on `main`) | **epic-closure-gate** |
+| Each **PM_PLAN phase** completes | **epic-closure-gate** + **project-health-audit** |
+| Before starting next epic | Prior epic closure **PASS** (docs synced, branches clean) |
+
+Story-level merges still use [handoff-checklist.mdc](handoff-checklist.mdc) only.
+
+## Non-negotiable before "epic done"
+
+1. Merge-ready gate green (`flutter analyze`, Tier 1a + 1b)
+2. Delete merged feature branches (`git branch --merged main`)
+3. Sync **AGENT_HANDOFF**, **doc/PROJECT_STATUS**, **doc/QC_STATUS**, **EPICS_AND_STORIES**
+4. Run **tech-debt-evaluator**; promote to **TECH_DEBT.md** if persistent
+5. Handoff note with review + test summary
+6. `./scripts/epic_closure_check.sh` PASS (or document waivers)
+
+## Phase boundary (e.g. EPIC-5 → EPIC-6)
+
+Also run **project-health-audit** skill; produce/update audit artifacts and remediation waves in TECH_DEBT before large scope (new solver tiers, FFI changes, major refactors).
+
+## Enforcement
+
+- **Agents:** This rule + epic-closure-gate skill; do not mark epic **Done** in EPICS_AND_STORIES until checklist complete.
+- **Humans:** PR template § Epic closure; RELEASE.md § SDLC cadence.
+- **Mechanical:** `scripts/epic_closure_check.sh` (local; optional CI later).
+
+See [RELEASE.md](../RELEASE.md) § SDLC cadence.

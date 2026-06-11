@@ -153,6 +153,8 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Priority:** After Phase 5 (EPIC-5).
 
+**Starting EPIC-6:** Branch from `main` @ latest; read [solver_algorithms.md](doc/requirements/solver_algorithms.md) Levels 4–6 and [EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) US-6.1–6.3. Synthetic tests before fixture re-gate.
+
 ---
 
 Keep this file in sync with AGENT_HANDOFF "Current state" and `doc/requirements/product.md`.

@@ -11,7 +11,7 @@ alwaysApply: true
 
 Cursor rules, skills, handoff protocol from AgenticTemplate (manual sync — no upstream remote to protect FFI files).
 
-**Source of truth:** [PM_PLAN.md](PM_PLAN.md), [doc/requirements/product.md](doc/requirements/product.md), [AGENT_HANDOFF.md](AGENT_HANDOFF.md), [TECH_DEBT.md](TECH_DEBT.md), [RISKS.md](RISKS.md), [RELEASE.md](RELEASE.md), [INCIDENTS.md](INCIDENTS.md), [docs/](docs/) (SETUP_GUIDE, TESTING_STRATEGY). Skills: [.cursor/skills/](.cursor/skills/) (DEV_GUIDE, TEST_TDD, techwriter, tester, green-and-clean, context-bootstrapper, session-summarizer, code-reviewer, code-quality-gate, tech-lead, github-feature-workflow). **Operating model:** green-and-clean, context-bootstrapper on resume, session-summarizer on handoff.
+**Source of truth:** [PM_PLAN.md](PM_PLAN.md), [doc/requirements/product.md](doc/requirements/product.md), [AGENT_HANDOFF.md](AGENT_HANDOFF.md), [TECH_DEBT.md](TECH_DEBT.md), [RISKS.md](RISKS.md), [RELEASE.md](RELEASE.md), [INCIDENTS.md](INCIDENTS.md), [doc/SDLC.md](doc/SDLC.md), [docs/](docs/) (SETUP_GUIDE). Skills: [.cursor/skills/](.cursor/skills/) (DEV_GUIDE, TEST_TDD, **epic-closure-gate**, **project-health-audit**, techwriter, tester, green-and-clean, context-bootstrapper, session-summarizer, code-reviewer, code-quality-gate, tech-lead, github-feature-workflow). **Operating model:** green-and-clean, context-bootstrapper on resume, session-summarizer on handoff; **epic-closure-gate** when an epic finishes ([doc/SDLC.md](doc/SDLC.md)).
 
 **TDD:** Read TEST_TDD.md and tester skill first. **Tier 1a:** `cargo test` (Rust). **Tier 1b:** `flutter test` (Flutter). **Tier 2:** `flutter test integration_test/` (device).
 
@@ -19,4 +19,4 @@ Cursor rules, skills, handoff protocol from AgenticTemplate (manual sync — no 
 
 **FFI changes:** Before modifying Rust API (`rust/src/api/*.rs`), regenerate bindings after with `flutter_rust_bridge_codegen generate`. **Never edit** `lib/src/rust/` directly — it's generated.
 
-**Branch policy:** One feature branch per user story; **handoff first** — complete [.cursor/rules/handoff-checklist.mdc](.cursor/rules/handoff-checklist.mdc) (review, tech debt, tests, local note, tracked docs) **before** commit, push, or merge to `main`.
+**Branch policy:** One feature branch per user story; **handoff first** — complete [.cursor/rules/handoff-checklist.mdc](.cursor/rules/handoff-checklist.mdc) (review, tech debt, tests, local note, tracked docs) **before** commit, push, or merge to `main`. **Epic closure:** when an epic finishes, run [.cursor/rules/epic-closure.mdc](.cursor/rules/epic-closure.mdc) and [doc/SDLC.md](doc/SDLC.md) before starting the next epic.

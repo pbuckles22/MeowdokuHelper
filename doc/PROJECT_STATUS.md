@@ -2,15 +2,15 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (EPIC-5 + handoff-first policy on `main`)
+**Last updated:** 2026-06-11 (`main` @ `4d76e53` — Phase 6 next; SDLC gates added)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine → next forced move. Validated through N=12 parsed boards.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (Tiers 1–4 today) → next forced move. Validated through N=12 parsed boards. Project health audit + remediation landed on `main`; **Phase 6 (EPIC-6)** is next.
 
-**Canonical spec:** [requirements/product.md](requirements/product.md) — not `geminidata.txt`.
+**Canonical spec:** [requirements/product.md](requirements/product.md)
 
 ---
 
@@ -18,9 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** @ `e74dcfa` | EPIC-5 + handoff-first policy merged and pushed |
+| **`main`** @ `4d76e53` | Phase 6 prep + SDLC gates; sole branch (feature branches cleaned up) |
 
-**New contributors:** checkout **`main`**.
+**New contributors:** `git checkout main && git pull origin main`
 
 ---
 
@@ -29,44 +29,40 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | Phase | Status | Notes |
 |-------|--------|-------|
 | Phase 0 — Bootstrap | Done | Template, rename, SDD, agentic layer |
-| Phase 1 — Rust core | Done | `rust/src/solver/` — size-aware `Board`, Tier 1, N=9 tests |
-| Phase 1b.1 — Wordle UI/assets | Done | Placeholder app; Wordle UI/tests/assets removed |
-| Phase 1b.2 — Wordle FRB gut | Done | Wordle `api/` deleted; `calculate_next_move` wired |
-| FRB 2.12 | Done | Pins + regenerated bindings |
-| Lint modernization | Done | `flutter_lints` 6; analyze clean |
-| **US-2.1** — fixture decode | Done | seq-01 decode tests |
-| **US-2.2** — isolate entry | Done | `compute()` + `decode_isolate.dart` |
-| **US-2.3** — N detect | Done | `n_detect.dart`; seq-01 → N=4, N² shells |
-| **US-2.4** — cell sample | Done | `parseGridFromImage()`; isolate parse path |
-| **US-2.5** — goldens | Done | seq 01+02 locked in `grid_goldens.dart` |
-| **US-2.6** — clipboard | Done | `pasteboard` on resume; JPEG magic-byte gate |
-| **EPIC-2** — image pipeline | Done | Clipboard → isolate → `GridParseShell` |
-| **US-3.1** — solve wire | Done | `solveParsedGrid()` → `calculateNextMove` |
-| **US-3.2** — grid preview | Done | `PuzzleGridPreview` highlight / stalled banner |
-| **US-3.3** — E2E integration | Done | seq-08 → index 11 (N=8 parsed) on iOS 26.5 sim |
-| **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
-| **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims |
-| **US-4.2** — traps + locked sets | Done | `tier3.rs`; 15 Rust tests |
-| **US-4.3** — DFS bifurcation | Done | `tier4.rs` |
-| **US-4.4** — T4 fixture gate | Done | seq 22–30 locked; 20 Rust + 45 Flutter |
-| **EPIC-4** — solver tiers | Done | T1–T3 + DFS (`tier4`); seq 22–30 gate |
-| **US-5.1** — N>9 E2E | Done | seq 14: N=12 parsed, move 13; 12×12 preview test |
-| **US-5.2** — multi-size N>9 | Done | seq 29–30 Tier 2 (N=10) |
-| **EPIC-5** — progressive sizing | Done | No FRB/UI code changes |
+| Phase 1 — Rust core | Done | `Board`, Tier 1 |
+| Phase 1b — Wordle removal | Done | Star Battle FFI only |
+| Phase 2 — Image pipeline | Done | EPIC-2; clipboard → isolate → `GridParseShell` |
+| Phase 3 — Solve + highlight | Done | EPIC-3; `clipboard_flow.dart`, grid preview |
+| Phase 4 — Solver tiers | Done | EPIC-4; T2/T3 + DFS (`tier4`); seq 22–30 gate |
+| Phase 5 — Progressive sizing | Done | EPIC-5; seq 14, 29–30 Tier 2 |
+| Health audit + remediation | Done | Waves 1–4 complete; 5–6 partial — [TECH_DEBT.md](../TECH_DEBT.md) |
 | Fixture catalog | Done | seq `01`–`42`; UX reference `assets/reference/` |
 
-**FFI (2026-06-11):** Tier 1 (46 Flutter + 20 Rust) + Tier 2 (6 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**Tests (2026-06-11):** Tier 1b — 50 passed, 15 skipped (FFI without native lib on host); Tier 1a — 22 Rust; `flutter analyze` clean. Tier 2 — 6 integration (last green on iOS 26.5 sim; re-run after EPIC-6 solver changes). See [QC_STATUS.md](QC_STATUS.md).
 
 ---
 
-## Next up
+## Next up — Phase 6 / EPIC-6
 
-1. **EPIC-6** (optional) — T4 Phantom + T5 Region Crowding; demote DFS to T6 ([solver_algorithms.md](requirements/solver_algorithms.md))
+**Goal:** Phantom Cat Projection (T4) + Region Crowding (T5); demote DFS to T6. **No FRB signature change.**
+
+| Story | Focus |
+|-------|--------|
+| US-6.1 | Phantom tier — synthetic boards; T1–T3 stall, T4 deduces |
+| US-6.2 | Crowding tier — synthetic boards; T1–T4 stall, T5 deduces |
+| US-6.3 | `run_tiers_1_through_6`; seq 22–30 gates still green; re-audit `_T{n}_` suffixes |
+
+**Spec (mandatory):** [solver_algorithms.md](requirements/solver_algorithms.md) Levels 4–6 — exact steps only.  
+**Stories:** [EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md) · **Plan:** [PM_PLAN.md](../PM_PLAN.md) Phase 6
+
+**Suggested branch:** `feature/us-6.1-phantom-tier` (one story per branch)
+
+**Optional before/alongside EPIC-6:** Lock parse goldens seq 03–08 ([TECH_DEBT.md](../TECH_DEBT.md))
 
 ---
 
 ## Deferred (do not extend)
 
-- Upstream [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template) Wordle cleanup — [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](../docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)
+- Upstream template Wordle cleanup — [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](../docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)
 
 ---

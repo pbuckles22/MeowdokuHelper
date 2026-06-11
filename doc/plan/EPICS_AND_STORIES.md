@@ -4,6 +4,8 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 **Status:** Done | In progress | Planned
 
+**SDLC:** When an epic’s **last story** is on `main`, run [epic-closure-gate](../.cursor/skills/epic-closure-gate/SKILL.md) before marking the epic **Done** or starting the next epic. Phase boundaries also require [project-health-audit](../.cursor/skills/project-health-audit/SKILL.md). See [doc/SDLC.md](../SDLC.md).
+
 ---
 
 ## EPIC-0 — Bootstrap · **Done**
@@ -47,10 +49,8 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | US-2.2 | As a player, grid parsing runs off the UI thread in an isolate. | Done | `compute()` entrypoint; no jank on main isolate in test harness |
 | US-2.3 | As a player, the app detects N from unique region colors. | Done | Unique-color count → N; array length N² |
 | US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Done | Center + offset sampling per product SDD |
-| US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Done | seq `01` (N=4) + `02` (N=6) expected arrays locked |
-| US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Done | `pasteboard` on focus; same isolate path as fixtures |
-
-**Next:** EPIC-3 — wire parse output → `calculateNextMove` → UI highlight
+| US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Done | seq `01`–`02` parse arrays + solve indices 4, 8 locked |
+| US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Done | `pasteboard` on resume; `clipboard_flow.dart` orchestrates parse → solve |
 
 ---
 
@@ -60,7 +60,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-3.1 | As a player, parsed board state is sent to Rust and returns the next move index. | Done | `solveParsedGrid()` → `calculateNextMove` from clipboard parse in `main.dart` |
+| US-3.1 | As a player, parsed board state is sent to Rust and returns the next move index. | Done | `solveParsedGrid()` via `clipboard_flow.dart` |
 | US-3.2 | As a player, the suggested cell is highlighted on a minimal grid. | Done | `PuzzleGridPreview` — highlight ring or stalled banner |
 | US-3.3 | As a developer, integration test covers image → parse → FFI → index. | Done | Tier 2: seq-08 fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 |
 
@@ -86,9 +86,11 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-6 — Advanced deterministic tiers (optional) · **Planned**
+## EPIC-6 — Advanced deterministic tiers (optional) · **Next**
 
 Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote current DFS to T6. **Do not implement from prose alone** — follow [solver_algorithms.md](../requirements/solver_algorithms.md) exact steps.
+
+**Branch:** `feature/us-6.1-phantom-tier` (one story per merge to `main`).
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|

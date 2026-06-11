@@ -23,3 +23,13 @@
 
 - [ ] Updated **doc/PROJECT_STATUS.md** and **AGENT_HANDOFF.md** *Current state* if project direction changed
 - [ ] Did **not** rely on gitignored `.cursor/handoff/` for contributor-facing decisions
+
+## Epic closure (when this PR completes an epic)
+
+- [ ] Ran [epic-closure-gate](.cursor/skills/epic-closure-gate/SKILL.md): merge-ready gate, branch cleanup, TECH_DEBT, doc sync
+- [ ] `./scripts/epic_closure_check.sh` PASS (or waivers in handoff note)
+- [ ] [EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) epic marked **Done** only after closure
+
+## Phase audit (when this PR closes a PM_PLAN phase)
+
+- [ ] Ran [project-health-audit](.cursor/skills/project-health-audit/SKILL.md); TECH_DEBT remediation waves updated
