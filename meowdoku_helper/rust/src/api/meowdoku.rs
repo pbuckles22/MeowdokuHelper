@@ -1,7 +1,7 @@
 use crate::solver::board::{Board, CAT};
-use crate::solver::tier3::run_tiers_1_through_3;
+use crate::solver::tier4::run_tiers_1_through_4;
 
-/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–3), or -1.
+/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–4), or -1.
 #[flutter_rust_bridge::frb(sync)]
 pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> i32 {
     let expected = (grid_size * grid_size) as usize;
@@ -11,9 +11,7 @@ pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> 
 
     let before = state.clone();
     let mut board = Board::new(state, regions, grid_size);
-    if !run_tiers_1_through_3(&mut board) {
-        return -1;
-    }
+    run_tiers_1_through_4(&mut board);
 
     for i in 0..expected {
         if before[i] != CAT && board.state[i] == CAT {
@@ -59,9 +57,9 @@ mod tests {
     }
 
     #[test]
-    fn returns_minus_one_when_no_forced_move() {
+    fn returns_minus_one_when_truly_stuck() {
         let size = 9u32;
-        let state = vec![EMPTY; 81];
+        let state = vec![BLOCKED; 81];
         let regions = checkerboard_regions(size);
         assert_eq!(calculate_next_move(state, regions, size), -1);
     }

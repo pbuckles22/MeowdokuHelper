@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-4.2 — Tier 3 traps + locked sets)
+**Last updated:** 2026-06-10 (US-4.3 — Tier 4 DFS on feature branch)
 
 ---
 
@@ -18,9 +18,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`main`** | US-4.2 merged @ `c712a37`; next US-4.3 DFS |
+| **`feature/us-4.3-dfs-bifurcation`** | US-4.3 ready to merge |
+| **`main`** | US-4.2 @ `c712a37` |
 
-**New contributors:** checkout **`main`**. Next: US-4.3 DFS bifurcation.
+**New contributors:** checkout **`main`**. US-4.3 lands after merge.
 
 ---
 
@@ -47,15 +48,16 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
 | **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims |
 | **US-4.2** — traps + locked sets | Done | `tier3.rs`; 15 Rust tests |
+| **US-4.3** — DFS bifurcation | Done (branch) | `tier4.rs`; 19 Rust tests |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
-**FFI (2026-06-10):** Tier 1 (27 Flutter + 15 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**FFI (2026-06-10):** Tier 1 (27 Flutter + 19 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 
 ## Next up
 
-1. **US-4.3** — Tier 4 DFS bifurcation ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+1. **Merge US-4.3** — Tier 4 DFS to `main` ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
 2. **Fixtures** — expand golden/parse coverage up seq order; seq-08 catalog N=9 vs parser N=8 ([FIXTURES.md](plan/FIXTURES.md))
 
 ---

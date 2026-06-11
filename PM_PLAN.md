@@ -113,8 +113,8 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 ### Phase 4c — Tier 4 (DFS bifurcation)
 
-- [ ] Safe backtracking when Tiers 1–3 stall
-- [ ] Illegal-state detection; no panic on stall
+- [x] Safe backtracking when Tiers 1–3 stall
+- [x] Illegal-state detection; no panic on stall
 
 **Acceptance:** `cargo test` covers complex boards; returns `-1` when truly stuck.
 

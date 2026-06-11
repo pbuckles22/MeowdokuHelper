@@ -2,6 +2,7 @@ pub const EMPTY: u8 = 0;
 pub const CAT: u8 = 1;
 pub const BLOCKED: u8 = 2;
 
+#[derive(Clone)]
 pub struct Board {
     pub state: Vec<u8>,
     pub regions: Vec<u8>,

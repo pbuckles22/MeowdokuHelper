@@ -4,7 +4,7 @@ Canonical reference for Rust solver development order. **Run the cheapest math f
 
 Maps to [product.md](product.md) tiers, [PM_PLAN.md](../../PM_PLAN.md) Phase 4, and EPIC-4 stories (US-4.1–4.3).
 
-**Implementation status:** Tier 1–3 shipped (Phase 1, Phase 4a–4b). Tier 4 planned (Phase 4c).
+**Implementation status:** Tier 1–4 shipped (Phase 1, Phase 4a–4c).
 
 ---
 
@@ -57,7 +57,7 @@ When deterministic logic fails (common on 10×10+), guess safely with backtracki
 
 | # | Algorithm | Role | Rust module (target) |
 |---|-----------|------|----------------------|
-| 7 | **DFS / bifurcation** | Pick first empty cell; clone board; try cat; recursively run Levels 1–3. On contradiction (e.g. row with zero cats and zero empties), revert, permanently block that cell, return to Level 1. On full solve, return winning move. | `tier4::dfs_bifurcation` |
+| 7 | **DFS / bifurcation** | Pick first empty cell; clone board; try cat; recursively run Levels 1–3. On contradiction (e.g. row with zero cats and zero empties), revert, permanently block that cell, return to Level 1. On full solve, return winning move. | `tier4::dfs_bifurcation` ✅ |
 
 **Acceptance:** Complex boards in `cargo test`; returns `-1` when truly stuck; no panic. Fixture gate **T4** and levels 22–30 when screenshots arrive.
 
