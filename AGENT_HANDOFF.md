@@ -86,7 +86,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
 - **Phase 1b:** Done — Wordle removed; `calculate_next_move` on bridge
 - **US-2.1:** Done — `lib/image/board_fixture.dart`, `jpeg_decode.dart`, seq-01 decode tests
-- **Tip:** `main` @ `eca553a` — US-2.1 merged; fixture catalog seq 01–32
+- **Tip:** `main` @ `6008685` — US-2.1 merged; fixture catalog seq 01–32
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
 - **Lint:** `flutter_lints` 6; Tier 1 green (8 Flutter + 8 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
