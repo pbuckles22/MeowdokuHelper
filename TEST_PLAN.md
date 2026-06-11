@@ -127,6 +127,8 @@ Enforced in [.cursor/rules/qa-coder-separation.mdc](.cursor/rules/qa-coder-separ
 
 **Forbidden:** Capturing `expected_move` from `calculate_next_move` / `calculateNextMove` in the same session that wrote or changed the solver under test. That is regression-lock at best; label it and schedule independent re-audit.
 
+**Forced-move uniqueness (QA):** Block candidate cell; if solver still returns a next move, classify **BRANCH_VARIANT** (not a hint oracle). Implementation: `rust/src/solver/t6_qa_force.rs`, `test/qa_t6_oracle_audit_test.dart`. seq 22–30: 0/9 forced (2026-06-12).
+
 ### Workflows
 
 **New tier algorithm (e.g. T4 Phantom):**

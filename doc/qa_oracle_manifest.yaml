@@ -90,8 +90,8 @@ artifacts:
     fixtures: seq 22-30
     derivation: doc/qa_derivations/t6-seq22-30-human.md
     notes: >-
-      Parse-lock + EMPTY preconditions green (2026-06-11). Human-verify 9 moves
-      pending before human-verified.
+      Uniqueness pass 2026-06-12: 0/9 forced, 9/9 BRANCH_VARIANT (t6_qa_force).
+      Regression-lock on DFS convention — not hint oracle. See derivation doc.
 
   # --- Parse goldens ---
 

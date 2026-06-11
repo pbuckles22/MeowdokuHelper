@@ -14,6 +14,7 @@ pub mod tier4;
 pub mod tier4_phantom;
 pub mod tier5;
 pub mod t6_fixtures;
+pub mod t6_qa_force;
 
 #[cfg(test)]
 pub mod test_helpers;

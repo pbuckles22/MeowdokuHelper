@@ -21,7 +21,9 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 (High ROI; frequent pain; not blocking.)
 
-- **Blind oracle re-audit (QA session)** — Run `./scripts/qa_oracle_audit.sh`; follow [doc/QA_ORACLE_AUDIT.md](doc/QA_ORACLE_AUDIT.md); track in [doc/qa_oracle_manifest.yaml](doc/qa_oracle_manifest.yaml). **P1** t6 seq 22–30; **P2** integration + `_T4_` fixtures; **P3** co-located tier synthetics. 13 coupled QA+Coder commits on `main` (suspicious) — see audit script output.
+- **Forced-move semantics (product/solver)** — Uniqueness pass: **9/9** t6 seq 22–30 locked moves are `BRANCH_VARIANT` (block-test), not forced hints — DFS `first_empty()` row-major convention. **Coder:** return true forced moves only, or `-1` when branching; add uniqueness check to API. **MRV** heuristic for T6 cell selection ([doc/qa_derivations/t6-seq22-30-human.md](doc/qa_derivations/t6-seq22-30-human.md)).
+- **t6 solve goldens mislabeled** — Gate tests solver stability, not hint oracle; re-oracle after forced-move fix or rename gate to `solvability-regression`.
+- **Blind oracle re-audit (QA session)** — Run `./scripts/qa_oracle_audit.sh`; track [doc/qa_oracle_manifest.yaml](doc/qa_oracle_manifest.yaml). **P1** t6: uniqueness done (0 forced); **P2** integration + `_T4_`; **P3** tier synthetics.
 - **Golden coverage** — seq 01–02 locked with solve indices; seq 03–08 have parse smoke tests (`parse_ladder_test.dart`) but **no locked goldens yet**; 24 fixtures still without parse+solve gates ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
 - **seq-08 N mismatch** — Catalog/fixture name says N=9; parser detects N=8 on `08_L09_N9_T1.jpg`. Integration test locks N=8 + index 11; fix N-detect when expanding goldens.
 - **Integration fixture copy** — Four fixtures duplicated under `integration_test/fixtures/` for device `rootBundle`.
