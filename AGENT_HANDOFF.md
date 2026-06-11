@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `4d76e53` — Phase 6 docs + SDLC gates; audit remediation on `fce4b73`; **only `main` exists**
+- **Active branch:** `main` @ `5208d6d` — Phase 6 docs + SDLC gates; audit remediation on `fce4b73`; **only `main` exists**
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
 - **Phases 0–5:** Done (bootstrap through EPIC-5 progressive sizing)
 - **Health audit (2026-06-11):** Done — reports in [.cursor/handoff/PROJECT_HEALTH_AUDIT.md](.cursor/handoff/PROJECT_HEALTH_AUDIT.md) + [AUDIT_BASELINE.md](.cursor/handoff/AUDIT_BASELINE.md); remediation waves 1–4 complete; 5–6 partial ([TECH_DEBT.md](TECH_DEBT.md))

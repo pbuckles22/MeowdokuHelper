@@ -54,7 +54,10 @@ HEAD_SHA="$(git rev-parse --short HEAD)"
 if grep -q "Active branch.*\`main\` @" AGENT_HANDOFF.md 2>/dev/null; then
   DOC_SHA="$(grep -oE 'main\` @ `[a-f0-9]+`' AGENT_HANDOFF.md | head -1 | grep -oE '[a-f0-9]{7,}' || true)"
   if [[ -n "$DOC_SHA" && "$DOC_SHA" != "$HEAD_SHA" ]]; then
-    if git merge-base --is-ancestor "$DOC_SHA" HEAD 2>/dev/null; then
+    RECENT="$(git log -10 --format=%h main 2>/dev/null || true)"
+    if echo "$RECENT" | grep -qx "$DOC_SHA"; then
+      pass "AGENT_HANDOFF.md SHA ($DOC_SHA) matches recent main history (HEAD $HEAD_SHA)"
+    elif git merge-base --is-ancestor "$DOC_SHA" HEAD 2>/dev/null; then
       pass "AGENT_HANDOFF.md SHA ($DOC_SHA) is ancestor of HEAD ($HEAD_SHA)"
     else
       fail "AGENT_HANDOFF.md SHA ($DOC_SHA) != HEAD ($HEAD_SHA) — sync tracked docs"

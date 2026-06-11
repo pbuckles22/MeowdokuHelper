@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (`main` @ `4d76e53` — Phase 6 next; SDLC gates added)
+**Last updated:** 2026-06-11 (`main` @ `5208d6d` — Phase 6 next; SDLC gates added)
 
 ---
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** @ `4d76e53` | Phase 6 prep + SDLC gates; sole branch (feature branches cleaned up) |
+| **`main`** @ `5208d6d` | Phase 6 prep + SDLC gates; sole branch (feature branches cleaned up) |
 
 **New contributors:** `git checkout main && git pull origin main`
 
