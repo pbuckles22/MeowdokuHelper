@@ -1,88 +1,145 @@
 ---
 name: github-feature-workflow
 description: >-
-  Short-lived feature branches; TDD + lint + merge-ready command as exit criteria before
-  commit; push and merge to main (or user-directed flow). Do not default to
-  asking the user to open a PR. Use when implementing a feature or non-trivial
-  fix, when the user asks for branch/git workflow, or after substantial edits
-  that should not stay uncommitted.
+  Multi-project template skill: short-lived feature branches; run the full
+  merge-ready test gate before every code commit (not only at merge); TDD
+  red-green; push and merge to main. Sync to AgenticTemplate for all bolt-ons.
+  Do not default to asking the user to open a PR.
 ---
 
 # Git / GitHub feature branch workflow
 
-**Policy in this template:** [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) — `main` is the integration branch; the **merge-ready command** is the quality bar. This skill defines **how work is finished**: tests (TDD where the tier applies), lint, format, merge-ready green, then **commit** (and **push** per AGENT_HANDOFF). **Pull requests are not part of the default exit** for this template unless the user explicitly asks for a PR or GitHub-based review.
+**Template skill** — canonical copy lives in **AgenticTemplate** (`~/Dev/AgenticTemplate/.cursor/skills/github-feature-workflow/`). Copy this file **verbatim** into every agentic bolt-on (Flutter, browser extension, backend, CLI, etc.). Project-specific **commands** live in **AGENT_HANDOFF.md** and **TEST_PLAN.md**; this skill defines **when** to run them.
+
+**Multi-project rule:** Steps **1–2** apply to **all** bolt-ons. Steps **3–5**, the appendix, and table rows marked *optional* are **\*optional\*** — **keep them in the file** even when a bolt-on has no Tier 2, no FFI/native bridge, or no `code-quality-gate` skill. Agents skip optional steps when `TEST_PLAN.md` / stack docs say N/A; do not delete or fork the skill per app.
+
+**Policy:** [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) — `main` is the integration branch; the **merge-ready command** is the quality bar. **Pull requests are not the default exit** unless the user explicitly asks for a PR or GitHub review.
 
 ## Do not prompt for PRs (agents)
 
-- **Do not** tell the user to "open a PR," paste `github.com/.../pull/new/...` links, or treat opening a PR as the normal end-of-task step.
-- **Do** treat **green merge-ready command** plus project test discipline ([tester](../tester/SKILL.md), [TEST_TDD.md](../TEST_TDD.md), [code-quality-gate](../code-quality-gate/SKILL.md) when relevant) as **merge-ready / commit-ready**.
-- **If** the user says they want a PR, GitHub review, or external reviewers: then describe or open the PR as they asked.
+- **Do not** tell the user to "open a PR" or treat a PR as the normal end-of-task step.
+- **Do** treat **green merge-ready** plus [tester](../tester/SKILL.md) / [TEST_TDD.md](../TEST_TDD.md) discipline as **commit-ready**.
+- **If** the user wants a PR or external review: follow their request.
 
-**Completion mental model:** one branch ≈ one purpose → merge-ready green → **commit** → **push** → merge to `main` (locally or via GitHub **only if the user uses that path**) → delete the feature branch. No roundabout "please open a PR" unless they chose that path.
+**Completion mental model:** one branch ≈ one purpose → **full gate green on every code commit** → **commit** → **push** → merge to `main` (re-run gate after merge if needed) → delete the feature branch.
 
-## When to apply
+**Commit discipline (all projects):** Every `git commit` that touches application code, tests, native/FFI, or build config must leave the repo **clean**. Run the **full merge-ready gate before each such commit**. Do **not** batch testing only at merge; merge is a **second confirmation**, not the first gate.
 
-- User asks for a **feature branch**, **commit**, **push**, or **merge** (or explicitly **PR**).
-- A **coherent slice** of work is done (e.g. one epic story, one bugfix) and should be **recorded in git** before the session ends.
-- **Do not** create branches for one-line typo fixes unless the user wants it.
+---
 
-## Branch naming
+## Exit criteria before **every** code commit (ship bar)
 
-- Prefer: `feature/<short-kebab-topic>` (e.g. `feature/epic-10-3-pause-keys`) or `fix/<issue-or-topic>`.
-- Avoid ultra-long names; include epic/story id if it helps **PM_PLAN** / roadmap traceability.
+Run the **full gate before each `git commit`** that touches code, tests, native bridges, or build config.
 
-## Branch-first rule (agents)
+**Exception:** trivial doc-only edits (typos, comments) with **no behavior change** — gate not required; say so in the commit message.
 
-- **Do not** stack substantial implementation on **`main`** and only then create a feature branch to "check in." That bypasses a proper branch history and the CI-before-commit discipline.
-- **Do** start each non-trivial slice on a **new branch**: `git fetch origin`, `git checkout main`, `git pull`, `git checkout -b feature/<topic>`, then implement, run merge-ready, commit, push, merge to `main` per [Standard sequence](#standard-sequence) (no default PR step).
-- If work already landed on **`main`** without a branch, recover discipline going forward; optionally **`git checkout -b feature/<topic>`** from **`main`** before the _next_ slice so new commits are branch-first.
+### 1. TDD (all projects)
 
-## Exit criteria before commit (ship bar)
+[TEST_TDD.md](../TEST_TDD.md) + [tester](../tester/SKILL.md):
 
-Treat these as satisfied **before** `git commit` on anything beyond trivial doc typos (adjust if the user narrows scope):
+- **Red → green** for new/changed behavior at the tier(s) that cover the change.
+- After the new test passes, **re-run the full merge-ready gate** — not only the new test.
 
-1. **TDD / tests** — [TEST_TDD.md](../TEST_TDD.md) + [tester](../tester/SKILL.md): failing test first when the changed surface is covered by Tier 1 or Tier 2; suite green for what you touched.
-2. **Lint + format** — covered by your merge-ready command (linter, Prettier/formatter check).
-3. **Full merge-ready** — your project's merge-ready command green (tests, build, E2E if applicable).
-4. **Quality** — For non-trivial edits, use [code-quality-gate](../code-quality-gate/SKILL.md) as appropriate (readability, complexity, obvious foot-guns).
+### 2. Full merge-ready — Tier 1 + lint/analyze (all projects)
 
-When 1–4 are green: **commit** (and **push** when integrating to `main` per AGENT_HANDOFF). That is the **done** state — not "waiting for the user to open a PR."
+Run the **merge-ready command** documented in [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) and [TEST_PLAN.md](../../TEST_PLAN.md) (repo root).
 
-## Pre-checkin and pre-next-feature checks
+Typical shape (replace with your project's exact command):
 
-- **Before commits** that change behavior or tests (not one-line doc typos): run your **merge-ready command** — same gate as [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) for **`main`**.
-- **Before merging** to **`main`**: merge-ready green on the feature branch.
-- **Before starting the next feature** after a merged story: run merge-ready on updated **`main`** (`git checkout main && git pull`) so Tier 1 + Tier 2 still pass against **origin/main** before new work begins (catches drift if the final gate was skipped).
-- **After push to `main`:** run **Verify CI after push** (above) when the repo has GitHub Actions — users may learn about failures via email before agents do; agents must check explicitly.
+```bash
+# Read AGENT_HANDOFF.md / TEST_PLAN.md — example pattern only
+<lint-or-analyze-command>
+<tier-1-fast-tests>
+```
+
+All steps in that command must pass. **Required on every code commit**, not only before merge or push.
+
+### 3. *Optional — Tier 2 / integration / E2E*
+
+\*Run when the project defines **Tier 2** (or equivalent) in [TEST_PLAN.md](../../TEST_PLAN.md).
+
+- Required before commit when the change touches: UI flows, device/simulator behavior, HTTP/API integration, or anything Tier 2 is meant to catch.
+- Skip only when the change is **purely** Tier 1–covered logic with no integration surface (document why in the commit message if borderline).
+
+```bash
+# Project-specific — see TEST_PLAN.md
+<tier-2-command>
+```
+
+### 4. *Optional — FFI / native bridge / mobile embed*
+
+\*Run when the project has **FFI, native modules, or mobile embed** (Flutter+Rust, React Native, WASM, etc.) and [TEST_PLAN.md](../../TEST_PLAN.md) or [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) says Tier 2 (or a device build) is required for bridge changes.
+
+- Required before commit when touching: generated bindings, `Cargo.toml` / native deps, `ios/` / `android/`, bridge codegen, or Rust/C++ API surface.
+- *Apps with no native bridge:* ignore this bullet.
+
+### 5. *Optional — quality pass*
+
+\*[code-quality-gate](../code-quality-gate/SKILL.md) for non-trivial edits (readability, complexity) when the project uses it.
+
+---
+
+When steps 1–2 (and any applicable *optional* steps) are green: **commit**. Repeat the full gate before the **next** code commit on the same branch.
+
+## Pre-merge, pre-push, and pre-next-feature
+
+| When | Gate |
+|------|------|
+| **Each code commit** | Full merge-ready (+ *optional* tiers per above) — **primary discipline** |
+| **Before merge to `main`** | Full gate again on feature branch tip |
+| **After merge to `main`** | Full gate on `main`; *repeat Tier 2 / FFI tier if that slice touched bridge/native* |
+| **Before next feature** | Full gate on updated `main` after `git pull` |
+| **After push** | *Optional — CI verify* when GitHub Actions (or equivalent) exist — see step 8 below |
 
 ## Standard sequence
 
-1. **Start from current `main` (or agreed base):** `git fetch origin` when remote exists; `git status` (clean or intentional WIP).
-2. **Create branch:** `git checkout -b <name>` — **before** writing production code for the slice.
-3. **Implement** with tests as required by [tester skill](../tester/SKILL.md) and [TEST_TDD.md](../TEST_TDD.md) (**red → green** when that tier applies).
-4. **Gate before commit:** meet **[Exit criteria before commit](#exit-criteria-before-commit-ship-bar)**; your merge-ready command is the all-in-one gate here.
-5. **Commit:** clear, imperative subject line; body only if context helps (what/why, not noise). One logical commit per slice is fine; multiple small commits are fine if they tell a story.
-6. **Push:** `git push -u origin <branch>` (first time); later `git push` on that branch.
-7. **Integrate to `main`:** Prefer what the user asked for: **local merge** (`git checkout main && git pull && git merge <branch> && [merge-ready] && git push origin main`) when they want work on `main` without a PR, or **they** handle GitHub merge if they use the web UI. **Do not** nudge them toward opening a PR by default.
-8. **Verify CI after push** (when GitHub Actions or equivalent exist): agents do **not** receive GitHub email notifications. After pushing to `main` (or any branch with CI), confirm the remote run — do not treat local merge-ready alone as ship-complete.
+1. **Start from `main` (or agreed base):** `git fetch origin`; `git status`.
+2. **Create branch:** `git checkout -b feature/<topic>` — **before** production code for the slice.
+3. **Implement** with **red → green** per [TEST_TDD.md](../TEST_TDD.md).
+4. **Gate → commit → repeat:** full [exit criteria](#exit-criteria-before-every-code-commit-ship-bar); if green, **commit**. Multiple commits per slice are fine — **each code commit gets its own full gate**.
+5. **Commit message:** imperative subject; short body if it helps.
+6. **Push:** `git push -u origin <branch>` (first time).
+7. **Integrate to `main`:** local merge or user-directed flow — **do not** nudge toward PR by default.
+8. *Optional — verify CI after push* when Actions exist:
 
    ```bash
-   # Get latest run ID, then watch (required in non-interactive/agent sessions)
    RUN=$(gh run list --repo OWNER/REPO --limit 1 --json databaseId -q '.[0].databaseId')
    gh run watch "$RUN" --exit-status
-
-   gh run list --repo OWNER/REPO --limit 1              # quick status check
-   gh run view <run-id> --log-failed                     # diagnose failures
    ```
 
-   Local tests can pass while CI fails (different OS, env vars, path semantics). Fix and push again until CI is green before declaring the slice done.
+9. **After merge:** `git checkout main && git pull`; delete feature branch when done.
+10. **Update product state:** [PM_PLAN.md](../../PM_PLAN.md) and product docs when scope ships.
 
-9. **After merge to `main`:** checkout `main`, `git pull`, **delete the local feature branch** (`git branch -d <branch>`). Delete remote: `git push origin --delete <branch>` when the user wants the remote branch removed.
-10. **Update product state** if scope shipped: [PM_PLAN.md](../../PM_PLAN.md) and your product plan — not only git history.
-
-**PR (explicit opt-in only):** If and only if the user asked for a PR or GitHub review, add a PR with a short title and note merge-ready green. Otherwise skip PR language entirely.
+**PR:** only when the user explicitly requests it.
 
 ## What this skill does _not_ do
 
-- Replace **code review** or **handoff** — see [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) and `.cursor/rules/handoff-checklist.mdc` when the user wants a handoff.
-- **Invent a PR step** — PRs are not the default completion signal; **merge-ready + commit (+ push/merge per user)** is.
+- Replace **code review** or **handoff** — see [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md) and `.cursor/rules/handoff-checklist.mdc`.
+- Replace **TEST_PLAN.md** — projects must document exact commands there; this skill defines **cadence** (every commit).
+
+---
+
+## *Appendix — example bolt-on commands*
+
+\*Each bolt-on documents **exact commands** in [TEST_PLAN.md](../../TEST_PLAN.md) and [AGENT_HANDOFF.md](../../AGENT_HANDOFF.md). Example (Flutter + Rust FFI app):\*
+
+```bash
+cd <app_package_dir>
+flutter analyze && flutter test
+cd rust && cargo test --lib && cd ..
+```
+
+\*Tier 2 / FFI — when applicable:\*
+
+```bash
+flutter test integration_test/ -d <device-or-simulator-id>
+```
+
+---
+
+## Syncing to AgenticTemplate and bolt-ons
+
+1. **Canonical source:** this file in `AgenticTemplate/.cursor/skills/github-feature-workflow/SKILL.md`.
+2. **Bolt-ons:** manual copy into each project's `.cursor/skills/github-feature-workflow/SKILL.md` (do not git-merge upstream into FFI-sensitive repos if policy forbids it).
+3. **Do not trim** *optional* / \*asterisk\* sections for simpler stacks — agents skip when N/A.
+4. Each bolt-on keeps **stack-specific** commands in **TEST_PLAN.md** and **AGENT_HANDOFF.md** only; this skill stays **byte-identical** across projects.

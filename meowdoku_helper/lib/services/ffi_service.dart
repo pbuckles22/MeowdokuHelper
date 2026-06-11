@@ -3,8 +3,7 @@ import 'package:meowdoku_helper/src/rust/frb_generated.dart';
 
 /// Thin wrapper around flutter_rust_bridge startup.
 ///
-/// Wordle-specific helpers were removed in Phase 1b. Star Battle board FFI
-/// lands in Phase 3 (`calculate_next_move`).
+/// Star Battle board FFI (`calculate_next_move`) is exposed from `api/meowdoku`.
 abstract final class FfiService {
   static bool _isInitialized = false;
 

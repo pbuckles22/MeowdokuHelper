@@ -77,15 +77,16 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `bump/flutter-rust-bridge-2.12` (FRB 2.12 upgrade from `main`)
+- **Active branch:** `main` (Phase 1b complete on `main`)
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
 - **Phase 1b.1:** Done — Wordle UI/tests/assets removed; placeholder app; smoke + Rust FFI roundtrip tests
 - **Lint:** `flutter_lints` 6; `flutter analyze` clean on hand-written Dart
 - **FFI verified:** Tier 1 green; Android debug APK + `aarch64-apple-ios-sim` Rust build OK; **iOS 26.5 sim Tier 2** integration smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** FRB 2.12 on bump branch → merge integration line to `main` → Phase 2 image pipeline
-- **Legacy API:** Wordle Rust exports in `api/` until Phase 3 — do not extend
+- **FFI API:** `init_app` + `calculate_next_move` only (Wordle exports removed)
+- **Phase 1b.2:** Done — Wordle FRB removed; `calculate_next_move` on bridge
+- **Next:** Phase 2 image pipeline (clipboard → isolate → `state`/`regions`)
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test
@@ -137,6 +138,6 @@ flutter test integration_test/
 
 ## Syncing the agentic layer
 
-Manual copy from `~/Dev/AgenticTemplate` — copy `.cursor/`, `INCIDENTS.md`, `RISKS.md`, `TECH_DEBT.md`, `RELEASE.md`; merge SDD sections into this file; **keep** stack-specific `DEV_GUIDE.md`, `TEST_TDD.md`, `always.mdc`.
+Manual copy from `~/Dev/AgenticTemplate` — copy `.cursor/`, `INCIDENTS.md`, `RISKS.md`, `TECH_DEBT.md`, `RELEASE.md`; merge SDD sections into this file; **keep** stack-specific `DEV_GUIDE.md`, `TEST_TDD.md`, `always.mdc`. **Upstream:** copy `github-feature-workflow/SKILL.md` from this repo into AgenticTemplate when updating the multi-project template (per-commit gate + \*optional\* Tier 2/FFI asterisks).
 
 Do **not** git-merge AgenticTemplate into this repo (FFI risk).

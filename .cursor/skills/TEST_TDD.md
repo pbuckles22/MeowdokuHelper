@@ -12,7 +12,9 @@ See [docs/TESTING_STRATEGY.md](../../docs/TESTING_STRATEGY.md) for the algorithm
 
 ## TDD for this project
 
-**Default:** Do not merge production changes until the right tier(s) have **failing test → passing test** for the behavior you are adding or changing.
+**Default:** Do not merge production changes until the right tier(s) have **red → green** (failing test first, then implementation until green). After every change, re-run the **full merge-ready gate** so the whole suite stays green — not only the new test.
+
+**Merge bar:** Tier 1a + Tier 1b + `flutter analyze` always; **Tier 2** required for any FFI/native change (see [TEST_PLAN.md](../../../TEST_PLAN.md)).
 
 ### Tier 1a: Rust unit tests (fastest)
 

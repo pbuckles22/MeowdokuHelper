@@ -1,4 +1,4 @@
-/// Service-related exceptions for Wordle game
+/// Service-related exceptions for app services.
 ///
 /// These exceptions handle service initialization, asset loading,
 /// and service operation errors following TDD principles.

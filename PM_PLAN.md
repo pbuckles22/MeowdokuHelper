@@ -24,7 +24,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Acceptance:** `cargo test --lib` green for Tier 1 module at N=9. *(Branch: `feature/phase1-board-tier1`.)*
 
-## Phase 1b — Wordle remnant removal (immediate next)
+## Phase 1b — Wordle remnant removal — done
 
 **Goal:** Seek-and-destroy template Wordle code, tests, and assets so the repo reflects Star Battle only — **without breaking FFI/build**.
 
@@ -41,16 +41,15 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - [x] Archive or delete Wordle-only docs (`docs/archive/*`, `WORDLE_SOLVER_ARCHITECTURE_ANALYSIS.md`, etc.)
 - [x] Remove Wordle scripts: `scripts/benchmark_baseline.py`, `precompute_optimal_guesses.rs`, `run_extended_benchmark.sh`
 
-### 1b.2 — FFI-adjacent Wordle API (still in repo — not gutted yet)
+### 1b.2 — FFI-adjacent Wordle API removal — done
 
-**Status:** UI/assets/tests removed in 1b.1; **~2,600 lines Wordle Rust + FRB exports remain** until API swap. See [doc/QC_STATUS.md](doc/QC_STATUS.md).
+- [x] Remove `rust/src/api/meowdoku_helper.rs`, `meowdoku_helper_reference.rs`
+- [x] `rust/src/api/simple.rs` → `init_app()` only
+- [x] `rust/src/api/meowdoku.rs` → `calculate_next_move` (Tier 1 solver wired)
+- [x] Regenerate FRB bindings; Dart roundtrip tests use Star Battle API
+- [x] Trim Wordle-only Rust deps from `Cargo.toml`
 
-**Keep until Star Battle API replaces Wordle exports:**
-
-- `rust/src/api/simple.rs` → `init_app()` only (plus future `calculate_next_move`)
-- `rust/src/api/meowdoku_helper.rs`, `meowdoku_helper_reference.rs` — remove when FRB regenerated
-- `lib/services/ffi_service.dart` — rewrite when board FFI lands
-- **Never casual:** `rust_builder/`, `ios/`, `flutter_rust_bridge.yaml`, `Cargo.toml` (see [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md))
+**Never casual:** `rust_builder/`, `ios/`, `flutter_rust_bridge.yaml`, `Cargo.toml` pins (see [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md))
 
 ### 1b.3 — Keep / wire later
 
@@ -64,9 +63,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - `cd meowdoku_helper && flutter test` green (Wordle tests removed or replaced with minimal smoke tests)
 - `flutter run` launches placeholder UI (not Wordle screen)
 - No Wordle word-list assets in `pubspec.yaml`
-- FFI stack still builds: `RustLib.init()` succeeds (Wordle API may remain until Phase 3)
-
-**Out of scope for 1b:** Replacing Wordle FRB exports with `calculate_next_move` — that is Phase 3.
+- FFI stack still builds: `RustLib.init()` succeeds
 
 **Upstream template:** Wordle should never ship in [Rust_Julia_FFI_Flutter_Template](https://github.com/pbuckles22/Rust_Julia_FFI_Flutter_Template). See [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md) (Phases T0–T4).
 
@@ -81,15 +78,16 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Acceptance:** Unit test with N=9 fixture image → expected 81-element arrays. Optional follow-up: N=10 fixture.
 
-## Phase 3 — FFI bridge + UI highlight
+## Phase 3 — UI highlight + end-to-end wire
 
-**Goal:** Wire isolate output to Rust solver; show result on grid.
+**Goal:** Wire Phase 2 isolate output through existing FRB API; show result on grid.
 
-- [ ] Expose `calculate_next_move(state, regions, grid_size) -> i32` via **flutter_rust_bridge** in `rust/src/api/` (not raw `extern "C"`)
-- [ ] Regenerate FRB bindings; Flutter calls from parsed board state
+**Note:** `calculate_next_move` shipped in Phase 1b.2 (FRB + Tier 1 roundtrip tests).
+
+- [ ] Flutter calls `calculateNextMove` from parsed board state (not test fixtures only)
 - [ ] UI highlights returned cell index; `-1` = stuck
 
-**Acceptance:** Integration test at N=9: known board in → expected index out.
+**Acceptance:** Integration test at N=9: fixture image → isolate arrays → FFI → expected index on screen.
 
 ## Phase 4 — Advanced logic + fallback
 

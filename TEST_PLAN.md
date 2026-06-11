@@ -43,12 +43,18 @@ See [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md). Latest results: [doc/QC_STATUS
 
 ## Merge-ready gate
 
-Run before every push to `main`:
+Run before **every code commit** and again before merge/push to `main`:
 
 ```bash
 cd meowdoku_helper
-flutter test && cd rust && cargo test --lib && cd ..
+flutter analyze
+flutter test
+cd rust && cargo test --lib && cd ..
 ```
+
+**FFI / FRB changes:** also run Tier 2 on iOS simulator ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)).
+
+**TDD:** new behavior requires **red → green** at the applicable tier(s) before merge; then re-run the full gate above so nothing else regressed.
 
 Same checks should run in CI if you use GitHub Actions.
 
