@@ -1,7 +1,8 @@
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
-/// Decoded JPEG dimensions (pixel raster available during decode, then disposed).
+import 'package:image/image.dart' as img;
+
+/// Decoded JPEG dimensions (full raster available via [decodeJpegImage] for sampling).
 class DecodedJpeg {
   const DecodedJpeg({required this.width, required this.height});
 
@@ -9,18 +10,20 @@ class DecodedJpeg {
   final int height;
 }
 
-/// Decodes JPEG [bytes] using the Flutter image codec (isolate-safe in Phase 2).
-Future<DecodedJpeg> decodeJpeg(Uint8List bytes) async {
-  final codec = await ui.instantiateImageCodec(bytes);
-  try {
-    final frame = await codec.getNextFrame();
-    final image = frame.image;
-    try {
-      return DecodedJpeg(width: image.width, height: image.height);
-    } finally {
-      image.dispose();
-    }
-  } finally {
-    codec.dispose();
+/// Decodes JPEG [bytes] (pure Dart — safe for [compute] isolates).
+DecodedJpeg decodeJpeg(Uint8List bytes) {
+  final decoded = img.decodeImage(bytes);
+  if (decoded == null) {
+    throw StateError('JPEG decode failed');
   }
+  return DecodedJpeg(width: decoded.width, height: decoded.height);
+}
+
+/// Full raster decode for Phase 2 cell sampling (US-2.4+).
+img.Image decodeJpegImage(Uint8List bytes) {
+  final decoded = img.decodeImage(bytes);
+  if (decoded == null) {
+    throw StateError('JPEG decode failed');
+  }
+  return decoded;
 }

@@ -18,7 +18,7 @@ void main() {
 
     test('decodes seq-01 fixture to a raster image', () async {
       final bytes = await BoardFixture.readBytes('01_L-early_N4_T1.jpg');
-      final decoded = await decodeJpeg(Uint8List.fromList(bytes));
+      final decoded = decodeJpeg(Uint8List.fromList(bytes));
 
       expect(decoded.width, equals(1000));
       expect(decoded.height, equals(893));

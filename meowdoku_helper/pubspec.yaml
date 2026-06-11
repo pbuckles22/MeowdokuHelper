@@ -40,6 +40,7 @@ dependencies:
   
   rust_lib_meowdoku_helper:
     path: rust_builder
+  image: ^4.9.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

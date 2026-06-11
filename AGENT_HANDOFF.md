@@ -85,12 +85,13 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Solver catalog:** [doc/requirements/solver_algorithms.md](doc/requirements/solver_algorithms.md)
 - **Phase 1:** Done — size-aware `Board` + Tier 1 at N=9 (`rust/src/solver/`)
 - **Phase 1b:** Done — Wordle removed; `calculate_next_move` on bridge
-- **US-2.1:** Done — `lib/image/board_fixture.dart`, `jpeg_decode.dart`, seq-01 decode tests
-- **Ship status:** US-2.1 merged to `main`; EPIC-2 in progress; fixture catalog seq 01–32
+- **US-2.1:** Done — fixture load + JPEG decode (`lib/image/`)
+- **US-2.2:** Done — `decodeJpegInBackground()` via `compute()`; pure-Dart `image` package (dart:ui cannot decode off main isolate)
+- **Ship status:** US-2.2 merged to `main`; EPIC-2 in progress
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
 - **Lint:** `flutter_lints` 6; Tier 1 green (8 Flutter + 8 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **US-2.2** — `git checkout -b feature/us-2.2-isolate` from `main`; `compute()` isolate entrypoint
+- **Next:** **US-2.3** — `git checkout -b feature/us-2.3-n-detect` from `main`; N from unique region colors
 - **Push:** `main` ahead of `origin` — push when ready
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
