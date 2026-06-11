@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `feature/us-3.3-integration` — US-3.3 Tier 2 integration (`main` @ `b462259`)
+- **Active branch:** `feature/us-4.1-intersection` — US-4.1 Tier 2 intersection logic (`main` @ `8d541f0`)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -93,12 +93,13 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-2.6:** Done — `pasteboard` on `AppLifecycleState.resumed`; JPEG magic-byte gate → `parseJpegInBackground()`
 - **US-3.1:** Done — `solveParsedGrid()` flat FRB wire; clipboard parse → `calculateNextMove` in `main.dart`
 - **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
-- **US-3.3:** Done — Tier 2: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
-- **Ship status:** **EPIC-3 done** on `feature/us-3.3-integration`; merge to `main` when ready
+- **US-3.3:** Done — Tier 2 integration: seq-08 bundled fixture → `parseJpegInBackground` → `solveParsedGrid` → index 41 (iOS 26.5 sim)
+- **Ship status:** **EPIC-3 merged to `main`** @ `8d541f0`
+- **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2` wired in `calculate_next_move`; 12 Rust tests
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
-- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 8 Rust)
+- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 12 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **EPIC-4** — Tier 2+ intersection logic; expand fixture goldens up seq order
+- **Next:** **US-4.2** — Tier 3 locked ecosystems + 2×2 traps
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

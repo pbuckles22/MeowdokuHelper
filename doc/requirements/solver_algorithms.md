@@ -4,7 +4,7 @@ Canonical reference for Rust solver development order. **Run the cheapest math f
 
 Maps to [product.md](product.md) tiers, [PM_PLAN.md](../../PM_PLAN.md) Phase 4, and EPIC-4 stories (US-4.1–4.3).
 
-**Implementation status:** Tier 1 shipped (Phase 1). Tiers 2–4 planned (Phase 4a–4c).
+**Implementation status:** Tier 1–2 shipped (Phase 1, Phase 4a). Tiers 3–4 planned (Phase 4b–4c).
 
 ---
 
@@ -29,8 +29,8 @@ When Level 1 stalls, compare groups that share boundaries.
 
 | # | Algorithm | Role | Rust module (target) |
 |---|-----------|------|----------------------|
-| 3 | **Region-claims-line** | All remaining empties in a color region lie on one row (or column). That region’s cat must be on that line → block other empties on the line outside the region. | `tier2::region_claims_line` |
-| 4 | **Line-claims-region** | Inverse: a row/column’s only empties belong to one color region → block that region’s empties outside the line. | `tier2::line_claims_region` |
+| 3 | **Region-claims-line** | All remaining empties in a color region lie on one row (or column). That region’s cat must be on that line → block other empties on the line outside the region. | `tier2::region_claims_line` ✅ |
+| 4 | **Line-claims-region** | Inverse: a row/column’s only empties belong to one color region → block that region’s empties outside the line. | `tier2::line_claims_region` ✅ |
 
 **Loop:** On any block, drop back to Level 1.
 

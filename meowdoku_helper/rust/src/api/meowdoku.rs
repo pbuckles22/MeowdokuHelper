@@ -1,7 +1,7 @@
 use crate::solver::board::{Board, CAT};
-use crate::solver::tier1::run_tier1;
+use crate::solver::tier2::run_tiers_1_and_2;
 
-/// Returns cell index 0..(N²-1) for the next Tier-1 forced cat placement, or -1.
+/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–2), or -1.
 #[flutter_rust_bridge::frb(sync)]
 pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> i32 {
     let expected = (grid_size * grid_size) as usize;
@@ -11,7 +11,7 @@ pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> 
 
     let before = state.clone();
     let mut board = Board::new(state, regions, grid_size);
-    if !run_tier1(&mut board) {
+    if !run_tiers_1_and_2(&mut board) {
         return -1;
     }
 
@@ -64,5 +64,28 @@ mod tests {
         let state = vec![EMPTY; 81];
         let regions = checkerboard_regions(size);
         assert_eq!(calculate_next_move(state, regions, size), -1);
+    }
+
+    #[test]
+    fn tier2_intersection_board_returns_forced_index() {
+        let size = 4u32;
+        let n = size as usize;
+        let half = n / 2;
+        let regions: Vec<u8> = (0..n * n)
+            .map(|idx| {
+                let (x, y) = (idx % n, idx / n);
+                let qx = if x < half { 0 } else { 1 };
+                let qy = if y < half { 0 } else { 1 };
+                (qy * 2 + qx + 1) as u8
+            })
+            .collect();
+
+        let mut state = vec![BLOCKED; n * n];
+        state[0] = EMPTY;
+        state[1] = EMPTY;
+        state[4] = EMPTY;
+        state[5] = EMPTY;
+
+        assert_eq!(calculate_next_move(state, regions, size), 0);
     }
 }

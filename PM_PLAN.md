@@ -98,9 +98,9 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 ### Phase 4a — Tier 2 (intersection)
 
-- [ ] Region-to-line claims
-- [ ] Line-to-region claims
-- [ ] Drop to Tier 1 after blocks
+- [x] Region-to-line claims
+- [x] Line-to-region claims
+- [x] Drop to Tier 1 after blocks
 
 **Acceptance:** `cargo test` for intersection-only boards.
 

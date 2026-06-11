@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-10 (post US-3.3 — EPIC-3 done)
+**Last updated:** 2026-06-10 (post US-4.1 — Tier 2 intersection logic)
 
 ---
 
@@ -18,9 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`feature/us-3.3-integration`** | US-3.3 Tier 2 — ready to merge to `main` |
+| **`feature/us-4.1-intersection`** | US-4.1 Tier 2 intersection — ready to merge to `main` |
 
-**New contributors:** checkout **`main`** (or this branch for US-3.3 review). Next: EPIC-4 solver tiers.
+**New contributors:** checkout **`main`**. Active work: US-4.2 Tier 3 traps.
 
 ---
 
@@ -45,15 +45,16 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 | **US-3.2** — grid preview | Done | `PuzzleGridPreview` highlight / stalled banner |
 | **US-3.3** — E2E integration | Done | seq-08 → isolate parse → FFI → index 41 on iOS 26.5 sim |
 | **EPIC-3** — solve + highlight | Done | Clipboard/fixture → parse → solve → grid preview |
+| **US-4.1** — intersection logic | Done | `tier2.rs` region/line claims; 12 Rust tests |
 | Fixture catalog | Done | seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md) |
 
-**FFI (2026-06-10):** Tier 1 (27 Flutter + 8 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
+**FFI (2026-06-10):** Tier 1 (27 Flutter + 12 Rust) + Tier 2 (3 integration) green on iOS 26.5 sim. See [QC_STATUS.md](QC_STATUS.md), [docs/MAC_IOS_TEST.md](../docs/MAC_IOS_TEST.md).
 
 ---
 
 ## Next up
 
-1. **EPIC-4** — Tier 2+ intersection logic ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
+1. **US-4.2** — Tier 3 locked ecosystems + 2×2 traps ([EPICS_AND_STORIES.md](plan/EPICS_AND_STORIES.md))
 2. **Fixtures** — expand golden/parse coverage up seq order; seq-08 catalog N=9 vs parser N=8 ([FIXTURES.md](plan/FIXTURES.md))
 
 ---
