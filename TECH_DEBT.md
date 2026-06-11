@@ -31,7 +31,7 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 (Isolated + workaround + revisit trigger.)
 
-- **Clipboard re-parse on resume** — No content-hash dedup; re-parses JPEG on every `AppLifecycleState.resumed`. Fine for MVP; revisit if pasteboard churn causes jank.
+- **Fixture `T` suffix vs ladder** — Filenames use `_T4_` for “needs DFS today.” Target T1–T6 ladder documented in [solver_algorithms.md](doc/requirements/solver_algorithms.md); relabel after EPIC-6 (Phase 6).
 
 ---
 

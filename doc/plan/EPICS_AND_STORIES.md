@@ -72,7 +72,8 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 |----|-------|--------|------------|
 | US-4.1 | As a player, Tier 2 intersection logic solves boards Tier 1 cannot. | Done | Region/line claims; `cargo test` intersection boards |
 | US-4.2 | As a player, Tier 3 handles locked ecosystems and 2×2 traps. | Done | `cargo test` locked-set boards |
-| US-4.3 | As a player, Tier 4 DFS finds moves or returns stuck safely. | Done | Complex boards; `-1` when truly stuck; no panic |
+| US-4.3 | As a player, Tier 6 DFS finds moves or returns stuck safely (shipped as `tier4`). | Done | Complex boards; `-1` when truly stuck; no panic |
+| US-4.4 | As a developer, T4 fixture gate locks seq 22–30 parse + solve regression. | Done | `t4_fixtures.rs` + `t4_solver_goldens.dart`; `cargo test` + `flutter test` |
 
 ---
 
@@ -85,6 +86,20 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
+## EPIC-6 — Advanced deterministic tiers (optional) · **Planned**
+
+Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote current DFS to T6. **Do not implement from prose alone** — follow [solver_algorithms.md](../requirements/solver_algorithms.md) exact steps.
+
+| ID | Story | Status | Acceptance |
+|----|-------|--------|------------|
+| US-6.1 | As a player, Phantom Cat Projection blocks cells without guessing. | Planned | `tier4_phantom`; synthetic boards where T1–T3 stall, T4 deduces |
+| US-6.2 | As a player, Region Crowding blocks traps before DFS. | Planned | `tier5`; synthetic boards where T1–T4 stall, T5 deduces |
+| US-6.3 | As a developer, DFS is T6 only; fixture gates re-audited. | Planned | `run_tiers_1_through_6`; seq 22–30 still green; update `_T{n}_` suffixes where tier drops |
+
+**Priority:** After EPIC-5. T4/T5 are performance/elegance, not correctness (T6 already sufficient).
+
+---
+
 ## Traceability
 
 | Epic | PM_PLAN phase |
@@ -94,5 +109,6 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | EPIC-1b | Phase 1b |
 | EPIC-2 | Phase 2 |
 | EPIC-3 | Phase 3 |
-| EPIC-4 | Phase 4 (4a–4c) |
+| EPIC-4 | Phase 4 (4a–4d) |
 | EPIC-5 | Phase 5 |
+| EPIC-6 | Phase 6 |

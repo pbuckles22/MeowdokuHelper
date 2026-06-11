@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `3ef2924` — US-4.3 merged; EPIC-4 complete
+- **Active branch:** `feature/us-4.4-t4-fixture-gate` — US-4.4 T4 gate seq 22–30 (ready to merge)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -97,11 +97,13 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Ship status:** **EPIC-3 merged to `main`** @ `8d541f0`
 - **US-4.1:** Done — `tier2.rs` region/line intersection claims; `run_tiers_1_and_2`; 12 Rust tests
 - **US-4.2:** Done — `tier3.rs` 2×2 trap + N-locked sets; `run_tiers_1_through_3` in `calculate_next_move`; 15 Rust tests
-- **US-4.3:** Done — `tier4.rs` DFS bifurcation; `run_tiers_1_through_4` in `calculate_next_move`; 19 Rust tests
-- **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
-- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 19 Rust)
+- **US-4.3:** Done — `tier4.rs` DFS bifurcation; `run_tiers_1_through_4` in `calculate_next_move`
+- **US-4.4:** Done — T4 fixture gate seq 22–30; `t4_fixtures.rs` + `t4_solver_goldens.dart`; 20 Rust + 45 Flutter tests
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); L34–L52 + L50; UX reference in `assets/reference/`
+- **Lint:** `flutter_lints` 6; Tier 1 green (45 Flutter + 20 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim — 3 integration tests green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** Optional **EPIC-5** progressive sizing; fixture expansion (T4 gate seq 22–30)
+- **Next:** **EPIC-5** (optional) — progressive N>9 end-to-end (seq 14, then 29–32)
+- **Backlog:** **EPIC-6** (optional) — T4 Phantom + T5 Crowding; DFS → T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
 - **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 

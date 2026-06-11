@@ -2,18 +2,33 @@
 
 Canonical reference for Rust solver development order. **Run the cheapest math first; escalate only when the board stalls.**
 
-Maps to [product.md](product.md) tiers, [PM_PLAN.md](../../PM_PLAN.md) Phase 4, and EPIC-4 stories (US-4.1–4.3).
-
-**Implementation status:** Tier 1–4 shipped (Phase 1, Phase 4a–4c).
+Maps to [product.md](product.md), [PM_PLAN.md](../../PM_PLAN.md), and epics in [EPICS_AND_STORIES.md](../plan/EPICS_AND_STORIES.md).
 
 ---
 
-## Level 1 — The Sweepers (Beginner)
+## Tier ladder (target)
+
+| Tier | Name | Type | Rust module (target) | Status |
+|------|------|------|----------------------|--------|
+| **T1** | Halo + Naked Singles | Deterministic | `tier1` | ✅ Shipped |
+| **T2** | Intersection logic | Deterministic | `tier2` | ✅ Shipped |
+| **T3** | 2×2 traps + N-locked sets | Deterministic | `tier3` | ✅ Shipped |
+| **T4** | Phantom Cat Projection (overlap halos) | Deterministic | `tier4_phantom` (planned) | 📋 EPIC-6 |
+| **T5** | Region-to-Region Crowding | Deterministic | `tier5` (planned) | 📋 EPIC-6 |
+| **T6** | DFS / bifurcation (ultimate failsafe) | Search | `tier6` or rename from `tier4` | ✅ Shipped as `tier4` today |
+
+**Correctness note:** T6 (DFS + propagation + `is_illegal`) is mathematically sufficient for every valid board. T4 and T5 are **not required for correctness** — they reduce DFS depth, latency, and “guessing” before the failsafe runs. Implement them only from the exact steps below; do not ask an agent to invent 2D spatial rules.
+
+**Code mapping (today vs target):** Shipped code uses `run_tiers_1_through_4` where historical “Tier 4” = DFS in `tier4.rs`. EPIC-6 inserts T4/T5 modules and renames/wraps DFS as T6 without changing the FRB signature.
+
+---
+
+## Level 1 — The Sweepers (Beginner) · T1 ✅
 
 Computational cost: cheap **O(N)** loops. No cross-group reasoning — inspect raw board state only.
 
-| # | Algorithm | Role | Rust module (target) |
-|---|-----------|------|----------------------|
+| # | Algorithm | Role | Rust module |
+|---|-----------|------|-------------|
 | 1 | **Halo Enforcer** (state update) | Not a deduction — runs after every cat placement. For each cat, mark every empty cell in its row, column, and 8-neighbor halo as **Blocked (X)**. | `tier1::apply_halo_enforcer` ✅ |
 | 2 | **Naked Singles** (choke point) | Scan all N rows, N columns, and N color regions. If a group has exactly one empty square and zero cats, place a cat there. | `tier1::apply_naked_singles` ✅ |
 
@@ -23,12 +38,12 @@ Computational cost: cheap **O(N)** loops. No cross-group reasoning — inspect r
 
 ---
 
-## Level 2 — Intersection Logic (Medium)
+## Level 2 — Intersection Logic (Medium) · T2 ✅
 
 When Level 1 stalls, compare groups that share boundaries.
 
-| # | Algorithm | Role | Rust module (target) |
-|---|-----------|------|----------------------|
+| # | Algorithm | Role | Rust module |
+|---|-----------|------|-------------|
 | 3 | **Region-claims-line** | All remaining empties in a color region lie on one row (or column). That region’s cat must be on that line → block other empties on the line outside the region. | `tier2::region_claims_line` ✅ |
 | 4 | **Line-claims-region** | Inverse: a row/column’s only empties belong to one color region → block that region’s empties outside the line. | `tier2::line_claims_region` ✅ |
 
@@ -38,12 +53,12 @@ When Level 1 stalls, compare groups that share boundaries.
 
 ---
 
-## Level 3 — Structural Traps (Advanced)
+## Level 3 — Structural Traps (Advanced) · T3 ✅
 
 When Levels 1–2 stall, use geometry-specific impossibilities.
 
-| # | Algorithm | Role | Rust module (target) |
-|---|-----------|------|----------------------|
+| # | Algorithm | Role | Rust module |
+|---|-----------|------|-------------|
 | 5 | **2×2 trap avoidance** | Two cats cannot both sit in a 2×2 empty block (halo rule). If placing a cat in cell A would force two cats in a 2×2 elsewhere in the region, mark A blocked. | `tier3::trap_2x2` ✅ |
 | 6 | **N-locked sets** (hidden pairs/triples) | Closed ecosystems: N columns whose empties lie in exactly N regions → those regions are locked to those columns; block those colors elsewhere. | `tier3::locked_sets` ✅ |
 
@@ -51,48 +66,117 @@ When Levels 1–2 stall, use geometry-specific impossibilities.
 
 ---
 
-## Level 4 — The Failsafe (Expert)
+## Level 4 — Phantom Cat Projection (Overlap Halos) · T4 📋
 
-When deterministic logic fails (common on 10×10+), guess safely with backtracking.
+When T1–T3 stall. **Deterministic** — no guessing.
 
-| # | Algorithm | Role | Rust module (target) |
-|---|-----------|------|----------------------|
-| 7 | **DFS / bifurcation** | Pick first empty cell; clone board; try cat; recursively run Levels 1–3. On contradiction (e.g. row with zero cats and zero empties), revert, permanently block that cell, return to Level 1. On full solve, return winning move. | `tier4::dfs_bifurcation` ✅ |
+**Idea:** A region narrowed to 2–3 empty cells that sit close together share halo overlap. Cells in that overlap are dead no matter which candidate gets the cat.
 
-**Acceptance:** Complex boards in `cargo test`; returns `-1` when truly stuck; no panic. Fixture gate **T4** and levels 22–30 when screenshots arrive.
+**Algorithm (implement exactly):**
+
+1. Scan every color region that has **exactly 2 or 3** `EMPTY` cells remaining (and zero cats placed in that region).
+2. For each such empty cell, compute its standard **8-neighbor halo** (same rule as Halo Enforcer: row, column, and Chebyshev-1 neighbors — exclude the cell itself).
+3. Compute the **set intersection** of those halos across all candidate empties in the region.
+4. For every cell in the intersection that is currently `EMPTY`, mutate it to `BLOCKED` (`2`).
+5. On any block, drop back to T1.
+
+**Acceptance:** Synthetic `cargo test` boards where T1–T3 stall but T4 produces at least one block (or enables a naked single) **without** entering T6. At least one fixture re-gated from **T6 → T4** after EPIC-6.
+
+**Rust target:** `tier4_phantom.rs` (name TBD at implementation — avoid conflating with current `tier4.rs` until rename).
+
+---
+
+## Level 5 — Region-to-Region Crowding (Mutual Destruction) · T5 📋
+
+When T1–T4 stall. **Deterministic** — simulates one placement, then reverts.
+
+**Idea:** Placing a cat in region A may halo-block every remaining empty in adjacent region B → that placement in A is impossible.
+
+**Algorithm (implement exactly):**
+
+1. For each color region **A**, iterate every `EMPTY` cell in A.
+2. **Simulate:** temporarily set that cell to `CAT` (`1`); apply Halo Enforcer for that cat (row, column, 8-neighbors → `BLOCKED`).
+3. For every **adjacent** color region **B** (shares an edge with A’s cell or is within the halo footprint — define adjacency as regions that contain at least one cell in the applied halo set, excluding A):
+   - Count remaining `EMPTY` cells in B after the simulation.
+   - If any adjacent region has **0** empties left, the simulation caused **mutual assured destruction**.
+4. **Revert** the simulation (restore board snapshot).
+5. If destruction occurred, permanently mutate the trial cell in A to `BLOCKED` (`2`).
+6. On any block, drop back to T1.
+
+**Overlap with T6:** DFS already discovers these contradictions via `run_tiers_1_through_3` + `is_illegal` on trial boards. T5 exposes the same logic as a **single-pass deterministic tier** before cloning/recursion.
+
+**Acceptance:** Synthetic `cargo test` boards where T1–T4 stall but T5 blocks at least one cell without T6. Optional: measure reduced DFS depth on seq 22–30 gate fixtures.
+
+**Rust target:** `tier5.rs`.
+
+---
+
+## Level 6 — DFS / Bifurcation (Ultimate Failsafe) · T6 ✅ (shipped as `tier4`)
+
+When T1–T5 stall. DFS is the end of the line for valid puzzles — recursive guess-and-check with propagation.
+
+| # | Algorithm | Role | Rust module |
+|---|-----------|------|-------------|
+| 7 | **DFS / bifurcation** | Pick first empty cell; clone board; try cat; recursively run T1–T5 (today: T1–T3). On contradiction (row/col/region with zero cats and zero empties), revert, permanently block that cell, return to T1. On full solve, return winning move. | `tier4::dfs_bifurcation` ✅ today |
+
+**Acceptance:** Complex boards in `cargo test`; returns `-1` when truly stuck; no panic. Fixture gate **T6** (filenames still use `_T4_` until EPIC-6 relabel — see [FIXTURES.md](../plan/FIXTURES.md)): seq 22–30 locked in `t4_fixtures.rs` / `t4_solver_goldens.dart`.
 
 ---
 
 ## Escalation state machine
 
+**Target (after EPIC-6):**
+
 ```mermaid
 flowchart TD
-  T1[Level 1: Halo + Naked Singles]
-  T2[Level 2: Intersection]
-  T3[Level 3: Traps + Locked sets]
-  T4[Level 4: DFS bifurcation]
+  T1[T1: Halo + Naked Singles]
+  T2[T2: Intersection]
+  T3[T3: Traps + Locked sets]
+  T4[T4: Phantom overlap halos]
+  T5[T5: Region crowding]
+  T6[T6: DFS bifurcation]
   Done[Return next move index]
   Stuck[Return -1]
 
   T1 -->|stall| T2
   T2 -->|block| T1
   T2 -->|stall| T3
+  T3 -->|block| T1
   T3 -->|stall| T4
-  T4 -->|deduced move| Done
+  T4 -->|block| T1
+  T4 -->|stall| T5
+  T5 -->|block| T1
+  T5 -->|stall| T6
+  T6 -->|block| T1
   T1 -->|move found| Done
   T2 -->|move found| Done
   T3 -->|move found| Done
-  T4 -->|exhausted| Stuck
+  T6 -->|deduced move| Done
+  T6 -->|exhausted| Stuck
 ```
+
+**Shipped today (EPIC-4):** T1 → T2 → T3 → DFS (`tier4`) — diagram above with T4/T5 skipped.
 
 ---
 
 ## Fixture validation order
 
-Screenshot fixtures use **seq-prefixed filenames** under `assets/test_fixtures/`. See [FIXTURES.md](../plan/FIXTURES.md) for:
+Screenshot fixtures use **seq-prefixed filenames** under `assets/test_fixtures/`. See [FIXTURES.md](../plan/FIXTURES.md):
 
-- **Seq** — master test/work order (01 … 30)
+- **Seq** — master test/work order (01 … 41)
 - **Pipeline gate** — Phase 2 parse goldens (image → `state`/`regions`)
-- **Solver gate** — minimum tier (T1–T4) before that fixture must pass end-to-end solve
+- **Solver gate** — minimum tier before end-to-end solve must pass
 
-Implement and validate algorithms in level order; add fixtures to the golden suite when their solver gate tier ships.
+**Filename `T{n}` suffix:** Until EPIC-6 relabel, `_T4_` in filenames means **requires DFS today** (historical gate). After EPIC-6, re-audit fixtures against the T1–T6 ladder and update suffixes (e.g. seq 22–30 may become `_T6_` if only DFS still needed).
+
+Implement and validate algorithms in tier order; add synthetic tests **before** fixture re-gating.
+
+---
+
+## EPIC traceability
+
+| Work | Epic | PM_PLAN |
+|------|------|---------|
+| T1–T3 + DFS + seq 22–30 gate | EPIC-4 (done) | Phase 4 |
+| N>9 end-to-end | EPIC-5 (planned) | Phase 5 |
+| T4 Phantom + T5 Crowding + DFS→T6 rename | EPIC-6 (planned) | Phase 6 |

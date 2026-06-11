@@ -13,14 +13,16 @@ Repo root: `assets/test_fixtures/`
 | `seq` | **Complexity tackle order** — satisfy parse/solve tests in this sequence (not game level order) |
 | `L{gameLevel}` | In-game level from screenshot header: `L-early`, `L03` … `L33` |
 | `N{grid}` | Grid size N×N when known |
-| `T{tier}` | Solver gate: minimum tier (1–4) before E2E solve must pass |
+| `T{tier}` | Solver gate: minimum tier (1–6 target ladder) before E2E solve must pass |
+
+**Tier suffix today:** Filenames use `_T1_` … `_T4_` from the **shipped** ladder (T4 = DFS in `tier4.rs`). After **EPIC-6**, re-audit against the T1–T6 catalog in [solver_algorithms.md](../requirements/solver_algorithms.md) (T4 = Phantom, T5 = Crowding, T6 = DFS) and rename suffixes where the minimum tier drops.
 
 **Legacy names** (`EarlyGame.jpg`, `lvl3.jpg`, UUID exports) are retired.
 
 ## Two axes
 
 1. **Pipeline (Phase 2)** — parse difficulty: smaller N first (seq 01–08).
-2. **Solver (Phase 4)** — algorithm tier per [solver_algorithms.md](../requirements/solver_algorithms.md).
+2. **Solver (Phase 4–6)** — algorithm tier per [solver_algorithms.md](../requirements/solver_algorithms.md). Target ladder T1–T6; shipped code is T1–T3 + DFS (historical T4).
 
 **Seq 20+** orders by **solver complexity** (forced singles → grid size → region sprawl → ★HARD), not by game level number. Example: seq **21** is L26 (8×8, easy anchors) before seq **23** is L22 (9×9).
 
@@ -68,17 +70,49 @@ Added June 2026. **Start after seq 19 (`L20`) parses and solves.** One duplicate
 | 31 | `31_L28_N10_T4.jpeg` | 28 | 10 | T4 | Smallest region = 2 cells; no singleton |
 | 32 | `32_L33_N10_T4.jpeg` | 33 | 10 | T4 | Largest sprawl; last in batch |
 
+## Catalog — seq 33–41 (L34–L52 batch)
+
+Added June 2026. Deduped from UUID exports; levels already in seq 01–32 were removed.
+
+| Seq | File | Game | Grid N | Solver gate | Notes |
+|-----|------|------|--------|-------------|-------|
+| 33 | `33_L34_N9_T4.jpeg` | 34 | 9 | T4 | |
+| 34 | `34_L35_N10_T4.jpeg` | 35 | 10 | T4 | |
+| 35 | `35_L39_N9_T4.jpeg` | 39 | 9 | T4 | |
+| 36 | `36_L41_N9_T4.jpeg` | 41 | 9 | T4 | Parser N=9 |
+| 37 | `37_L42_N9_T4.jpeg` | 42 | 9 | T4 | |
+| 38 | `38_L43_N10_T4.jpeg` | 43 | 10 | T4 | |
+| 39 | `39_L44_N9_T4.jpeg` | 44 | 9 | T4 | |
+| 40 | `40_L51_N8_T4.jpeg` | 51 | 8 | T4 | |
+| 41 | `41_L52_N10_T4.jpeg` | 52 | 10 | T4 | |
+
+## Catalog — seq 42 (L50)
+
+| Seq | File | Game | Grid N | Solver gate | Notes |
+|-----|------|------|--------|-------------|-------|
+| 42 | `42_L50_N9_T4.jpeg` | 50 | 9 | T4 | ★HARD header in screenshot |
+
 **Phase 2 golden minimum:** seq **01** + **02**.
 
 **Phase 3 E2E:** seq **08** (N=9).
 
 **Phase 5 N>9:** seq **14**, then seq **29**–**32**.
 
-Solver gate tiers are **estimates** — update after first live solve.
+Solver gate tiers are **estimates** — update after first live solve. Hard boards gated at `_T4_` today require **DFS**; after EPIC-6 that may become `_T6_` if Phantom/Crowding do not suffice alone.
 
-## Reserved (seq 33+)
+## Reserved (seq 43+)
 
-Future in-app levels beyond L33. Use `{seq:02d}_L{level}[_N{n}]_T{tier}.jpeg`.
+Future in-app levels (gaps: L36–L38, L40, L45–L49, L53+). Use `{seq:02d}_L{level}[_N{n}]_T{tier}.jpeg`.
+
+## Reference assets (not parse fixtures)
+
+Under `assets/reference/` — **UX targets**, not fed through the parse/solve pipeline. Annotated screenshots showing how hints should look in-app.
+
+| File | Purpose | Maps to |
+|------|---------|---------|
+| `hint_t5_region_crowding_column5.jpeg` | Human hint + multi-cell highlights | EPIC-6 **T5** Region Crowding — copy: *"Placing here excludes all cells in Column 5 – no cat can be placed"*. Shows hypothetical **Cat?** on one cell (yellow border) and **blocked** cells in the crowding path (green/yellow borders). Target UI: short plain-language rule name + explanation + highlight ring(s), not just a single next-cat index. |
+
+When hint UI ships, add acceptance criteria against this reference ([product.md](../requirements/product.md) — future hint panel).
 
 ## Missing from app
 

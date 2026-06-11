@@ -111,12 +111,22 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Acceptance:** `cargo test` for locked-set boards.
 
-### Phase 4c — Tier 4 (DFS bifurcation)
+### Phase 4c — DFS bifurcation (shipped as `tier4`; target ladder **T6**)
+
+Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (T5) above it — see Phase 6.
 
 - [x] Safe backtracking when Tiers 1–3 stall
 - [x] Illegal-state detection; no panic on stall
 
 **Acceptance:** `cargo test` covers complex boards; returns `-1` when truly stuck.
+
+### Phase 4d — T4 fixture gate (seq 22–30)
+
+- [x] Lock parse arrays from real screenshots (seq 22–30)
+- [x] Rust regression: `calculate_next_move` expected index per fixture
+- [x] Dart regression: parse goldens + FFI solve goldens
+
+**Acceptance:** `cargo test` + `flutter test` T4 gate green; EPIC-4 closed.
 
 ## Phase 5 — Progressive sizing (optional)
 
@@ -126,6 +136,22 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 - [ ] Solver + FFI + UI work at N>9 without code changes (only data)
 
 **Acceptance:** At least one N=10 fixture passes isolate → FFI → highlight path.
+
+## Phase 6 — Advanced deterministic tiers (optional · EPIC-6)
+
+**Goal:** Phantom Cat Projection (T4) + Region Crowding (T5) before DFS; DFS becomes T6. Reduces clone/recursion cost on 10×10+; no FRB signature change.
+
+**Canonical spec:** [doc/requirements/solver_algorithms.md](doc/requirements/solver_algorithms.md) Levels 4–6 — implement from exact algorithm steps only.
+
+- [ ] **T4 Phantom** — overlap halo intersection for regions with 2–3 empties
+- [ ] **T5 Crowding** — simulate cat in region A; block if adjacent region loses all empties
+- [ ] **T6 rename** — current `tier4.rs` DFS → T6 in state machine; `run_tiers_1_through_6`
+- [ ] Synthetic tests per tier before fixture re-gate
+- [ ] Re-audit fixture `_T{n}_` suffixes (seq 22–30 may move from `_T4_` to `_T6_`)
+
+**Acceptance:** All existing solver gates still green; at least one synthetic board proves T4 and T5 without entering T6.
+
+**Priority:** After Phase 5 (EPIC-5).
 
 ---
 

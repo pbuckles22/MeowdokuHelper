@@ -143,20 +143,44 @@ When Tier 1 stalls:
 - **Line-to-region claims** — Row/col empties all in one region → block other empties in region outside line
 - On any block, drop to Tier 1
 
-### Tier 3 — Locked ecosystems
+### Tier 3 — Locked ecosystems ✅
 
 When Tier 2 stalls:
 
 - **2×2 trap avoidance** — Deduce region cat placement from 2×2 empty blocks
 - **Locked multiples** — N columns with empties in exactly N regions → lock those regions to those columns
 
-### Tier 4 — DFS / bifurcation
+### Tier 4 — Phantom Cat Projection (planned · EPIC-6)
 
-When deterministic tiers stall:
+When Tiers 1–3 stall. Deterministic overlap-halo blocking for regions with 2–3 empties. **Exact steps:** [solver_algorithms.md](solver_algorithms.md) Level 4.
+
+### Tier 5 — Region-to-Region Crowding (planned · EPIC-6)
+
+When Tier 4 stalls. Deterministic mutual-destruction blocks across adjacent regions. **Exact steps:** [solver_algorithms.md](solver_algorithms.md) Level 5. Not required for correctness (DFS already finds these contradictions); reduces search depth.
+
+### Tier 6 — DFS / bifurcation (ultimate failsafe) ✅
+
+When deterministic tiers stall. Shipped today as **`tier4.rs`** / `run_tiers_1_through_4` (historical “Tier 4” before EPIC-6 renumber):
 
 1. Pick first empty cell; clone board
-2. Try cat (`1`); run Tiers 1–3 recursively
+2. Try cat (`1`); run Tiers 1–3 recursively (target: T1–T5 after EPIC-6)
 3. On illegal state (e.g. row with zero cats and zero empties), mark original cell blocked (`2`); return to Tier 1
+
+**Full catalog:** [solver_algorithms.md](solver_algorithms.md) — tier ladder, state machine, fixture gates.
+
+## Hint UX (planned · post EPIC-3)
+
+**Today:** `PuzzleGridPreview` highlights a **single cell index** for the next forced cat (or stalled banner). No rule name or plain-language explanation.
+
+**Target:** When the solver deduces a move or block, show:
+
+1. **Rule name** in human language (e.g. “Region crowding”, “Only spot in row”, “Overlap halos”).
+2. **One-line why** — e.g. *“Placing here excludes all cells in Column 5 – no cat can be placed.”*
+3. **Highlights** — primary cell(s) involved (hypothetical cat, blocked cells, or forced placement), not only the final cat index.
+
+**Reference mockup:** [assets/reference/hint_t5_region_crowding_column5.jpeg](../../assets/reference/hint_t5_region_crowding_column5.jpeg) — T5 Region Crowding example with **Cat?** + column block highlights. Catalogued in [FIXTURES.md](../plan/FIXTURES.md) → Reference assets.
+
+Requires Rust to return **move kind + explanation + highlight set** (FRB change — defer until EPIC-6+ hint story).
 
 ## Implementation phases
 

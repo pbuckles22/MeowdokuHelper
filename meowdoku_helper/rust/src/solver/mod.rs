@@ -3,6 +3,7 @@ pub mod tier1;
 pub mod tier2;
 pub mod tier3;
 pub mod tier4;
+pub mod t4_fixtures;
 
 pub use board::Board;
 pub use tier1::{apply_halo_enforcer, apply_naked_singles, run_tier1};
