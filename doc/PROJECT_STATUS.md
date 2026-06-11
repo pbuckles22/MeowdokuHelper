@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (`main` — US-6.1 Phantom tier merged)
+**Last updated:** 2026-06-11 (`main` — US-6.2 Crowding tier merged)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (Tiers 1–3 + **T4 Phantom** + DFS) → next forced move. Validated through N=12 parsed boards. **EPIC-6 in progress** — US-6.1 done; US-6.2 Crowding next.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (Tiers 1–3 + **T4 Phantom** + **T5 Crowding** + DFS) → next forced move. Validated through N=12 parsed boards. **EPIC-6 in progress** — US-6.2 done; US-6.3 DFS rename next.
 
 **Canonical spec:** [requirements/product.md](requirements/product.md)
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | US-6.1 merged; start US-6.2 from latest `main` |
+| **`main`** | US-6.2 merged; start US-6.3 from latest `main` |
 
 **New contributors:** `git checkout main && git pull origin main`
 
@@ -37,27 +37,26 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | Phase 5 — Progressive sizing | Done | EPIC-5; seq 14, 29–30 Tier 2 |
 | Health audit + remediation | Done | Waves 1–4 complete; 5–6 partial — [TECH_DEBT.md](../TECH_DEBT.md) |
 | **US-6.1 Phantom (T4)** | Done | `tier4_phantom.rs`; 3 synthetic tests |
+| **US-6.2 Crowding (T5)** | Done | `tier5.rs`; 3 synthetic tests |
 | Fixture catalog | Done | seq `01`–`42`; UX reference `assets/reference/` |
 
-**Tests (2026-06-11):** Tier 1b — 50 passed, 15 skipped (FFI without native lib on host); Tier 1a — **25 Rust**; `flutter analyze` clean. Tier 2 — 6 integration (re-run after EPIC-6 completes). See [QC_STATUS.md](QC_STATUS.md).
+**Tests (2026-06-11):** Tier 1b — 50 passed, 15 skipped (FFI without native lib on host); Tier 1a — **28 Rust**; `flutter analyze` clean. Tier 2 — 6 integration (re-run after EPIC-6 completes). See [QC_STATUS.md](QC_STATUS.md).
 
 ---
 
 ## Next up — EPIC-6 (in progress)
 
-**Goal:** T5 Crowding + DFS → T6 rename. T4 Phantom ✅.
+**Goal:** DFS → T6 rename + fixture suffix re-audit. T4 Phantom ✅ · T5 Crowding ✅.
 
 | Story | Focus |
 |-------|--------|
-| **US-6.2** | Crowding tier — `tier5.rs`; synthetic boards; T1–T4 stall, T5 deduces |
-| US-6.3 | `run_tiers_1_through_6`; seq 22–30 gates still green; re-audit `_T{n}_` suffixes |
+| **US-6.3** | `run_tiers_1_through_6`; seq 22–30 gates still green; re-audit `_T{n}_` suffixes |
 
-**Suggested branch:** `feature/us-6.2-crowding-tier`
+**Suggested branch:** `feature/us-6.3-dfs-rename-tier`
 
 ---
 
 ## Deferred (do not extend)
 
-- Upstream template Wordle cleanup — [docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md](../docs/TEMPLATE_WORDLE_CLEANUP_PLAN.md)
-
----
+- Julia runtime in app bundle
+- Multi-move solver API / hint explanations (FRB change — post EPIC-6)

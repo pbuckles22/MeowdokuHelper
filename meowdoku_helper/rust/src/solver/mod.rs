@@ -4,7 +4,7 @@
 //! tier runs. When a higher tier blocks cells, lower tiers restart (see
 //! `run_tiers_1_and_2`, `run_tiers_1_through_3`, `run_tiers_1_through_4`).
 //!
-//! **Shipped ladder:** tier1 → tier2 → tier3 → tier4_phantom (T4) → tier4 (DFS / T6 until US-6.3).
+//! **Shipped ladder:** tier1 → tier2 → tier3 → tier4_phantom (T4) → tier5 (T5) → tier4 (DFS / T6 until US-6.3).
 
 pub mod board;
 pub mod tier1;
@@ -12,6 +12,7 @@ pub mod tier2;
 pub mod tier3;
 pub mod tier4;
 pub mod tier4_phantom;
+pub mod tier5;
 pub mod t4_fixtures;
 
 #[cfg(test)]
@@ -23,3 +24,4 @@ pub use tier2::{apply_line_claims_region, apply_region_claims_line, run_tiers_1_
 pub use tier3::{apply_locked_sets, apply_trap_2x2, run_tiers_1_through_3};
 pub use tier4::{dfs_bifurcation, is_illegal, is_solved, run_tiers_1_through_4};
 pub use tier4_phantom::apply_phantom_projection;
+pub use tier5::apply_region_crowding;

@@ -14,7 +14,7 @@ Maps to [product.md](product.md), [PM_PLAN.md](../../PM_PLAN.md), and epics in [
 | **T2** | Intersection logic | Deterministic | `tier2` | ✅ Shipped |
 | **T3** | 2×2 traps + N-locked sets | Deterministic | `tier3` | ✅ Shipped |
 | **T4** | Phantom Cat Projection (overlap halos) | Deterministic | `tier4_phantom` | ✅ Shipped (US-6.1) |
-| **T5** | Region-to-Region Crowding | Deterministic | `tier5` (planned) | 📋 EPIC-6 |
+| **T5** | Region-to-Region Crowding | Deterministic | `tier5` | ✅ Shipped (US-6.2) |
 | **T6** | DFS / bifurcation (ultimate failsafe) | Search | `tier6` or rename from `tier4` | ✅ Shipped as `tier4` today |
 
 **Correctness note:** T6 (DFS + propagation + `is_illegal`) is mathematically sufficient for every valid board. T4 and T5 are **not required for correctness** — they reduce DFS depth, latency, and “guessing” before the failsafe runs. Implement them only from the exact steps below; do not ask an agent to invent 2D spatial rules.
@@ -86,7 +86,7 @@ When T1–T3 stall. **Deterministic** — no guessing.
 
 ---
 
-## Level 5 — Region-to-Region Crowding (Mutual Destruction) · T5 📋
+## Level 5 — Region-to-Region Crowding (Mutual Destruction) · T5 ✅
 
 When T1–T4 stall. **Deterministic** — simulates one placement, then reverts.
 

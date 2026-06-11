@@ -78,19 +78,20 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — US-6.1 Phantom (T4) merged; **EPIC-6 in progress** (2 stories remain)
+- **Active branch:** `main` — US-6.2 Crowding (T5) merged; **EPIC-6 in progress** (1 story remains)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) before commit, push, or merge.
 - **Phases 0–5:** Done (bootstrap through EPIC-5 progressive sizing)
 - **US-6.1:** Done — `tier4_phantom.rs`; wired before DFS in `run_tiers_1_through_4`; 3 synthetic tests
-- **Solver (shipped):** T1–T3 + **T4 Phantom** + DFS in `tier4.rs` (`run_tiers_1_through_4`); historical `tier4` = DFS until US-6.3 renames to T6
+- **US-6.2:** Done — `tier5.rs`; wired between phantom and DFS; 3 synthetic tests
+- **Solver (shipped):** T1–T3 + **T4 Phantom** + **T5 Crowding** + DFS in `tier4.rs` (`run_tiers_1_through_4`); historical `tier4` = DFS until US-6.3 renames to T6
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–4 stalled” banner
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens locked seq 01–02; parse smoke seq 03–08
-- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent); **25 Rust** (`cargo test --lib`)
+- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent); **28 Rust** (`cargo test --lib`)
 - **Tier 2:** 6 integration tests green on iOS 26.5 sim (re-run after EPIC-6 completes)
 - **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
-- **Next:** **US-6.2** Region Crowding (`tier5.rs`) → **US-6.3** DFS→T6 ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
+- **Next:** **US-6.3** DFS→T6 rename + fixture suffix re-audit ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
 - **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test

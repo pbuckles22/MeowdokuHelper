@@ -1,6 +1,7 @@
 use super::board::{Board, BLOCKED, CAT, EMPTY};
 use super::tier3::run_tiers_1_through_3;
 use super::tier4_phantom::apply_phantom_projection;
+use super::tier5::apply_region_crowding;
 
 /// Row/col/region with zero cats and zero empties can never be satisfied.
 pub fn is_illegal(board: &Board) -> bool {
@@ -179,7 +180,7 @@ pub fn dfs_bifurcation(board: &mut Board) -> bool {
     true
 }
 
-/// Run Tiers 1–4 until all stall. Phantom blocks and DFS steps restart at lower tiers.
+/// Run Tiers 1–5 until all stall. Phantom/crowding blocks and DFS steps restart at lower tiers.
 pub fn run_tiers_1_through_4(board: &mut Board) -> bool {
     let mut any = false;
     loop {
@@ -187,6 +188,10 @@ pub fn run_tiers_1_through_4(board: &mut Board) -> bool {
             any = true;
         }
         if apply_phantom_projection(board) {
+            any = true;
+            continue;
+        }
+        if apply_region_crowding(board) {
             any = true;
             continue;
         }

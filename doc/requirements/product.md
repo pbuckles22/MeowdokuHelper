@@ -154,7 +154,7 @@ When Tier 2 stalls:
 
 When Tiers 1–3 stall. Deterministic overlap-halo blocking for regions with 2–3 empties. **Exact steps:** [solver_algorithms.md](solver_algorithms.md) Level 4.
 
-### Tier 5 — Region-to-Region Crowding (planned · EPIC-6)
+### Tier 5 — Region-to-Region Crowding (shipped · EPIC-6 US-6.2)
 
 When Tier 4 stalls. Deterministic mutual-destruction blocks across adjacent regions. **Exact steps:** [solver_algorithms.md](solver_algorithms.md) Level 5. Not required for correctness (DFS already finds these contradictions); reduces search depth.
 

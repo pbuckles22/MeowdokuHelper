@@ -144,7 +144,7 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 **Canonical spec:** [doc/requirements/solver_algorithms.md](doc/requirements/solver_algorithms.md) Levels 4–6 — implement from exact algorithm steps only.
 
 - [x] **T4 Phantom** — overlap halo intersection for regions with 2–3 empties (`tier4_phantom.rs`; US-6.1)
-- [ ] **T5 Crowding** — simulate cat in region A; block if adjacent region loses all empties
+- [x] **T5 Crowding** — simulate cat in region A; block if adjacent region loses all empties (`tier5.rs`; US-6.2)
 - [ ] **T6 rename** — current `tier4.rs` DFS → T6 in state machine; `run_tiers_1_through_6`
 - [ ] Synthetic tests per tier before fixture re-gate
 - [ ] Re-audit fixture `_T{n}_` suffixes (seq 22–30 may move from `_T4_` to `_T6_`)
