@@ -2,7 +2,8 @@
 
 Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI template.
 
-**SDD:** [doc/requirements/product.md](doc/requirements/product.md)
+**SDD:** [doc/requirements/product.md](doc/requirements/product.md)  
+**Epics & stories:** [doc/plan/EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) · [fixtures](doc/plan/FIXTURES.md)
 
 ## Phase 0 — Bootstrap (done)
 
@@ -53,9 +54,9 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 ### 1b.3 — Keep / wire later
 
-- [ ] Keep `rust/src/solver/*` (Star Battle core)
-- [ ] Keep root `assets/test_fixtures/` (board screenshots for Phase 2)
-- [ ] Keep `service_locator.dart` pattern (rewire in Phase 2/3)
+- [x] Keep `rust/src/solver/*` (Star Battle core)
+- [x] Keep root `assets/test_fixtures/` (board screenshots for Phase 2)
+- [x] Keep `service_locator.dart` pattern (rewire in Phase 2/3)
 
 **Acceptance (Phase 1b.1):**
 
@@ -71,12 +72,14 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Goal:** Clipboard → isolate → flattened `Uint8List` arrays.
 
+**Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — level order = difficulty; easy first (`EarlyGame` → `lvl3` → … `lvl21`).
+
 - [ ] Clipboard trigger on app focus (`pasteboard` package)
 - [ ] Dart `compute` isolate: grid boundary detection, cell sampling
 - [ ] Unique-color pass → detect **N** (color region rule); compute N² array length
 - [ ] Return `state` and `regions` arrays to main thread
 
-**Acceptance:** Unit test with N=9 fixture image → expected 81-element arrays. Optional follow-up: N=10 fixture.
+**Acceptance:** Golden unit tests on **easy fixtures first** — `EarlyGame.jpg` (N=4) and `lvl3.jpg` (N=6) minimum; then expand up the level order. Optional: `lvl9` (N=9 product target), `lvl15` (N=10).
 
 ## Phase 3 — UI highlight + end-to-end wire
 

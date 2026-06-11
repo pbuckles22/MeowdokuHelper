@@ -1,8 +1,8 @@
 # QC status — MeowdokuHelper
 
-**Last QC run:** 2026-06-11  
-**Branch:** `cleanup/wordle-api` (Wordle FRB gut + `calculate_next_move`)  
-**Base:** `main` @ `6528a59` (FRB 2.12 + prior integration — **local, ahead of origin**)
+**Last QC run:** 2026-06-10  
+**Branch:** `main` @ `e17102b` (Phase 1b complete)  
+**Remote:** **local ahead of `origin/main`** (~9 commits)
 
 ---
 
@@ -15,7 +15,7 @@
 | `flutter analyze` | **PASS** |
 | Tier 2 iOS 26.5 simulator | **PASS** — 2 tests (`calculateNextMove` roundtrip) |
 | Wordle `rust/src/api/` removed | **YES** |
-| Merged to `main` | **Pending** — on feature branch |
+| Merged to `main` | **YES** — `cleanup/wordle-api` fast-forward |
 
 ---
 

@@ -9,9 +9,10 @@ Read in this order before opening a PR:
 1. [README.md](README.md) — what the project is
 2. **[doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md)** — what's done, what's next, active branch
 3. [PM_PLAN.md](PM_PLAN.md) — phased checklist and acceptance criteria
-4. [doc/requirements/product.md](doc/requirements/product.md) — **canonical product SDD** (do **not** use `geminidata.txt`)
-5. [AGENT_HANDOFF.md](AGENT_HANDOFF.md) — merge-ready gate, high-risk FFI paths, conventions
-6. [TEST_PLAN.md](TEST_PLAN.md) — Tier 1a / 1b / 2 test commands
+4. [doc/plan/EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) — epics and user stories (maps to PM_PLAN)
+5. [doc/requirements/product.md](doc/requirements/product.md) — **canonical product SDD** (do **not** use `geminidata.txt`)
+6. [AGENT_HANDOFF.md](AGENT_HANDOFF.md) — merge-ready gate, high-risk FFI paths, conventions
+7. [TEST_PLAN.md](TEST_PLAN.md) — Tier 1a / 1b / 2 test commands
 
 For iOS/device work: [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md).
 

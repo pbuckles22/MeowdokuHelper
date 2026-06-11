@@ -41,8 +41,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 ## Next up
 
-1. **Phase 2** — Flutter image pipeline (clipboard → isolate → `state`/`regions` arrays). Fixtures: `assets/test_fixtures/`
-2. **Push** `main` to `origin` when ready
+1. **EPIC-2 / Phase 2** — branch `feature/phase2-image-pipeline`; stories [US-2.1](plan/EPICS_AND_STORIES.md)–[US-2.6](plan/EPICS_AND_STORIES.md)
+2. **Fixtures** — [doc/plan/FIXTURES.md](plan/FIXTURES.md) (easy levels first: `EarlyGame` → `lvl3` → …)
+3. **Push** `main` to `origin` when ready
 
 ---
 
