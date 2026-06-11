@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — US-3.1+3.2 shipped; branch `feature/us-3.3-integration` for US-3.3
+- **Active branch:** `feature/us-3.3-integration` — US-3.3 Tier 2 integration (`main` @ `b462259`)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
