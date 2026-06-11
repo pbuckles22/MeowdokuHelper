@@ -92,6 +92,8 @@ Init lives in `rust/src/api/simple.rs` (`init_app`). Dart bindings: `lib/src/rus
 
 ## High-risk areas
 
+See [docs/POLYGLOT_GUARDRAILS.md](../../docs/POLYGLOT_GUARDRAILS.md) for cross-language FFI, threading, error-handling, and build-toolchain rules.
+
 | Area | Risk | Mitigation |
 |------|------|------------|
 | `ios/Podfile` | Breaks iOS build | Don't modify unless fixing CocoaPods issues |

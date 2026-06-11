@@ -10,6 +10,8 @@ This guide documents the setup for the meowdoku_helper Flutter-Rust FFI bolt-on 
 
 **Final Result**: A clean, focused project with comprehensive testing, documentation, and build automation.
 
+**Cross-language guardrails:** [POLYGLOT_GUARDRAILS.md](POLYGLOT_GUARDRAILS.md) — mandatory before changing FFI signatures, memory layout, solver structure, error handling, or build configs.
+
 ## 📋 Prerequisites
 
 ### Required Software

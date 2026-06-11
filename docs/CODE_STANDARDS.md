@@ -7,7 +7,7 @@ This document outlines the coding standards, best practices, and conventions use
 1. [General Principles](#general-principles)
 2. [Rust Standards](#rust-standards)
 3. [Flutter/Dart Standards](#flutterdart-standards)
-4. [FFI Integration Standards](#ffi-integration-standards)
+4. [FFI Integration Standards](#ffi-integration-standards) — see also [POLYGLOT_GUARDRAILS.md](POLYGLOT_GUARDRAILS.md)
 5. [Linting Standards](#linting-standards)
 6. [Testing Standards](#testing-standards)
 7. [Documentation Standards](#documentation-standards)
@@ -587,6 +587,8 @@ end
 ```
 
 ## FFI Integration Standards
+
+**Polyglot guardrails (mandatory for FFI work):** [POLYGLOT_GUARDRAILS.md](POLYGLOT_GUARDRAILS.md) — flat buffers, row/column-major layouts, pure solver functions, no panics across FFI, immutable toolchain unless permitted.
 
 ### Cross-Language Communication
 ```rust

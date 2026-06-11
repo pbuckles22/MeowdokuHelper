@@ -7,7 +7,7 @@ alwaysApply: true
 
 **Product:** MeowdokuHelper — Star Battle 9×9 solver (clipboard image → Dart isolate → Rust CSP engine). **iOS-first** with macOS and Android support.
 
-**CRITICAL:** The FFI bindings between Flutter, Rust, and iOS are **fragile**. Changes to `ios/`, `rust/Cargo.toml`, `flutter_rust_bridge.yaml`, or `rust_builder/` can break the entire build. Read [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md) before touching these.
+**CRITICAL:** The FFI bindings between Flutter, Rust, and iOS are **fragile**. Changes to `ios/`, `rust/Cargo.toml`, `flutter_rust_bridge.yaml`, or `rust_builder/` can break the entire build. Read [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md) before touching these. Cross-language rules: [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md).
 
 Cursor rules, skills, handoff protocol from AgenticTemplate (manual sync — no upstream remote to protect FFI files).
 

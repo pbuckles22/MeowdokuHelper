@@ -91,7 +91,8 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped when native lib absent); **28 Rust** (`cargo test --lib`)
 - **Tier 2:** 6 integration tests green on iOS 26.5 sim (re-run after EPIC-6 completes)
 - **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
-- **Next:** **US-6.3** DFS→T6 rename + fixture suffix re-audit ([solver_algorithms.md](doc/requirements/solver_algorithms.md))
+- **Next:** **US-6.3** DFS→T6 rename + fixture suffix re-audit ([solver_algorithms.md](doc/requirements/solver_algorithms.md)); branch `feature/us-6.3-dfs-rename-tier`
+- **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md) — FFI buffers, layouts, pure compute, toolchain immutability
 - **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test
@@ -117,7 +118,7 @@ flutter test integration_test/
 
 - **Solver logic:** Rust only; size-aware `Board`; tiers per [doc/requirements/product.md](doc/requirements/product.md)
 - **Image parsing:** Dart isolate + `pasteboard`; N from unique region colors (Phase 2+)
-- **FFI:** flutter_rust_bridge — `calculate_next_move(state, regions, grid_size) -> i32`; regenerate after API changes
+- **FFI:** flutter_rust_bridge — `calculate_next_move(state, regions, grid_size) -> i32`; regenerate after API changes. **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
 - **TDD:** Failing test first per [TEST_TDD.md](.cursor/skills/TEST_TDD.md)
 
 ---

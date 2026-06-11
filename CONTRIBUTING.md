@@ -12,7 +12,8 @@ Read in this order before opening a PR:
 4. [doc/plan/EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) — epics and user stories (maps to PM_PLAN)
 5. [doc/requirements/product.md](doc/requirements/product.md) — **canonical product SDD** (do **not** use `geminidata.txt`)
 6. [AGENT_HANDOFF.md](AGENT_HANDOFF.md) — merge-ready gate, high-risk FFI paths, conventions
-7. [TEST_PLAN.md](TEST_PLAN.md) — Tier 1a / 1b / 2 test commands
+7. [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md) — cross-language FFI, threading, error handling, build immutability
+8. [TEST_PLAN.md](TEST_PLAN.md) — Tier 1a / 1b / 2 test commands
 
 For iOS/device work: [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md).
 
