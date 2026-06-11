@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `feature/us-5.1-n10-e2e` — EPIC-5 ready to merge; `feature/handoff-first-policy` — governance docs ready to merge
+- **Active branch:** `main` @ `e74dcfa` — EPIC-5 merged and pushed; handoff-first policy merged
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Handoff first:** complete the [handoff checklist](.cursor/rules/handoff-checklist.mdc) (local note + tracked doc updates) **before** any commit, push, or merge to `main` on that slice.
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)

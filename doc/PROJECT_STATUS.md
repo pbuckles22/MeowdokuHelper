@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (EPIC-5 complete; handoff-first policy pending merge)
+**Last updated:** 2026-06-11 (EPIC-5 + handoff-first policy on `main`)
 
 ---
 
@@ -18,10 +18,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`feature/handoff-first-policy`** | Governance: handoff before commit/push/merge — ready to merge |
-| **`feature/us-5.1-n10-e2e`** | EPIC-5: N>9 Tier 2 E2E — ready to merge |
+| **`main`** @ `e74dcfa` | EPIC-5 + handoff-first policy merged and pushed |
 
-**New contributors:** checkout **`main`** (after merges land).
+**New contributors:** checkout **`main`**.
 
 ---
 
@@ -63,7 +62,6 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 ## Next up
 
 1. **EPIC-6** (optional) — T4 Phantom + T5 Region Crowding; demote DFS to T6 ([solver_algorithms.md](requirements/solver_algorithms.md))
-2. Merge pending branches: `feature/handoff-first-policy`, `feature/us-5.1-n10-e2e`
 
 ---
 
