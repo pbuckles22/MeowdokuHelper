@@ -88,7 +88,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **FFI API:** `init_app` + `calculate_next_move` only (Wordle exports removed)
 - **Phase 1b.2:** Done — Wordle FRB removed; `calculate_next_move` on bridge
 - **Tip:** `main` @ `ab2212c` — epics/stories + Phase 2 handoff docs
-- **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures seq `01`–`20` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq `21`–`30` reserved for in-app L21–L30 after L20 solves
+- **Next:** Phase 2 — `feature/phase2-image-pipeline`; fixtures seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq `20`–`32` = L21–L33 batch (complexity-ordered)
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test

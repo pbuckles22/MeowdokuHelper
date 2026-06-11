@@ -37,7 +37,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 **Goal:** Clipboard screenshot → Dart isolate → `state` + `regions` `Uint8List` (length N²).
 
-**Fixtures:** [FIXTURES.md](FIXTURES.md) — seq order (`01` … `20`; `21`–`30` reserved).
+**Fixtures:** [FIXTURES.md](FIXTURES.md) — seq `01`–`32` (complexity order; L21–L33 at seq 20–32).
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|

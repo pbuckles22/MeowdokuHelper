@@ -72,7 +72,7 @@ Star Battle N×N solver (N=9 first) bootstrapped from the Flutter-Rust-Julia FFI
 
 **Goal:** Clipboard → isolate → flattened `Uint8List` arrays.
 
-**Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — seq order (`01` … `20`; `21`–`30` reserved for in-app L21–L30).
+**Fixtures:** [doc/plan/FIXTURES.md](doc/plan/FIXTURES.md) — seq order (`01` … `32`; L21–L33 batch at seq 20–32).
 
 - [ ] Clipboard trigger on app focus (`pasteboard` package)
 - [ ] Dart `compute` isolate: grid boundary detection, cell sampling

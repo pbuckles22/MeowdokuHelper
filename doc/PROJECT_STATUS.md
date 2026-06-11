@@ -42,7 +42,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 ## Next up
 
 1. **EPIC-2 / Phase 2** — branch `feature/phase2-image-pipeline`; stories [US-2.1](plan/EPICS_AND_STORIES.md)–[US-2.6](plan/EPICS_AND_STORIES.md)
-2. **Fixtures** — [doc/plan/FIXTURES.md](plan/FIXTURES.md) (seq `01`–`20`; solver tiers in [solver_algorithms.md](requirements/solver_algorithms.md))
+2. **Fixtures** — [doc/plan/FIXTURES.md](plan/FIXTURES.md) (seq `01`–`32`; [solver_algorithms.md](requirements/solver_algorithms.md))
 3. **Push** `main` to `origin` when ready
 
 ---
