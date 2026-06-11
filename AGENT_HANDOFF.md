@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — EPIC-2 complete; EPIC-3 next
+- **Active branch:** `main` — US-3.1+3.2 shipped; branch `feature/us-3.3-integration` for US-3.3
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately
 - **Bootstrap:** Template copied; app renamed to `meowdoku_helper`
 - **SDD:** [doc/requirements/product.md](doc/requirements/product.md) (dynamic N, FRB contract, solver tiers)
@@ -91,11 +91,14 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **US-2.4:** Done — `parseGridFromImage()` + `parseJpegInBackground()`; center/offset sampling; bbox refine for UI chrome
 - **US-2.5:** Done — golden `state`/`regions` for seq 01+02 in `grid_goldens.dart`
 - **US-2.6:** Done — `pasteboard` on `AppLifecycleState.resumed`; JPEG magic-byte gate → `parseJpegInBackground()`
-- **Ship status:** US-2.6 merged to `main`; **EPIC-2 complete**
+- **US-3.1:** Done — `solveParsedGrid()` flat FRB wire; clipboard parse → `calculateNextMove` in `main.dart`
+- **US-3.2:** Done — `PuzzleGridPreview` stateless N×N grid; highlight ring or stalled banner
+- **Ship status:** US-3.1+3.2 on `main`; **EPIC-3 in progress** (US-3.3 Tier 2 on `feature/us-3.3-integration`)
 - **Fixtures:** seq `01`–`32` ([FIXTURES.md](doc/plan/FIXTURES.md)); L21–L33 at seq 20–32 (complexity order)
-- **Lint:** `flutter_lints` 6; Tier 1 green (23 Flutter + 8 Rust)
+- **Lint:** `flutter_lints` 6; Tier 1 green (27 Flutter + 8 Rust)
 - **FFI verified:** Tier 2 iOS 26.5 sim smoke green ([doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md))
-- **Next:** **EPIC-3** — `GridParseShell` → `calculateNextMove` → minimal grid highlight
+- **Next:** **US-3.3** — Tier 2 integration: fixture → parse → FFI → expected index
+- **EPIC-3 guardrails:** Treat `lib/image/` and `rust/src/{solver,api}/` as immutable. Flat FRB call via `solveParsedGrid()`. Grid UI is stateless `PuzzleGridPreview` only.
 - **FFI:** flutter_rust_bridge; regenerate after `rust/src/api/*.rs` changes
 
 ## Run and test

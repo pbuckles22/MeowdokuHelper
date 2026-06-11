@@ -33,7 +33,7 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-2 — Image pipeline · **In progress**
+## EPIC-2 — Image pipeline · **Complete**
 
 **Goal:** Clipboard screenshot → Dart isolate → `state` + `regions` `Uint8List` (length N²).
 
@@ -54,14 +54,14 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 
 ---
 
-## EPIC-3 — End-to-end solve + highlight · **Planned**
+## EPIC-3 — End-to-end solve + highlight · **In progress**
 
 **Note:** FRB `calculate_next_move` shipped in EPIC-1b.
 
 | ID | Story | Status | Acceptance |
 |----|-------|--------|------------|
-| US-3.1 | As a player, parsed board state is sent to Rust and returns the next move index. | Planned | Flutter calls `calculateNextMove` from isolate output |
-| US-3.2 | As a player, the suggested cell is highlighted on a minimal grid. | Planned | UI shows index; `-1` shows stuck state |
+| US-3.1 | As a player, parsed board state is sent to Rust and returns the next move index. | Done | `solveParsedGrid()` → `calculateNextMove` from clipboard parse in `main.dart` |
+| US-3.2 | As a player, the suggested cell is highlighted on a minimal grid. | Done | `PuzzleGridPreview` — highlight ring or stalled banner |
 | US-3.3 | As a developer, integration test covers image → parse → FFI → index. | Planned | Tier 2: fixture at N=9 → expected index |
 
 ---

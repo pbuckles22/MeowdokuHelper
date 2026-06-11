@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meowdoku_helper/app/clipboard_lifecycle.dart';
+import 'package:meowdoku_helper/app/puzzle_grid_preview.dart';
+import 'package:meowdoku_helper/app/solve_parsed_grid.dart';
 import 'package:meowdoku_helper/image/clipboard_parse.dart';
+import 'package:meowdoku_helper/image/n_detect.dart';
 import 'package:meowdoku_helper/service_locator.dart';
 
 void main() {
@@ -21,6 +24,8 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
   String _status = 'Initializing Rust FFI…';
   bool _ffiReady = false;
   bool _parsingClipboard = false;
+  GridParseShell? _parsedShell;
+  int? _highlightIndex;
 
   @override
   void initState() {
@@ -65,12 +70,21 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
       }
 
       if (result == null) {
-        setState(() => _status = 'Clipboard: no JPEG image');
+        setState(() {
+          _parsedShell = null;
+          _highlightIndex = null;
+          _status = 'Clipboard: no JPEG image';
+        });
       } else {
-        final n = result.parsed.gridSize;
-        setState(
-          () => _status = 'Parsed N=$n grid from clipboard (isolate)',
-        );
+        final shell = result.parsed;
+        final idx = solveParsedGrid(shell);
+        setState(() {
+          _parsedShell = shell;
+          _highlightIndex = idx;
+          _status = idx >= 0
+              ? 'Next move: cell $idx (N=${shell.gridSize})'
+              : 'Parsed N=${shell.gridSize} — no Tier-1 move';
+        });
       }
     } on Exception catch (e) {
       if (mounted) {
@@ -123,6 +137,17 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
                     ),
                     const SizedBox(height: 12),
                     Text(_status, textAlign: TextAlign.center),
+                    if (_parsedShell != null && _highlightIndex != null) ...[
+                      const SizedBox(height: 24),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 320),
+                        child: PuzzleGridPreview(
+                          gridSize: _parsedShell!.gridSize,
+                          state: _parsedShell!.state,
+                          highlightIndex: _highlightIndex!,
+                        ),
+                      ),
+                    ],
                     if (!ready &&
                         snapshot.connectionState != ConnectionState.done)
                       const Padding(
