@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver (N=9 first): clipboard screen
 
 | Branch | Role |
 |--------|------|
-| **`feature/us-4.1-intersection`** | US-4.1 Tier 2 intersection — ready to merge to `main` |
+| **`main`** | US-4.1 merged @ `6a824d2`; next US-4.2 Tier 3 |
 
 **New contributors:** checkout **`main`**. Active work: US-4.2 Tier 3 traps.
 
