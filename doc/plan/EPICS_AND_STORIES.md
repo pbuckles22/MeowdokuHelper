@@ -46,11 +46,11 @@ Maps to [PM_PLAN.md](../../PM_PLAN.md) phases. Story IDs: `US-<epic>.<n>`.
 | US-2.1 | As a developer, I can load and decode fixture JPEGs in unit tests. | Done | Test reads seq-01 fixture bytes; decode succeeds |
 | US-2.2 | As a player, grid parsing runs off the UI thread in an isolate. | Done | `compute()` entrypoint; no jank on main isolate in test harness |
 | US-2.3 | As a player, the app detects N from unique region colors. | Done | Unique-color count → N; array length N² |
-| US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Planned | Center + offset sampling per product SDD |
+| US-2.4 | As a player, each cell maps to region ID and cat/blocked/empty state. | Done | Center + offset sampling per product SDD |
 | US-2.5 | As a developer, golden tests pass on easy fixtures before hard ones. | Planned | seq `01` (N=4) + `02` (N=6) expected arrays locked |
 | US-2.6 | As a player, pasting from clipboard on app focus triggers parsing. | Planned | `pasteboard` on focus; same isolate path as fixtures |
 
-**Next branch:** `feature/us-2.4-cell-sample` (center + offset cell sampling)
+**Next branch:** `feature/us-2.5-golden` (lock seq 01+02 expected arrays)
 
 ---
 
