@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-11 (`main` — Phase 7 QA hardening in progress; uncommitted local changes)
+**Last updated:** 2026-06-12 (`main` @ US-7.2 + US-7.3 shipped)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next forced move. Validated through N=12 parsed boards. **EPIC-6 complete** — Phantom (T4), Crowding (T5), DFS rename (T6).
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **EPIC-6 complete.** Phase 7 product blockers shipped: **`-2` branch-required API** (hint UI truth) and **MRV** for T6 DFS cell selection.
 
 **Canonical spec:** [requirements/product.md](requirements/product.md)
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | EPIC-6 complete; integration branch |
+| **`main`** | Integration branch; Phase 7 partial |
 
 **New contributors:** `git checkout main && git pull origin main`
 
@@ -28,25 +28,26 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| Phase 0–5 | Done | Bootstrap through progressive sizing |
-| Phase 6 — EPIC-6 | Done | T4 Phantom, T5 Crowding, T6 DFS rename; seq 22–30 `_T6_` gate |
+| Phase 0–6 | Done | Bootstrap through EPIC-6 T1–T6 ladder |
+| US-7.1 | Done | t6 uniqueness block-test (`t6_qa_force.rs`); 0/9 forced |
+| US-7.2 | Done | `calculate_next_move` `-2` + Flutter branch banner |
+| US-7.3 | Done | MRV heuristic replaces row-major `first_empty` in T6 DFS |
 | Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) |
-| Fixture catalog | Done | seq `01`–`42`; UX reference `assets/reference/` |
 
-**Tests (2026-06-11):** Tier 1b — **59** passed, 15 skipped (FFI); Tier 1a — **28 Rust**; `flutter analyze` clean. Tier 2 — **6/6 green** iPhone 13 sim post-EPIC-6. See [QC_STATUS.md](QC_STATUS.md), [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md).
+**Tests:** Tier 1b — **68** passed, 24 skipped (FFI); Tier 1a — **32 Rust**; `flutter analyze` clean. Tier 2 — **6/6 green** iPhone 13 sim (2026-06-11).
 
 ---
 
 ## Next up
 
-**Phase 7 — QA hardening** ([PM_PLAN.md](../PM_PLAN.md)):
+**Phase 7 remainder** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [x] Q2 Tier 2 iOS re-run
-- [ ] Q1 human-verify t6 seq 22–30 ([qa_derivations/t6-seq22-30-human.md](qa_derivations/t6-seq22-30-human.md))
 - [ ] Q3 spec-verify tier synthetics (one tier / QA session)
-- [ ] Commit + push governance + Phase 7 test/doc changes on `main`
+- [ ] Q4 lock parse goldens seq 03–08
+- [ ] Q5 T2/T3 fixture gate seq 09–19
+- [ ] Q6 P2 audit integration + seq 01–02 solve goldens
 
-Then: hint UI epic (FRB) when Phase 7 acceptance met.
+**Product hardening (optional):** Return T1–T5 index only when uniqueness block-test confirms forced; else `-2` for seq 22–30 class boards.
 
 ---
 

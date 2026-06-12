@@ -78,20 +78,21 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — **EPIC-6 complete** (T1–T6 ladder shipped)
+- **Active branch:** `main` — **EPIC-6 complete**; Phase 7 product blockers **US-7.2 / US-7.3 shipped**
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh`.
 - **Phases 0–6:** Done (bootstrap through EPIC-6 advanced tiers)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
 - **Solver (shipped):** T1–T3 + T4 phantom + T5 crowding + T6 DFS (`tier4.rs`); orchestrator `run_tiers_1_through_6`
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
-- **UI:** `PuzzleGridPreview` — highlight or “Tiers 1–6 stalled” banner
+- **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–02
-- **Lint / Tier 1:** `flutter analyze` clean; **50 Flutter passed** (+ 15 FFI skipped); **28 Rust** (`cargo test --lib`)
+- **Lint / Tier 1:** `flutter analyze` clean; **68 Flutter passed** (+ 24 FFI skipped); **32 Rust** (`cargo test --lib`)
 - **Tier 2:** 6 integration tests — **green** iPhone 13 sim 2026-06-11 post-EPIC-6
-- **FFI:** `init_app`, `calculate_next_move` only; regenerate after `rust/src/api/*.rs` changes
+- **FFI:** `init_app`, `calculate_next_move` only; return `>=0` forced (T1–T5), `-2` branch (T6 only), `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
-- **Next:** Phase 7 Q1 human-verify t6 moves ([qa_derivations/t6-seq22-30-human.md](doc/qa_derivations/t6-seq22-30-human.md)); Q3–Q5; hint UI epic (FRB)
+- **Phase 7:** Q1 uniqueness gate (0/9 forced); Q2 Tier 2 green; **US-7.2** `-2` API + branch UI; **US-7.3** MRV for T6 DFS
+- **Next:** Phase 7 Q3 tier synthetics; Q4 parse goldens 03–08; optional: filter T1–T5 returns through uniqueness block-test for true forced hints only
 - **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
 
 ## Run and test

@@ -161,7 +161,9 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Eval:** [doc/TEST_COVERAGE_EVAL.md](doc/TEST_COVERAGE_EVAL.md) (2026-06-11 TL + QA)
 
-- [ ] **Q1** — P1 blind audit t6 seq 22–30 (`human-verified` in manifest) — **partial:** pre-audit test + derivation doc
+- [x] **Q1** — P1 t6 seq 22–30 uniqueness block-test (0/9 forced); derivation doc — **not** `human-verified`
+- [x] **US-7.2** — `-2` branch-required API + Flutter hint UI truth
+- [x] **US-7.3** — MRV heuristic for T6 DFS (`tier4.rs`)
 - [x] **Q2** — Tier 2 iOS re-run post–EPIC-6 (iPhone 13 sim, 6/6, 2026-06-11)
 - [ ] **Q3** — P3 spec-verify tier synthetics (batched per tier)
 - [ ] **Q4** — Lock parse goldens seq 03–08
