@@ -102,6 +102,14 @@ Before changing `rust/src/api/*.rs`: read [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE
 flutter_rust_bridge_codegen generate
 ```
 
+**Solver fixture goldens** (`t2_t3_solver_goldens.dart`, `t4_solver_goldens.dart`, `t6_solver_goldens.dart`) are **generated** from Rust QA SSOT. After editing `rust/src/solver/*_fixtures.rs` (QA session), regenerate:
+
+```bash
+./scripts/generate_solver_goldens.sh
+```
+
+CI/local check that committed Dart matches Rust: `./scripts/generate_solver_goldens.sh --check`
+
 ## What to work on
 
 Pick work from [PM_PLAN.md](PM_PLAN.md) that matches [doc/PROJECT_STATUS.md](doc/PROJECT_STATUS.md) **Next up**. Do not extend legacy Wordle APIs in `rust/src/api/` — Star Battle solver lives in `rust/src/solver/` until Phase 3 wires `calculate_next_move` through FRB.

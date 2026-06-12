@@ -151,10 +151,10 @@ Enforced in [.cursor/rules/qa-coder-separation.mdc](.cursor/rules/qa-coder-separ
 |----------|---------------|
 | `test/*_fixture_gate_test.dart` expectations | `rust/src/solver/tier*.rs` |
 | `rust/src/solver/*_fixtures.rs` oracle arrays | `lib/app/`, `lib/image/` (except golden capture) |
-| `lib/image/*_goldens.dart` | |
+| `lib/image/*_solver_goldens.dart` (generated) | Mechanical output of `./scripts/generate_solver_goldens.sh` |
 | FIXTURES.md oracle / tier columns | |
 
-Golden **codegen** (when added) runs from QA-approved oracle SSOT only.
+Golden **codegen** runs from QA-approved oracle SSOT only (`rust/src/solver/*_fixtures.rs` → `./scripts/generate_solver_goldens.sh` → `lib/image/*_solver_goldens.dart`).
 
 See [.cursor/skills/tester/SKILL.md](.cursor/skills/tester/SKILL.md) and [.cursor/skills/TEST_TDD.md](.cursor/skills/TEST_TDD.md).
 

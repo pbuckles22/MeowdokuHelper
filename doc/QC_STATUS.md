@@ -1,7 +1,7 @@
 # QC status — MeowdokuHelper
 
-**Last QC run:** 2026-06-12 (Phase 8 H1–H3 optional backlog)  
-**Branch:** `main` — Phase 8 H1–H3 complete  
+**Last QC run:** 2026-06-12 (Phase 8 H4 golden codegen — feature branch)  
+**Branch:** `feature/h4-golden-codegen` — Phase 8 complete (merge pending)  
 **Full eval:** [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md)
 
 ---
@@ -17,8 +17,9 @@
 | H1 uniqueness filter | **DONE** — block-test on hint API; fixture oracles re-locked |
 | H2 T4 gate seq 18–19 | **DONE** — `t4_fixtures.rs` + Dart gate |
 | H3 fixture inventory | **DONE** — `./scripts/fixture_inventory.sh` |
+| H4 golden codegen | **DONE** — `gen_solver_goldens` + `./scripts/generate_solver_goldens.sh` |
 | Oracle strict audit | **PASS** — `./scripts/qa_oracle_audit.sh --strict` |
-| Phase 8 remaining | **H4** golden codegen |
+| Phase 8 | **DONE** — H1–H4 on feature branch |
 
 ---
 
@@ -27,8 +28,8 @@
 | | Assessment |
 |---|------------|
 | **Tested right** | T1–T6 synthetics `spec-verified`; parse 01–08; gates t2/t3 09–17, t4 18–19, t6 22–30; hint API uniqueness filter; inventory script |
-| **Tested weak/wrong** | seq 20–21, 31–42 ungated; duplicate golden arrays (H4 backlog) |
-| **Missing** | Golden codegen; line-coverage tooling |
+| **Tested weak/wrong** | seq 20–21, 31–42 ungated |
+| **Missing** | Line-coverage tooling; CI wire for `generate_solver_goldens.sh --check` |
 | **Line coverage %** | Not instrumented — behavior/fixture matrix is SSOT |
 
 ---
@@ -73,5 +74,5 @@ Run `./scripts/fixture_inventory.sh` for live report.
 
 | Priority | Item | Owner |
 |----------|------|-------|
-| 1 | **H4** golden codegen Rust↔Dart | Coder |
-| 2 | seq 20–21, 31–42 gates | QA → Coder |
+| 1 | seq 20–21, 31–42 gates | QA → Coder |
+| 2 | Wire `generate_solver_goldens.sh --check` in CI | Coder |

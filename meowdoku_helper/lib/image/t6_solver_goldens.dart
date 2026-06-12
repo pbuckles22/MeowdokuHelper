@@ -1,6 +1,8 @@
+// GENERATED CODE — DO NOT EDIT BY HAND.
+// Source of truth: rust/src/solver/*_fixtures.rs (QA-owned oracle).
+// Regenerate: ./scripts/generate_solver_goldens.sh
 /// Locked parse output + expected move for T6 fixture gate (seq 22–30).
-/// QA-owned oracle (regression-lock — P1 re-audit). Mirrors `rust/src/solver/t6_fixtures.rs`.
-/// Coder must not edit to force green. See doc/plan/FIXTURES.md.
+/// Generated from `rust/src/solver/t6_fixtures.rs`. See doc/plan/FIXTURES.md.
 class T6SolverGolden {
   const T6SolverGolden({
     required this.fixture,
@@ -75,8 +77,8 @@ const _seq28State = [
 const _seq28Regions = [
   6, 6, 6, 2, 10, 2, 2, 2, 2, 2, 6, 6, 5, 5, 5, 5, 2, 2, 2, 2, 7, 4, 4, 4, 2, 9, 3, 3, 3, 2, 7, 7,
   7, 4, 6, 10, 3, 8, 3, 2, 7, 4, 4, 4, 4, 5, 7, 8, 3, 2, 7, 4, 4, 10, 4, 5, 3, 8, 3, 2, 1, 1, 9, 4,
-  4, 5, 3, 8, 3, 2, 1, 4, 4, 4, 4, 5, 3, 3, 3, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1,
-  1, 1, 2,
+  4, 5, 3, 8, 3, 2, 1, 4, 4, 4, 4, 5, 3, 3, 3, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
+  1, 1, 1, 2,
 ];
 
 const _seq29Regions = [

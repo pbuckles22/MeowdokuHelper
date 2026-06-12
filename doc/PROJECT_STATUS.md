@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (Phase 8 H1–H3 optional backlog shipped)
+**Last updated:** 2026-06-12 (Phase 8 complete — H4 golden codegen on feature branch)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **Phase 8 optional backlog (H1–H3) shipped** — hint uniqueness filter, T4 gate seq 18–19, fixture inventory script.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **Phase 8 complete** — hint uniqueness filter, T4 gate seq 18–19, fixture inventory, golden codegen (Rust SSOT → Dart).
 
 **Canonical spec:** [requirements/product.md](requirements/product.md)
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration branch; Phase 8 H1–H3 done |
+| **`main`** | Integration branch; Phase 8 H4 landing on `feature/h4-golden-codegen` |
 
 **New contributors:** `git checkout main && git pull origin main`
 
@@ -29,7 +29,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | Phase | Status | Notes |
 |-------|--------|-------|
 | Phase 0–7 | Done | Bootstrap through EPIC-7 QA hardening |
-| Phase 8 (partial) | H1–H3 done | Uniqueness filter; T4 gate 18–19; `fixture_inventory.sh` |
+| Phase 8 | Done | H1 uniqueness filter; H2 T4 gate 18–19; H3 inventory; H4 golden codegen |
 | Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) (2026-06-11) |
 
 **Tests:** Tier 1b — **125** passed / **52** skipped (FFI on Linux); Tier 1a — **37** Rust; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12).
@@ -38,11 +38,10 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 ## Next up
 
-**Phase 8 — remaining** ([PM_PLAN.md](../PM_PLAN.md)):
+**Phase 9+ / backlog** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [ ] **H4 / US-8.4** — Golden codegen Rust↔Dart
-
-**Backlog:** seq 20–21, 31–42 full gates; Hint UX (Phase 9+).
+- seq 20–21, 31–42 full gates
+- Hint UX (rule name + explanation + highlights — FRB contract change)
 
 ---
 

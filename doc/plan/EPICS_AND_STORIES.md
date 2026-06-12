@@ -121,7 +121,7 @@ Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote c
 
 ---
 
-## EPIC-8 — Fixture completion & hint truth · **Planned**
+## EPIC-8 — Fixture completion & hint truth · **Done** (2026-06-12)
 
 **Goal:** Close remaining fixture gaps; align hint API with uniqueness semantics. Maps to [PM_PLAN.md](../../PM_PLAN.md) Phase 8.
 
@@ -130,7 +130,7 @@ Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote c
 | US-8.1 | As a player, hints return a cell index only when the move is uniqueness-forced. | Done | Block-test filter on T1–T5; `-2` otherwise; Flutter banner |
 | US-8.2 | As QA, T4 fixture gate locks seq 18–19 parse + solve. | Done | `t4_fixtures.rs` + Dart gate; derivation doc |
 | US-8.3 | As a contributor, a script inventories 42 fixtures vs gate columns. | Done | `scripts/fixture_inventory.sh` + FIXTURES.md sync |
-| US-8.4 | As a developer, golden arrays have a single SSOT (Rust or Dart codegen). | Planned | Dedupe `t6_*` / `t2_t3_*` mirrors |
+| US-8.4 | As a developer, golden arrays have a single SSOT (Rust or Dart codegen). | Done | `gen_solver_goldens` + `generate_solver_goldens.sh`; t2/t3, t4, t6 |
 
 **Deferred:** Hint UX (rule name + highlights) — Phase 9; requires FRB contract change.
 

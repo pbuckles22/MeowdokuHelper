@@ -1,6 +1,8 @@
+// GENERATED CODE — DO NOT EDIT BY HAND.
+// Source of truth: rust/src/solver/*_fixtures.rs (QA-owned oracle).
+// Regenerate: ./scripts/generate_solver_goldens.sh
 /// Locked parse output + expected move for T2/T3 fixture gate (seq 09–17).
-/// QA-owned oracle — mirrors `rust/src/solver/t2_t3_fixtures.rs`.
-/// Coder must not edit to force green. See doc/plan/FIXTURES.md.
+/// Generated from `rust/src/solver/t2_t3_fixtures.rs`. See doc/plan/FIXTURES.md.
 class T2T3SolverGolden {
   const T2T3SolverGolden({
     required this.fixture,
