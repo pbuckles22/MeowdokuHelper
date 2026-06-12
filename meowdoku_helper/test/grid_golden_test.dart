@@ -6,12 +6,12 @@ import 'package:meowdoku_helper/image/grid_goldens.dart';
 import 'package:meowdoku_helper/image/jpeg_decode.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
 
-/// US-2.5 — golden parse arrays for easy fixtures seq 01 + 02.
+/// US-2.5 — golden parse arrays for Phase 2 fixtures seq 01–08.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('US-2.5 grid goldens', () {
-    for (final golden in phase2Goldens) {
+    for (final golden in phase2ParseGoldens) {
       test('${golden.fixture} matches locked state and regions', () async {
         final bytes = Uint8List.fromList(
           await BoardFixture.readBytes(golden.fixture),

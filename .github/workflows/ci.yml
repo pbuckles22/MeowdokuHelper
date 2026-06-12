@@ -1,0 +1,78 @@
+# Tier 1 merge-ready gate — mirrors scripts/merge_ready.sh
+# Tier 2 (iOS integration) runs on macOS; FFI-heavy unit tests skip on Linux hosts.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tier1:
+    name: Tier 1 — analyze + tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Merge-ready gate
+        run: ./scripts/merge_ready.sh
+
+  tier2-ios:
+    name: Tier 2 — iOS integration
+    runs-on: macos-14
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Flutter dependencies
+        working-directory: meowdoku_helper
+        run: flutter pub get
+
+      - name: CocoaPods
+        working-directory: meowdoku_helper/ios
+        run: pod install
+
+      - name: Build iOS Simulator app (links Rust FFI)
+        working-directory: meowdoku_helper
+        run: flutter build ios --simulator --no-codesign
+
+      - name: Boot iOS Simulator and run integration tests
+        working-directory: meowdoku_helper
+        run: |
+          set -euo pipefail
+          DEVICE_ID="$(
+            xcrun simctl list devices available |
+              grep -E 'iPhone (1[4-9]|SE)' |
+              head -1 |
+              sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/'
+          )"
+          if [[ -z "$DEVICE_ID" ]]; then
+            echo "No iPhone simulator found:"
+            xcrun simctl list devices available
+            exit 1
+          fi
+          xcrun simctl boot "$DEVICE_ID" 2>/dev/null || true
+          xcrun simctl bootstatus "$DEVICE_ID" -b
+          flutter test integration_test/app_smoke_test.dart -d "$DEVICE_ID"

@@ -46,17 +46,18 @@ See [docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md). Latest results: [doc/QC_STATUS
 Run before **every code commit** and again before merge/push to `main`:
 
 ```bash
-cd meowdoku_helper
-flutter analyze
-flutter test
-cd rust && cargo test --lib && cd ..
+./scripts/merge_ready.sh
 ```
 
-**FFI / FRB changes:** also run Tier 2 on iOS simulator ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)).
+Equivalent manual steps (from `meowdoku_helper/`): `flutter analyze` → `flutter test` → `cd rust && cargo test --lib`.
+
+**CI:** GitHub Actions [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs `merge_ready.sh` on Ubuntu (Tier 1) and `integration_test/app_smoke_test.dart` on macOS (Tier 2). After push, `gh run watch` per handoff checklist.
+
+**FFI / FRB changes:** also run Tier 2 on iOS simulator locally ([docs/MAC_IOS_TEST.md](docs/MAC_IOS_TEST.md)) if macOS CI is unavailable.
+
+**Phase 7 oracle gate (QA sessions only):** `./scripts/qa_oracle_audit.sh --strict` — fails while P1/P2 manifest items are `pending`; not part of default CI until Phase 7 closes.
 
 **TDD:** new behavior requires **red → green** at the applicable tier(s) before merge; then re-run the full gate above so nothing else regressed.
-
-Same checks should run in CI if you use GitHub Actions.
 
 **Handoff:** Document the exact commands you use for coverage in AGENT_HANDOFF.md so agents can run them consistently.
 

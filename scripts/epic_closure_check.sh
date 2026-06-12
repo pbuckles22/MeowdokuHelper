@@ -76,26 +76,12 @@ else
   warn "PROJECT_STATUS.md missing Last updated"
 fi
 
-# 6. Merge-ready gate (fast — Rust + Flutter tests; analyze)
+# 6. Merge-ready gate (scripts/merge_ready.sh — same as CI Tier 1)
 echo
-echo "=== Merge-ready gate ==="
-if (cd meowdoku_helper && flutter analyze >/dev/null 2>&1); then
-  pass "flutter analyze"
+if "$ROOT/scripts/merge_ready.sh" >/dev/null 2>&1; then
+  pass "merge_ready.sh (flutter analyze + cargo test --lib + flutter test)"
 else
-  fail "flutter analyze"
-fi
-
-if (cd meowdoku_helper/rust && cargo test --lib --quiet >/dev/null 2>&1); then
-  pass "cargo test --lib"
-else
-  fail "cargo test --lib"
-fi
-
-# Flutter test can be slow; run but allow skip-heavy FFI host
-if (cd meowdoku_helper && flutter test >/dev/null 2>&1); then
-  pass "flutter test"
-else
-  fail "flutter test"
+  fail "merge_ready.sh"
 fi
 
 echo

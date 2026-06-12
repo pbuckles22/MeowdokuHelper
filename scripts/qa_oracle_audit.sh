@@ -120,7 +120,7 @@ for p, aid, st, orc in sorted(items):
 PY
 )"
 
-echo "$MANIFEST_REPORT" | while IFS='|' read -r kind a b c d e; do
+while IFS='|' read -r kind a b c d e; do
   case "$kind" in
     PENDING_COUNT) echo "Manifest artifacts pending audit: $a" ;;
     P1_PENDING)
@@ -140,17 +140,16 @@ echo "$MANIFEST_REPORT" | while IFS='|' read -r kind a b c d e; do
     UNAUDITED_ORACLE) echo "Artifacts with oracle=unaudited: $a" ;;
     ARTIFACT) echo "  [$e] $a — $c (oracle: $d, $b)" ;;
   esac
-done
+done <<< "$MANIFEST_REPORT"
 echo
 
 # --- 3. QA-owned paths vs manifest coverage (sample) ---
 info "Manifest path coverage (spot check)..."
 
-python3 <<'PY'
-import re, pathlib, subprocess
+MANIFEST_COVERAGE="$(python3 <<'PY'
+import re, pathlib
 manifest = pathlib.Path("doc/qa_oracle_manifest.yaml").read_text()
 listed = set(re.findall(r"meowdoku_helper/[^\s\]]+", manifest))
-# Key QA-owned files that must be in manifest
 required = [
     "meowdoku_helper/test/t6_fixture_gate_test.dart",
     "meowdoku_helper/rust/src/solver/t6_fixtures.rs",
@@ -166,6 +165,11 @@ if missing:
 else:
     print("PASS: required QA paths listed in manifest")
 PY
+)"
+echo "$MANIFEST_COVERAGE"
+if echo "$MANIFEST_COVERAGE" | grep -q "^FAIL:"; then
+  fail "manifest path coverage incomplete"
+fi
 
 echo
 info "Next steps:"
@@ -179,4 +183,8 @@ if [[ "$FAIL" -ne 0 ]]; then
   echo "=== QA oracle audit: FAIL ==="
   exit 1
 fi
-echo "=== QA oracle audit: PASS (report mode; use --strict to gate on P1/P2) ==="
+if [[ "$STRICT" -eq 1 ]]; then
+  echo "=== QA oracle audit: PASS (strict — P1/P2 clear) ==="
+else
+  echo "=== QA oracle audit: PASS (report mode; use --strict to gate on P1/P2) ==="
+fi

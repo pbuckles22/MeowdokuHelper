@@ -24,7 +24,7 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 - **Forced-move semantics (product/solver)** — Uniqueness: **9/9** t6 probes are `BRANCH_VARIANT`. **Shipped:** `-2` when T6 alone advances; MRV for T6 DFS. **Remaining:** seq 22–30 still return T1–T5 indices (deterministic tiers place before T6); optional filter so hint API returns index only when block-test confirms forced ([doc/qa_derivations/t6-seq22-30-human.md](doc/qa_derivations/t6-seq22-30-human.md)).
 - **t6 solve goldens mislabeled** — Gate is solvability + T1–T5 regression-lock, not hint oracle; rename or re-oracle if product requires uniqueness on every return.
 - **Blind oracle re-audit (QA session)** — Run `./scripts/qa_oracle_audit.sh`; track [doc/qa_oracle_manifest.yaml](doc/qa_oracle_manifest.yaml). **P1** t6: uniqueness done (0 forced); **P2** integration + `_T4_`; **P3** tier synthetics.
-- **Golden coverage** — seq 01–02 locked with solve indices; seq 03–08 have parse smoke tests (`parse_ladder_test.dart`) but **no locked goldens yet**; 24 fixtures still without parse+solve gates ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
+- **Golden coverage** — seq 01–08 parse-locked (`grid_goldens.dart`); seq 01–02 solve indices locked; 18 fixtures still without parse+solve gates ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
 - **seq-08 N mismatch** — Catalog/fixture name says N=9; parser detects N=8 on `08_L09_N9_T1.jpg`. Integration test locks N=8 + index 11; fix N-detect when expanding goldens.
 - **Integration fixture copy** — Four fixtures duplicated under `integration_test/fixtures/` for device `rootBundle`.
 - **Android clipboard** — `pasteboard` may need FileProvider setup before device clipboard testing.
@@ -57,9 +57,9 @@ Source: [PROJECT_HEALTH_AUDIT.md](.cursor/handoff/PROJECT_HEALTH_AUDIT.md).
 | **3** Comment + copy | **Done** | Tier copy fixed; n_detect/solver/tier3 docs |
 | **4** Structure | **Done** | `clipboard_flow.dart` extracted; `clipboard_flow_test.dart` |
 | **5** Solver maintainability | **Partial** | `test_helpers.rs`; HashSet in locked sets; DFS merge + prod dedup deferred |
-| **6** Coverage + SSOT | **Partial** | Error-path tests; parse ladder 03–08 smoke; TESTING_STRATEGY deprecated; full goldens + Tier 2 expansion remain |
+| **6** Coverage + SSOT | **Partial** | Parse goldens 01–08 locked; error-path tests; TESTING_STRATEGY deprecated; fixture gates 09+ + Tier 2 expansion remain |
 
-**Next:** Lock parse goldens for seq 03–08; expand Tier 2 E2E; golden codegen Rust↔Dart.
+**Next:** T2/T3 fixture gate seq 09–19; expand Tier 2 E2E; golden codegen Rust↔Dart.
 
 ---
 

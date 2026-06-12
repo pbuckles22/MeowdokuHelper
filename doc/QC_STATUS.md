@@ -54,10 +54,10 @@
 
 | Area | Tier 1a | Tier 1b | Tier 2 | Oracle status |
 |------|---------|---------|--------|---------------|
-| Solver T1–T6 synthetics | Strong (28) | Roundtrip | Synthetic board | P3 pending |
+| Solver T1–T6 synthetics | Strong (28) | Roundtrip | Synthetic board | P3 partial (tier4 phantom verified) |
 | seq 22–30 solve gate | Strong | Strong | 29–30 only | **P1 pending** |
 | Parse seq 01–02 | — | Strong | — | parse-lock OK |
-| Parse seq 03–08 | — | Smoke only | seq 08 E2E | No locked goldens |
+| Parse seq 03–08 | — | Strong (goldens) | seq 08 E2E | parse-lock (Q4 2026-06-12) |
 | seq 09–42 | — | **None** | **None** | Missing gates |
 | Integration smoke | — | — | 6 tests | **P2 pending** |
 
@@ -69,8 +69,8 @@
 |---|-------|-------|
 | 1 | P1 blind audit t6 seq 22–30 — **human checklist** in [qa_derivations/t6-seq22-30-human.md](qa_derivations/t6-seq22-30-human.md) | QA + you |
 | 2 | Tier 2 iOS sim post–EPIC-6 | **DONE** 2026-06-11 |
-| 3 | P3 spec-verify tier synthetics (one tier/session) | QA |
-| 4 | Lock parse goldens seq 03–08 | QA → Coder |
+| 3 | P3 spec-verify tier synthetics — **tier4 phantom done** | QA |
+| 4 | Lock parse goldens seq 03–08 | **DONE** 2026-06-12 |
 | 5 | T2/T3 fixture gate seq 09–19 | QA → Coder |
 
 See [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md) for full matrix and sequencing.

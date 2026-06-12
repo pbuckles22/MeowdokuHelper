@@ -86,14 +86,13 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
-- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–02
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–08
 - **Lint / Tier 1:** `flutter analyze` clean; **68 Flutter passed** (+ 24 FFI skipped); **32 Rust** (`cargo test --lib`)
 - **Tier 2:** 6 integration tests — **green** iPhone 13 sim 2026-06-11 post-EPIC-6
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` forced (T1–T5), `-2` branch (T6 only), `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
-- **Phase 7:** Q1 uniqueness gate (0/9 forced); Q2 Tier 2 green; **US-7.2** `-2` API + branch UI; **US-7.3** MRV for T6 DFS
-- **Next:** Phase 7 Q3 tier synthetics; Q4 parse goldens 03–08; optional: filter T1–T5 returns through uniqueness block-test for true forced hints only
-- **Pre-EPIC-6 debt (optional):** Lock parse goldens seq 03–08; see [TECH_DEBT.md](TECH_DEBT.md)
+- **Phase 7:** Q1 uniqueness (0/9 forced); Q2 Tier 2 green; US-7.2/7.3 shipped; **Q3** tier4-phantom `spec-verified`; **Q4** parse goldens seq 03–08 locked
+- **Next:** Q3 remainder (tier1–3, tier5, DFS synthetics); Q5 T2/T3 fixture gate seq 09–19; Q6 P2 audit; optional: filter T1–T5 through uniqueness block-test
 
 ## Run and test
 
@@ -112,7 +111,7 @@ flutter test
 flutter test integration_test/
 ```
 
-**Merge-ready gate:** `flutter analyze && flutter test && cd rust && cargo test --lib && cd ..` (from `meowdoku_helper/`)
+**Merge-ready gate:** `./scripts/merge_ready.sh` (Tier 1). **CI:** `.github/workflows/ci.yml` — Tier 1 on Ubuntu + Tier 2 iOS integration on macOS. **Oracle gate (Phase 7):** `./scripts/qa_oracle_audit.sh --strict` (manual; not in default CI).
 
 ## Conventions
 

@@ -94,16 +94,13 @@ Fixes are batched in waves — audit is read-only first, then remediate.
 - Reviewer checks `epic_closure_check.sh` output or handoff note
 - `doc/PROJECT_STATUS.md` *Next up* only advances after closure
 
-### Optional CI (future)
+### CI (wired)
 
-Add a scheduled workflow or `main` post-merge job:
+- **Tier 1 + Tier 2:** [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — `scripts/merge_ready.sh` on Ubuntu; iOS `integration_test/` on `macos-14`
+- **Handoff Phase B:** `gh run watch` after push to `main`
+- **Phase 7 oracle:** `./scripts/qa_oracle_audit.sh --strict` — manual until P1/P2 manifest items clear (not default CI)
 
-```yaml
-# .github/workflows/epic-closure.yml (example — not wired yet)
-- run: ./scripts/epic_closure_check.sh
-```
-
-Fails on merged branches left behind or doc SHA drift. Not required for day-one enforcement.
+Optional future: scheduled `epic_closure_check.sh` on `main`.
 
 ---
 

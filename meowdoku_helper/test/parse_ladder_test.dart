@@ -5,7 +5,7 @@ import 'package:meowdoku_helper/image/board_fixture.dart';
 import 'package:meowdoku_helper/image/jpeg_decode.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
 
-/// Phase 2 ladder — seq 03–08 parse smoke (goldens to lock in a follow-up).
+/// Phase 2 ladder — seq 03–08 parse smoke (arrays locked in [grid_goldens.dart]).
 const _parseLadderFixtures = [
   '03_L04_T1.jpg',
   '04_L05_T1.jpg',

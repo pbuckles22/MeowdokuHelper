@@ -11,7 +11,7 @@
 #   spec | human | parse-lock | regression-lock | unaudited | coupled-commit-risk
 
 version: 1
-last_audit_run: 2026-06-11  # scripts/qa_oracle_audit.sh + Q1 pre-audit
+last_audit_run: 2026-06-12  # Q3 tier4-phantom spec-verify
 
 artifacts:
 
@@ -49,11 +49,12 @@ artifacts:
     paths: [meowdoku_helper/rust/src/solver/tier4_phantom.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-4--phantom-cat-projection-overlap-halos--t4-
     priority: P3
-    notes: EPIC-6 US-6.1; same-session implement+risk.
+    derivation: doc/qa_derivations/tier4-phantom-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 3/3 tests match spec.
 
   - id: tier5-synthetics
     paths: [meowdoku_helper/rust/src/solver/tier5.rs]
@@ -104,8 +105,9 @@ artifacts:
     audit_status: regression-accepted
     spec_ref: doc/plan/FIXTURES.md
     priority: P4
-    fixtures: seq 01-02
-    notes: Parser regression; human spot-check on next parser change.
+    fixtures: seq 01-08
+    derivation: doc/qa_derivations/phase2-parse-goldens-03-08.md
+    notes: Q4 2026-06-12 locked seq 03–08; solve oracle still seq 01–02 only.
 
   - id: phase2-solve-goldens
     paths:

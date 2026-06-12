@@ -42,8 +42,9 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 **Phase 7 remainder** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [ ] Q3 spec-verify tier synthetics (one tier / QA session)
-- [ ] Q4 lock parse goldens seq 03–08
+- [x] Q3 tier4-phantom synthetics — `spec-verified` (2026-06-12)
+- [x] Q4 parse goldens seq 03–08 — locked in `grid_goldens.dart`
+- [ ] Q3 remainder — tier1–3, tier5, DFS synthetics (one tier / QA session)
 - [ ] Q5 T2/T3 fixture gate seq 09–19
 - [ ] Q6 P2 audit integration + seq 01–02 solve goldens
 
