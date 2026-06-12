@@ -11,12 +11,12 @@ import 'fixture_loader.dart';
 /// Phase 3 E2E fixture (doc/plan/FIXTURES.md seq 08). Catalog N=9; parser N=8.
 const _seq08Fixture = '08_L09_N9_T1.jpg';
 const _seq08ParsedGridSize = 8;
-const _seq08ExpectedMoveIndex = 11;
+const _seq08ExpectedMoveIndex = -2;
 
 /// Phase 5 E2E fixture (doc/plan/FIXTURES.md seq 14). Catalog N=10; parser N=12.
 const _seq14Fixture = '14_L15_N10_T3.jpeg';
 const _seq14ParsedGridSize = 12;
-const _seq14ExpectedMoveIndex = 13;
+const _seq14ExpectedMoveIndex = -2;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -84,7 +84,7 @@ void main() {
       tester,
       fixture: '29_L23_N10_T6.jpeg',
       parsedGridSize: 10,
-      expectedMoveIndex: 2,
+      expectedMoveIndex: -2,
     );
   });
 
@@ -93,7 +93,7 @@ void main() {
       tester,
       fixture: '30_L25_N10_T6.jpeg',
       parsedGridSize: 10,
-      expectedMoveIndex: 6,
+      expectedMoveIndex: -2,
     );
   });
 }

@@ -100,7 +100,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 7,
         state: &SEQ09_STATE,
         regions: &SEQ09_REGIONS,
-        expected_move: 7,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "10_L11_T2.jpeg",
@@ -109,7 +109,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 6,
         state: &SEQ10_STATE,
         regions: &SEQ10_REGIONS,
-        expected_move: 0,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "11_L12_T2.jpeg",
@@ -118,7 +118,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 6,
         state: &SEQ11_STATE,
         regions: &SEQ11_REGIONS,
-        expected_move: 0,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "12_L13_T2.jpeg",
@@ -127,7 +127,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 9,
         state: &SEQ12_STATE,
         regions: &SEQ12_REGIONS,
-        expected_move: 8,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "13_L14_T2.jpeg",
@@ -136,7 +136,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 9,
         state: &SEQ13_STATE,
         regions: &SEQ13_REGIONS,
-        expected_move: 7,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "14_L15_N10_T3.jpeg",
@@ -145,7 +145,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 12,
         state: &SEQ14_STATE,
         regions: &SEQ14_REGIONS,
-        expected_move: 13,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "15_L16_T3.jpeg",
@@ -154,7 +154,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 9,
         state: &SEQ15_STATE,
         regions: &SEQ15_REGIONS,
-        expected_move: 2,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "16_L17_T3.jpeg",
@@ -163,7 +163,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 10,
         state: &SEQ16_STATE,
         regions: &SEQ16_REGIONS,
-        expected_move: 6,
+        expected_move: -2,
     },
     T2T3SolverGolden {
         fixture: "17_L18_T3.jpeg",
@@ -172,7 +172,7 @@ pub const T2_T3_FIXTURE_GATE: &[T2T3SolverGolden] = &[
         grid_size: 10,
         state: &SEQ17_STATE,
         regions: &SEQ17_REGIONS,
-        expected_move: 4,
+        expected_move: -2,
     },
 ];
 
@@ -210,7 +210,7 @@ mod tests {
                 "seq {:02} {} N={} move={idx} forced={forced} tier={tier}",
                 golden.seq, golden.fixture, golden.grid_size,
             );
-            assert_ne!(idx, BRANCH_REQUIRED, "{} must not need T6 branch", golden.fixture);
+            assert_eq!(idx, golden.expected_move, "{} hint API", golden.fixture);
         }
     }
 

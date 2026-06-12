@@ -34,14 +34,19 @@ Future<void> main() async {
   });
 
   group('Q6 phase2 T1 spec oracle (QA)', () {
+    const propagationMoves = {
+      '01_L-early_N4_T1.jpg': 4,
+      '02_L03_N6_T1.jpg': 8,
+    };
+
     for (final golden in phase2SolveGoldens) {
-      test('${golden.fixture} T1 spec first move matches locked index', () {
+      test('${golden.fixture} T1 spec first move matches propagation index', () {
         final specMove = qaSpecT1FirstMove(
           golden.state,
           golden.regions,
           golden.gridSize,
         );
-        expect(specMove, golden.expectedMove);
+        expect(specMove, propagationMoves[golden.fixture]);
         expect(qaExpectedMoveIsEmpty(golden.state, specMove!), isTrue);
       });
     }
@@ -50,7 +55,7 @@ Future<void> main() async {
   group('Q6 phase2 solve regression (QA)', () {
     for (final golden in phase2SolveGoldens) {
       test(
-        '${golden.fixture} solve returns locked index',
+        '${golden.fixture} solve returns hint API index',
         () async {
           await ensureRustLibInitialized();
 
@@ -70,6 +75,11 @@ Future<void> main() async {
   });
 
   group('Q6 phase2 board traces (QA)', () {
+    const propagationMoves = {
+      '01_L-early_N4_T1.jpg': 4,
+      '02_L03_N6_T1.jpg': 8,
+    };
+
     for (final golden in phase2SolveGoldens) {
       test('${golden.fixture} trace for derivation doc', () {
         // ignore: avoid_print
@@ -78,7 +88,7 @@ Future<void> main() async {
           gridSize: golden.gridSize,
           state: golden.state,
           regions: golden.regions,
-          expectedMove: golden.expectedMove,
+          expectedMove: propagationMoves[golden.fixture]!,
         )}');
       });
     }
@@ -88,30 +98,35 @@ Future<void> main() async {
     String fixture,
     int parsedGridSize,
     int expectedMoveIndex,
+    int propagationMoveIndex,
     String tierGate,
   })>[
     (
       fixture: '08_L09_N9_T1.jpg',
       parsedGridSize: 8,
-      expectedMoveIndex: 11,
+      expectedMoveIndex: -2,
+      propagationMoveIndex: 11,
       tierGate: 'T1',
     ),
     (
       fixture: '14_L15_N10_T3.jpeg',
       parsedGridSize: 12,
-      expectedMoveIndex: 13,
+      expectedMoveIndex: -2,
+      propagationMoveIndex: 13,
       tierGate: 'T3',
     ),
     (
       fixture: '29_L23_N10_T6.jpeg',
       parsedGridSize: 10,
-      expectedMoveIndex: 2,
+      expectedMoveIndex: -2,
+      propagationMoveIndex: 2,
       tierGate: 'T6',
     ),
     (
       fixture: '30_L25_N10_T6.jpeg',
       parsedGridSize: 10,
-      expectedMoveIndex: 6,
+      expectedMoveIndex: -2,
+      propagationMoveIndex: 6,
       tierGate: 'T6',
     ),
   ];
@@ -167,7 +182,7 @@ Future<void> main() async {
   group('Q6 integration solve regression (QA)', () {
     for (final c in integrationCases) {
       test(
-        '${c.fixture} solve returns locked E2E index',
+        '${c.fixture} solve returns hint API index',
         () async {
           await ensureRustLibInitialized();
 
@@ -204,7 +219,6 @@ Future<void> main() async {
           );
 
           expect(idx, c.expectedMoveIndex);
-          expect(qaExpectedMoveIsEmpty(state, idx), isTrue);
         },
         skip: ffiSkip,
       );
@@ -251,7 +265,7 @@ Future<void> main() async {
           gridSize: gridSize,
           state: state,
           regions: regions,
-          expectedMove: c.expectedMoveIndex,
+          expectedMove: c.propagationMoveIndex,
         )}');
       });
     }

@@ -95,69 +95,69 @@ const _seq30Regions = [
 
 List<int> _zeros(int n) => List<int>.filled(n, 0);
 
-/// seq 22–30 gate — parse locked; solve indices from T1–T5 (US-7.2: -2 only when T6 alone advances).
+/// seq 22–30 gate — parse locked; hint API returns -2 when propagation move is not unique-forced.
 final t6FixtureGate = <T6SolverGolden>[
   T6SolverGolden(
     fixture: '22_L31_N8_T6.jpeg',
     gridSize: 8,
     state: _zeros(64),
     regions: _seq22Regions,
-    expectedMove: 0,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '23_L22_N9_T6.jpeg',
     gridSize: 9,
     state: _zeros(81),
     regions: _seq23Regions,
-    expectedMove: 8,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '24_L27_N9_T6.jpeg',
     gridSize: 10,
     state: _seq24State,
     regions: _seq24Regions,
-    expectedMove: 9,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '25_L32_N9_T6.jpeg',
     gridSize: 10,
     state: _seq25State,
     regions: _seq25Regions,
-    expectedMove: 1,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '26_L29_N9_T6.jpeg',
     gridSize: 9,
     state: _zeros(81),
     regions: _seq26Regions,
-    expectedMove: 7,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '27_L24_N9_T6.jpeg',
     gridSize: 9,
     state: _zeros(81),
     regions: _seq27Regions,
-    expectedMove: 4,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '28_L30_N9_T6.jpeg',
     gridSize: 10,
     state: _seq28State,
     regions: _seq28Regions,
-    expectedMove: 9,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '29_L23_N10_T6.jpeg',
     gridSize: 10,
     state: _zeros(100),
     regions: _seq29Regions,
-    expectedMove: 2,
+    expectedMove: -2,
   ),
   T6SolverGolden(
     fixture: '30_L25_N10_T6.jpeg',
     gridSize: 10,
     state: _zeros(100),
     regions: _seq30Regions,
-    expectedMove: 6,
+    expectedMove: -2,
   ),
 ];

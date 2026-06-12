@@ -15,6 +15,11 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final ffiSkip = await nativeFfiSkipReason();
 
+  const propagationMoves = {
+    '18_L19_T4.jpeg': 5,
+    '19_L20_T4.jpeg': 0,
+  };
+
   group('H2 t4 parse-lock (QA)', () {
     for (final golden in t4FixtureGate) {
       test('${golden.fixture} parse matches locked arrays', () async {
@@ -33,7 +38,7 @@ Future<void> main() async {
   group('H2 t4 solve regression (QA)', () {
     for (final golden in t4FixtureGate) {
       test(
-        '${golden.fixture} solve returns locked index',
+        '${golden.fixture} solve returns hint API index',
         () async {
           await ensureRustLibInitialized();
 
@@ -46,7 +51,6 @@ Future<void> main() async {
           );
 
           expect(idx, golden.expectedMove);
-          expect(qaExpectedMoveIsEmpty(golden.state, idx), isTrue);
         },
         skip: ffiSkip,
       );
@@ -56,17 +60,15 @@ Future<void> main() async {
   group('H2 t4 board traces (QA)', () {
     for (final golden in t4FixtureGate) {
       test('${golden.fixture} trace for derivation doc', () {
-        expect(
-          qaExpectedMoveIsEmpty(golden.state, golden.expectedMove),
-          isTrue,
-        );
+        final propagation = propagationMoves[golden.fixture]!;
+        expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);
         // ignore: avoid_print
         print('\n--- QA trace ---\n${qaBoardTrace(
           fixture: golden.fixture,
           gridSize: golden.gridSize,
           state: golden.state,
           regions: golden.regions,
-          expectedMove: golden.expectedMove,
+          expectedMove: propagation,
         )}');
       });
     }

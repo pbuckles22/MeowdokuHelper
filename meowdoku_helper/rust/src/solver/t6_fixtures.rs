@@ -101,7 +101,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 8,
         state: &SEQ22_STATE,
         regions: &SEQ22_REGIONS,
-        expected_move: 0,
+        expected_move: -2,
         branch_probe_index: 0,
     },
     T6SolverGolden {
@@ -109,7 +109,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 9,
         state: &SEQ23_STATE,
         regions: &SEQ23_REGIONS,
-        expected_move: 8,
+        expected_move: -2,
         branch_probe_index: 8,
     },
     T6SolverGolden {
@@ -117,7 +117,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 10,
         state: &SEQ24_STATE,
         regions: &SEQ24_REGIONS,
-        expected_move: 9,
+        expected_move: -2,
         branch_probe_index: 9,
     },
     T6SolverGolden {
@@ -125,7 +125,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 10,
         state: &SEQ25_STATE,
         regions: &SEQ25_REGIONS,
-        expected_move: 1,
+        expected_move: -2,
         branch_probe_index: 1,
     },
     T6SolverGolden {
@@ -133,7 +133,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 9,
         state: &SEQ26_STATE,
         regions: &SEQ26_REGIONS,
-        expected_move: 7,
+        expected_move: -2,
         branch_probe_index: 7,
     },
     T6SolverGolden {
@@ -141,7 +141,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 9,
         state: &SEQ27_STATE,
         regions: &SEQ27_REGIONS,
-        expected_move: 4,
+        expected_move: -2,
         branch_probe_index: 4,
     },
     T6SolverGolden {
@@ -149,7 +149,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 10,
         state: &SEQ28_STATE,
         regions: &SEQ28_REGIONS,
-        expected_move: 9,
+        expected_move: -2,
         branch_probe_index: 9,
     },
     T6SolverGolden {
@@ -157,7 +157,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 10,
         state: &SEQ29_STATE,
         regions: &SEQ29_REGIONS,
-        expected_move: 2,
+        expected_move: -2,
         branch_probe_index: 2,
     },
     T6SolverGolden {
@@ -165,7 +165,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         grid_size: 10,
         state: &SEQ30_STATE,
         regions: &SEQ30_REGIONS,
-        expected_move: 6,
+        expected_move: -2,
         branch_probe_index: 6,
     },
 ];

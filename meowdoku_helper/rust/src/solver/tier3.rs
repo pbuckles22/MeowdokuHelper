@@ -230,7 +230,7 @@ mod tests {
         state[idx(0, 1, n)] = EMPTY;
         state[idx(1, 1, n)] = EMPTY;
 
-        let idx = crate::api::meowdoku::calculate_next_move(state, regions, size);
+        let idx = crate::api::meowdoku::propagate_next_move_index(state, regions, size);
         assert!(idx >= 0);
     }
 }

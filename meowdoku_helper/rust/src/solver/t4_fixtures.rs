@@ -45,7 +45,7 @@ pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
         grid_size: 10,
         state: &SEQ18_STATE,
         regions: &SEQ18_REGIONS,
-        expected_move: 5,
+        expected_move: -2,
     },
     T4SolverGolden {
         fixture: "19_L20_T4.jpeg",
@@ -54,7 +54,7 @@ pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
         grid_size: 9,
         state: &SEQ19_STATE,
         regions: &SEQ19_REGIONS,
-        expected_move: 0,
+        expected_move: -2,
     },
 ];
 
@@ -93,7 +93,7 @@ mod tests {
                 "seq {:02} {} N={} move={idx} forced={forced} tier={tier}",
                 golden.seq, golden.fixture, golden.grid_size,
             );
-            assert_ne!(idx, BRANCH_REQUIRED, "{} must not need T6 branch", golden.fixture);
+            assert_eq!(idx, golden.expected_move, "{} hint API", golden.fixture);
         }
     }
 

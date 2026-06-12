@@ -58,7 +58,7 @@ const List<T4SolverGolden> t4FixtureGate = [
     gridSize: 10,
     state: _seq18State,
     regions: _seq18Regions,
-    expectedMove: 5,
+    expectedMove: -2,
   ),
   T4SolverGolden(
     fixture: '19_L20_T4.jpeg',
@@ -67,6 +67,6 @@ const List<T4SolverGolden> t4FixtureGate = [
     gridSize: 9,
     state: _seq19State,
     regions: _seq19Regions,
-    expectedMove: 0,
+    expectedMove: -2,
   ),
 ];

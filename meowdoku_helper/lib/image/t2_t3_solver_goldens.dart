@@ -186,7 +186,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 7,
     state: _seq09State,
     regions: _seq09Regions,
-    expectedMove: 7,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '10_L11_T2.jpeg',
@@ -195,7 +195,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 6,
     state: _seq10State,
     regions: _seq10Regions,
-    expectedMove: 0,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '11_L12_T2.jpeg',
@@ -204,7 +204,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 6,
     state: _seq11State,
     regions: _seq11Regions,
-    expectedMove: 0,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '12_L13_T2.jpeg',
@@ -213,7 +213,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 9,
     state: _seq12State,
     regions: _seq12Regions,
-    expectedMove: 8,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '13_L14_T2.jpeg',
@@ -222,7 +222,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 9,
     state: _seq13State,
     regions: _seq13Regions,
-    expectedMove: 7,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '14_L15_N10_T3.jpeg',
@@ -231,7 +231,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 12,
     state: _seq14State,
     regions: _seq14Regions,
-    expectedMove: 13,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '15_L16_T3.jpeg',
@@ -240,7 +240,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 9,
     state: _seq15State,
     regions: _seq15Regions,
-    expectedMove: 2,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '16_L17_T3.jpeg',
@@ -249,7 +249,7 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 10,
     state: _seq16State,
     regions: _seq16Regions,
-    expectedMove: 6,
+    expectedMove: -2,
   ),
   T2T3SolverGolden(
     fixture: '17_L18_T3.jpeg',
@@ -258,6 +258,6 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 10,
     state: _seq17State,
     regions: _seq17Regions,
-    expectedMove: 4,
+    expectedMove: -2,
   ),
 ];

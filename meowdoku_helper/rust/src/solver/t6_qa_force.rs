@@ -1,26 +1,10 @@
 //! QA-only: verify whether a candidate first-move index is logically forced.
 //!
-//! Forced ⟺ blocking that cell leaves no valid next move (`calculate_next_move` → -1).
+//! Forced ⟺ blocking that cell leaves no valid next move (`propagate_next_move_index` → -1).
 //! If another first move exists, the locked index is a T6 branch convention, not a hint.
 //! See doc/qa_derivations/t6-seq22-30-human.md.
 
-use crate::api::meowdoku::calculate_next_move;
-use crate::solver::board::BLOCKED;
-
-/// Returns true when `candidate_idx` is EMPTY and blocking it stalls the solver.
-pub fn is_first_move_forced(
-    state: &[u8],
-    regions: &[u8],
-    grid_size: u32,
-    candidate_idx: usize,
-) -> bool {
-    if candidate_idx >= state.len() || state[candidate_idx] != 0 {
-        return false;
-    }
-    let mut blocked = state.to_vec();
-    blocked[candidate_idx] = BLOCKED;
-    calculate_next_move(blocked, regions.to_vec(), grid_size) == -1
-}
+pub use crate::api::meowdoku::is_first_move_forced;
 
 #[cfg(test)]
 mod tests {
