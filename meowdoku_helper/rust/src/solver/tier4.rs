@@ -207,7 +207,7 @@ fn dfs_solve(board: &mut Board) -> bool {
             return true;
         }
 
-        let Some((x, y)) = first_empty(board) else {
+        let Some((x, y)) = mrv_empty(board) else {
             return false;
         };
 
@@ -231,9 +231,9 @@ fn dfs_solve(board: &mut Board) -> bool {
     }
 }
 
-/// One bifurcation step when Tiers 1–5 stall: try cat at first empty, recurse via [dfs_solve], or block.
+/// One bifurcation step when Tiers 1–5 stall: MRV empty, recurse via [dfs_solve], or block.
 pub fn dfs_bifurcation(board: &mut Board) -> bool {
-    let Some((x, y)) = first_empty(board) else {
+    let Some((x, y)) = mrv_empty(board) else {
         return false;
     };
 
