@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (`main` @ `89357e4` — Phase 7 Q5 complete)
+**Last updated:** 2026-06-12 (`main` @ `525f69f` — Phase 7 Q5 complete)
 
 ---
 
