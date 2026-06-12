@@ -64,8 +64,8 @@ Fixture gates follow [TEST_PLAN.md](../../TEST_PLAN.md) → **QA / Coder separat
 | 15 | `15_L16_T3.jpeg` | 16 | 9 | T3 | regression-lock | Q5 gate 2026-06-12 |
 | 16 | `16_L17_T3.jpeg` | 17 | 10 | T3 | regression-lock | Q5 gate 2026-06-12 |
 | 17 | `17_L18_T3.jpeg` | 18 | 10 | T3 | regression-lock | Q5 gate 2026-06-12 |
-| 18 | `18_L19_T4.jpeg` | 19 | — | T4 | |
-| 19 | `19_L20_T4.jpeg` | 20 | — | T4 | Gate before seq 20+ batch |
+| 18 | `18_L19_T4.jpeg` | 19 | 10 | T4 | regression-lock | H2 gate 2026-06-12 |
+| 19 | `19_L20_T4.jpeg` | 20 | 9 | T4 | regression-lock | H2 gate 2026-06-12; gate before seq 20+ batch |
 
 ## Catalog — seq 20–32 (L21–L33 batch)
 

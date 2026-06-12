@@ -101,6 +101,23 @@ artifacts:
       block-test 0/9 forced — solvability regression, not hint oracle. Q6: audit_status
       regression-accepted.
 
+  - id: t4-fixture-gate
+    paths:
+      - meowdoku_helper/rust/src/solver/t4_fixtures.rs
+      - meowdoku_helper/lib/image/t4_solver_goldens.dart
+      - meowdoku_helper/test/t4_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t4_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: regression-accepted
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 18-19
+    derivation: doc/qa_derivations/t4-seq18-19-human.md
+    notes: >-
+      H2 2026-06-12: parse-lock 2/2; T1–T5 first step locked (no -2). Uniqueness
+      block-test 0/2 forced — solvability regression, not hint oracle.
+
   - id: t6-fixture-gate
     paths:
       - meowdoku_helper/rust/src/solver/t6_fixtures.rs
