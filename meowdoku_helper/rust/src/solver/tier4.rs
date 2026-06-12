@@ -1,4 +1,5 @@
 use super::board::{Board, BLOCKED, CAT, EMPTY};
+use super::tier1::apply_halo_enforcer;
 use super::tier3::run_tiers_1_through_3;
 use super::tier4_phantom::apply_phantom_projection;
 use super::tier5::apply_region_crowding;
@@ -105,16 +106,73 @@ fn region_counts(board: &Board, region_id: u8) -> (usize, usize) {
     (cats, empties)
 }
 
-fn first_empty(board: &Board) -> Option<(usize, usize)> {
+/// Count EMPTY cells in `region_id` that could still host a cat after halo propagation.
+fn valid_cat_placements_in_region(board: &Board, region_id: u8) -> usize {
     let size = board.size() as usize;
+    let mut count = 0usize;
     for y in 0..size {
         for x in 0..size {
-            if board.get(x, y) == EMPTY {
-                return Some((x, y));
+            if board.region_at(x, y) == region_id && board.get(x, y) == EMPTY {
+                count += 1;
             }
         }
     }
-    None
+    count
+}
+
+/// Empties removed from the candidate's row and column after a hypothetical cat + halo.
+fn open_space_eliminated(before: &Board, after: &Board, x: usize, y: usize) -> usize {
+    let size = before.size() as usize;
+    let mut eliminated = 0usize;
+    for cx in 0..size {
+        if before.get(cx, y) == EMPTY && after.get(cx, y) != EMPTY {
+            eliminated += 1;
+        }
+    }
+    for cy in 0..size {
+        if before.get(x, cy) == EMPTY && after.get(x, cy) != EMPTY {
+            eliminated += 1;
+        }
+    }
+    eliminated
+}
+
+/// MRV: pick the empty whose region has fewest valid placements after T1 halo; tie-break by row/col elimination.
+fn mrv_empty(board: &Board) -> Option<(usize, usize)> {
+    let size = board.size() as usize;
+    let mut best: Option<((usize, usize), (usize, usize))> = None;
+
+    for y in 0..size {
+        for x in 0..size {
+            if board.get(x, y) != EMPTY {
+                continue;
+            }
+
+            let mut trial = board.clone();
+            trial.set(x, y, CAT);
+            apply_halo_enforcer(&mut trial);
+
+            let region_id = board.region_at(x, y);
+            let remaining = valid_cat_placements_in_region(&trial, region_id);
+            let eliminated = open_space_eliminated(board, &trial, x, y);
+            let candidate = ((x, y), (remaining, eliminated));
+
+            match &best {
+                None => best = Some(candidate),
+                Some(((bx, by), (b_rem, b_elim))) => {
+                    let better = remaining < *b_rem
+                        || (remaining == *b_rem
+                            && (eliminated > *b_elim
+                                || (eliminated == *b_elim && (y, x) < (*by, *bx))));
+                    if better {
+                        best = Some(candidate);
+                    }
+                }
+            }
+        }
+    }
+
+    best.map(|((x, y), _)| (x, y))
 }
 
 /// Deterministic tiers T1–T5 to fixed point (no DFS).

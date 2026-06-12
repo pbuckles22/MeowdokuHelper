@@ -95,7 +95,7 @@ const _seq30Regions = [
 
 List<int> _zeros(int n) => List<int>.filled(n, 0);
 
-/// seq 22–30 T6 fixture gate (parse arrays locked; move index from Rust `calculate_next_move`).
+/// seq 22–30 gate — parse locked; solve indices from T1–T5 (US-7.2: -2 only when T6 alone advances).
 final t6FixtureGate = <T6SolverGolden>[
   T6SolverGolden(
     fixture: '22_L31_N8_T6.jpeg',

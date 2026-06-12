@@ -24,7 +24,7 @@ See also: [SETUP_GUIDE.md](SETUP_GUIDE.md) (FFI plumbing), [AGENT_HANDOFF.md](..
 | Matrix layouts | Grid state is 1D row-major; do not pass 2D JSON or column-major Julia buffers without explicit mapping. |
 | Toolchain immutability | Do not edit `lib/src/rust/` (generated), `ios/`, `rust_builder/`, `flutter_rust_bridge.yaml`, or env vars to patch solver bugs — fix Rust in `rust/src/solver/`. |
 | Pure functional compute | Solver tiers in `rust/src/solver/tier*.rs`; orchestrators `run_tiers_1_through_*`; validate with `cargo test --lib`. |
-| FFI error handling | Production Rust uses `Option`/`Result`; invalid inputs in `calculate_next_move` return `-1` — no panics across FRB. |
+| FFI error handling | `calculate_next_move` → `i32`: `>= 0` forced (T1–T5), `-2` branch required (T6), `-1` invalid/stuck — no panics across FRB. |
 
 **Threading (Dart):** Main isolate for UI + sync FRB only. JPEG decode and grid parse run in `Isolate`s (`compute()`). See `lib/image/`.
 
@@ -41,5 +41,5 @@ See also: [SETUP_GUIDE.md](SETUP_GUIDE.md) (FFI plumbing), [AGENT_HANDOFF.md](..
 **US-6.3+ invariants:**
 
 1. **Orchestrator stack:** `[T1: Halo + Singles] → [T2: Intersection] → [T3: Traps] → [T4: Phantoms] → [T5: Crowding] → [T6: DFS Fallback]`
-2. **FFI signature frozen:** `calculate_next_move(state, regions, grid_size) -> i32` — tier reorganization is internal to `rust/src/solver/`.
+2. **FFI signature frozen:** `calculate_next_move(state, regions, grid_size) -> i32` — return semantics: forced index, `-2` branch, `-1` stuck.
 3. **Fixture gate labeling:** seq 22–30 use `_T6_` suffix (minimum tier = DFS); deterministic tiers are T1–T5.

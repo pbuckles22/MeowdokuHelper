@@ -24,7 +24,7 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
   bool _ffiReady = false;
   bool _parsingClipboard = false;
   GridParseShell? _parsedShell;
-  int? _highlightIndex;
+  int? _solverIndex;
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
 
       setState(() {
         _parsedShell = outcome.parsedShell;
-        _highlightIndex = outcome.highlightIndex;
+        _solverIndex = outcome.solverIndex;
         _status = outcome.status;
       });
     } on Exception catch (e) {
@@ -122,14 +122,14 @@ class _MeowdokuHelperAppState extends State<MeowdokuHelperApp> {
                     ),
                     const SizedBox(height: 12),
                     Text(_status, textAlign: TextAlign.center),
-                    if (_parsedShell != null && _highlightIndex != null) ...[
+                    if (_parsedShell != null && _solverIndex != null) ...[
                       const SizedBox(height: 24),
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 320),
                         child: PuzzleGridPreview(
                           gridSize: _parsedShell!.gridSize,
                           state: _parsedShell!.state,
-                          highlightIndex: _highlightIndex!,
+                          highlightIndex: _solverIndex!,
                         ),
                       ),
                     ],

@@ -33,7 +33,7 @@ mod tests {
         let mut forced = 0u32;
         let mut branch = 0u32;
         for golden in T6_FIXTURE_GATE {
-            let idx = golden.expected_move as usize;
+            let idx = golden.branch_probe_index as usize;
             let is_forced = is_first_move_forced(
                 golden.state,
                 golden.regions,
@@ -41,9 +41,9 @@ mod tests {
                 idx,
             );
             eprintln!(
-                "{} move {} ({}) → {}",
+                "{} probe {} ({}) → {}",
                 golden.fixture,
-                golden.expected_move,
+                golden.branch_probe_index,
                 if is_forced { "FORCED" } else { "BRANCH_VARIANT" },
                 if is_forced {
                     "ok for hint UI"

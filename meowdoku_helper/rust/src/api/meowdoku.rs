@@ -1,7 +1,28 @@
 use crate::solver::board::{Board, CAT};
-use crate::solver::tier4::run_tiers_1_through_6;
+use crate::solver::tier4::{run_tiers_1_through_5, run_tiers_1_through_6};
 
-/// Returns cell index 0..(N²-1) for the next forced cat placement (Tiers 1–6), or -1.
+/// Solver needs Tier 6 branching — not a deterministic hint (US-7.2).
+pub const BRANCH_REQUIRED: i32 = -2;
+
+/// Classify solver output: forced index, branch required, or stuck.
+pub(crate) fn classify_solver_step(before: &[u8], after_t5: &[u8], after_t6: &[u8]) -> i32 {
+    for i in 0..before.len() {
+        if before[i] != CAT && after_t5[i] == CAT {
+            return i as i32;
+        }
+    }
+    for i in 0..before.len() {
+        if before[i] != CAT && after_t6[i] == CAT {
+            return BRANCH_REQUIRED;
+        }
+    }
+    -1
+}
+
+/// Returns cell index 0..(N²-1) for the next **forced** cat (Tiers 1–5 only).
+///
+/// * `-2` ([BRANCH_REQUIRED]): T1–T5 stall but T6 can advance — user must choose.
+/// * `-1`: invalid input or fully stuck.
 #[flutter_rust_bridge::frb(sync)]
 pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> i32 {
     let expected = (grid_size * grid_size) as usize;
@@ -10,16 +31,15 @@ pub fn calculate_next_move(state: Vec<u8>, regions: Vec<u8>, grid_size: u32) -> 
     }
 
     let before = state.clone();
-    let mut board = Board::new(state, regions, grid_size);
-    run_tiers_1_through_6(&mut board);
+    let regions_clone = regions.clone();
 
-    for i in 0..expected {
-        if before[i] != CAT && board.state[i] == CAT {
-            return i as i32;
-        }
-    }
+    let mut deterministic = Board::new(state.clone(), regions.clone(), grid_size);
+    run_tiers_1_through_5(&mut deterministic);
 
-    -1
+    let mut with_branch = Board::new(state, regions_clone, grid_size);
+    run_tiers_1_through_6(&mut with_branch);
+
+    classify_solver_step(&before, &deterministic.state, &with_branch.state)
 }
 
 #[cfg(test)]
@@ -77,6 +97,32 @@ mod tests {
             1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 4, 3,
         ];
         assert_eq!(calculate_next_move(state, regions, 6), 8);
+    }
+
+    #[test]
+    fn classify_returns_forced_index_when_t5_places_cat() {
+        let before = vec![EMPTY, BLOCKED, EMPTY, BLOCKED];
+        let after_t5 = vec![CAT, BLOCKED, EMPTY, BLOCKED];
+        let after_t6 = vec![CAT, BLOCKED, CAT, BLOCKED];
+        assert_eq!(classify_solver_step(&before, &after_t5, &after_t6), 0);
+    }
+
+    #[test]
+    fn classify_returns_branch_required_when_only_t6_places_cat() {
+        let before = vec![EMPTY, BLOCKED, EMPTY, BLOCKED];
+        let after_t5 = before.clone();
+        let after_t6 = vec![EMPTY, BLOCKED, CAT, BLOCKED];
+        assert_eq!(
+            classify_solver_step(&before, &after_t5, &after_t6),
+            BRANCH_REQUIRED
+        );
+    }
+
+    #[test]
+    fn classify_returns_minus_one_when_neither_tier_places_cat() {
+        let before = vec![EMPTY, BLOCKED];
+        let stalled = before.clone();
+        assert_eq!(classify_solver_step(&before, &stalled, &stalled), -1);
     }
 
     #[test]

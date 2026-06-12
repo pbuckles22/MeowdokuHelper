@@ -1,13 +1,16 @@
 //! Locked parse output + expected next-move index for T6 fixture gate (seq 22–30).
 //! Parse arrays: parse-lock. expected_move: regression-lock (QA re-audit P1 — TEST_PLAN.md).
-//! QA-owned oracle — Coder must not edit to force green. See doc/plan/FIXTURES.md.
+//! QA-owned oracle — seq 22–30 solve indices from T1–T5 (US-7.2: -2 only when T6 alone advances).
 
 pub struct T6SolverGolden {
     pub fixture: &'static str,
     pub grid_size: u32,
     pub state: &'static [u8],
     pub regions: &'static [u8],
+    /// Regression-lock: next forced move from T1–T5 (`calculate_next_move`).
     pub expected_move: i32,
+    /// Historical T6 `first_empty` probe — uniqueness block-test only (QA).
+    pub branch_probe_index: u32,
 }
 
 const SEQ22_STATE: [u8; 64] = [0; 64];
@@ -99,6 +102,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ22_STATE,
         regions: &SEQ22_REGIONS,
         expected_move: 0,
+        branch_probe_index: 0,
     },
     T6SolverGolden {
         fixture: "23_L22_N9_T6.jpeg",
@@ -106,6 +110,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ23_STATE,
         regions: &SEQ23_REGIONS,
         expected_move: 8,
+        branch_probe_index: 8,
     },
     T6SolverGolden {
         fixture: "24_L27_N9_T6.jpeg",
@@ -113,6 +118,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ24_STATE,
         regions: &SEQ24_REGIONS,
         expected_move: 9,
+        branch_probe_index: 9,
     },
     T6SolverGolden {
         fixture: "25_L32_N9_T6.jpeg",
@@ -120,6 +126,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ25_STATE,
         regions: &SEQ25_REGIONS,
         expected_move: 1,
+        branch_probe_index: 1,
     },
     T6SolverGolden {
         fixture: "26_L29_N9_T6.jpeg",
@@ -127,6 +134,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ26_STATE,
         regions: &SEQ26_REGIONS,
         expected_move: 7,
+        branch_probe_index: 7,
     },
     T6SolverGolden {
         fixture: "27_L24_N9_T6.jpeg",
@@ -134,6 +142,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ27_STATE,
         regions: &SEQ27_REGIONS,
         expected_move: 4,
+        branch_probe_index: 4,
     },
     T6SolverGolden {
         fixture: "28_L30_N9_T6.jpeg",
@@ -141,6 +150,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ28_STATE,
         regions: &SEQ28_REGIONS,
         expected_move: 9,
+        branch_probe_index: 9,
     },
     T6SolverGolden {
         fixture: "29_L23_N10_T6.jpeg",
@@ -148,6 +158,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ29_STATE,
         regions: &SEQ29_REGIONS,
         expected_move: 2,
+        branch_probe_index: 2,
     },
     T6SolverGolden {
         fixture: "30_L25_N10_T6.jpeg",
@@ -155,6 +166,7 @@ pub const T6_FIXTURE_GATE: &[T6SolverGolden] = &[
         state: &SEQ30_STATE,
         regions: &SEQ30_REGIONS,
         expected_move: 6,
+        branch_probe_index: 6,
     },
 ];
 

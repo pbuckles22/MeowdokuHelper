@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meowdoku_helper/app/solver_result.dart';
 import 'package:meowdoku_helper/image/n_detect.dart';
 
 /// Stateless N×N board preview with optional next-move highlight (US-3.2).
@@ -16,6 +17,7 @@ class PuzzleGridPreview extends StatelessWidget {
   final int highlightIndex;
 
   static const String stalledBannerKey = 'stalled-banner';
+  static const String branchBannerKey = 'branch-banner';
   static const String highlightRingKey = 'highlight-ring';
 
   @override
@@ -33,7 +35,19 @@ class PuzzleGridPreview extends StatelessWidget {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (highlightIndex == -1)
+            if (highlightIndex == SolverResult.branchRequired)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(
+                  'Multiple valid paths exist. Make a choice to continue.',
+                  key: const Key(branchBannerKey),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.tertiary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            else if (highlightIndex == SolverResult.stalled)
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
