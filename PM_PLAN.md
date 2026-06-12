@@ -167,7 +167,7 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 - [x] **Q2** — Tier 2 iOS re-run post–EPIC-6 (iPhone 13 sim, 6/6, 2026-06-11)
 - [x] **Q3** — All tier synthetics `spec-verified` (tier1–3, tier4-phantom, tier5, tier4-dfs; 2026-06-12)
 - [x] **Q4** — Lock parse goldens seq 03–08 (`grid_goldens.dart`)
-- [ ] **Q5** — T2/T3 fixture gate seq 09–19 (QA oracles first)
+- [x] **Q5** — T2/T3 fixture gate seq 09–17 (QA oracles + gate artifacts; 2026-06-12). Seq 18–19 T4 deferred.
 - [ ] **Q6** — P2 audit integration + seq 01–02 solve goldens
 
 **Acceptance:** `./scripts/qa_oracle_audit.sh --strict` passes P1/P2; Tier 2 green on iOS sim; tracked docs synced.

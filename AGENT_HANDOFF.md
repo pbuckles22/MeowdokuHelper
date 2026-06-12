@@ -86,14 +86,14 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
-- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–08
-- **Lint / Tier 1:** `flutter analyze` clean; **74 Flutter passed** (+ 24 FFI skipped on Linux); **32 Rust** (`cargo test --lib`)
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens locked seq 01–08; solve gates seq 01–02, 09–17, 22–30
+- **Lint / Tier 1:** `flutter analyze` clean; **101 Flutter passed** (+ 42 FFI skipped on Linux); **34 Rust** (`cargo test --lib`)
 - **CI:** [run 27438410110](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27438410110) — Tier 1 + Tier 2 **success** (2026-06-12)
 - **Tier 2:** 6 integration tests — green on GitHub `macos-14` + iPhone 13 sim 2026-06-11
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` forced (T1–T5), `-2` branch (T6 only), `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
-- **Phase 7:** Q1 uniqueness (0/9 forced); Q2 Tier 2 green; US-7.2/7.3 shipped; **Q3** all tier synthetics `spec-verified`; **Q4** parse goldens seq 03–08 locked
-- **Next:** Q5 T2/T3 fixture gate seq 09–19; Q6 P2 audit; optional: filter T1–T5 through uniqueness block-test
+- **Phase 7:** Q1 uniqueness (0/9 forced); Q2 Tier 2 green; US-7.2/7.3 shipped; **Q3** all tier synthetics `spec-verified`; **Q4** parse goldens seq 03–08 locked; **Q5** T2/T3 gate seq 09–17 locked
+- **Next:** Q6 P2 audit; seq 18–19 T4 gate (separate); optional: filter T1–T5 through uniqueness block-test
 
 ## Run and test
 

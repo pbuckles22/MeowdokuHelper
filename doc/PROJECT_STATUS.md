@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (`main` @ Phase 7 Q3 complete)
+**Last updated:** 2026-06-12 (`main` @ Phase 7 Q5 — pending CI after ship)
 
 ---
 
@@ -44,7 +44,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 - [x] Q3 all tier synthetics — `spec-verified` (tier1–3, tier4-phantom, tier5, tier4-dfs; 2026-06-12)
 - [x] Q4 parse goldens seq 03–08 — locked in `grid_goldens.dart`
-- [ ] Q5 T2/T3 fixture gate seq 09–19
+- [x] Q5 T2/T3 fixture gate seq 09–17 — `t2_t3_fixtures.rs`, `t2_t3_fixture_gate_test.dart` (2026-06-12)
 - [ ] Q6 P2 audit integration + seq 01–02 solve goldens
 
 **Product hardening (optional):** Return T1–T5 index only when uniqueness block-test confirms forced; else `-2` for seq 22–30 class boards.

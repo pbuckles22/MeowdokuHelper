@@ -55,15 +55,15 @@ Fixture gates follow [TEST_PLAN.md](../../TEST_PLAN.md) → **QA / Coder separat
 | 06 | `06_L07_T1.jpg` | 7 | 5 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 07 | `07_L08_T1.jpg` | 8 | 7 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 08 | `08_L09_N9_T1.jpg` | 9 | 8 | T1 | parse-lock | Phase 2 golden; Phase 3 E2E target |
-| 09 | `09_L10_N7_T2.jpg` | 10 | 7 | T2 | |
-| 10 | `10_L11_T2.jpeg` | 11 | — | T2 | |
-| 11 | `11_L12_T2.jpeg` | 12 | — | T2 | |
-| 12 | `12_L13_T2.jpeg` | 13 | — | T2 | |
-| 13 | `13_L14_T2.jpeg` | 14 | — | T2 | |
-| 14 | `14_L15_N10_T3.jpeg` | 15 | 10 | T3 | Phase 5 N=10 target |
-| 15 | `15_L16_T3.jpeg` | 16 | — | T3 | |
-| 16 | `16_L17_T3.jpeg` | 17 | — | T3 | |
-| 17 | `17_L18_T3.jpeg` | 18 | — | T3 | |
+| 09 | `09_L10_N7_T2.jpg` | 10 | 7 | T2 | regression-lock | Q5 gate 2026-06-12 |
+| 10 | `10_L11_T2.jpeg` | 11 | 6 | T2 | regression-lock | Q5 gate 2026-06-12 |
+| 11 | `11_L12_T2.jpeg` | 12 | 6 | T2 | regression-lock | Q5 gate 2026-06-12 |
+| 12 | `12_L13_T2.jpeg` | 13 | 9 | T2 | regression-lock | Q5 gate 2026-06-12 |
+| 13 | `13_L14_T2.jpeg` | 14 | 9 | T2 | regression-lock | Q5 gate 2026-06-12 |
+| 14 | `14_L15_N10_T3.jpeg` | 15 | 12 | T3 | regression-lock | Parser N=12 (not 10); Q5 gate |
+| 15 | `15_L16_T3.jpeg` | 16 | 9 | T3 | regression-lock | Q5 gate 2026-06-12 |
+| 16 | `16_L17_T3.jpeg` | 17 | 10 | T3 | regression-lock | Q5 gate 2026-06-12 |
+| 17 | `17_L18_T3.jpeg` | 18 | 10 | T3 | regression-lock | Q5 gate 2026-06-12 |
 | 18 | `18_L19_T4.jpeg` | 19 | — | T4 | |
 | 19 | `19_L20_T4.jpeg` | 20 | — | T4 | Gate before seq 20+ batch |
 

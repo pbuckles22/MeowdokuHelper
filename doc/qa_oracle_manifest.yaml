@@ -11,7 +11,7 @@
 #   spec | human | parse-lock | regression-lock | unaudited | coupled-commit-risk
 
 version: 1
-last_audit_run: 2026-06-12  # Q3 complete — all tier synthetics spec-verified
+last_audit_run: 2026-06-12  # Q5 t2/t3 gate seq 09–17 locked
 
 artifacts:
 
@@ -83,7 +83,22 @@ artifacts:
     derivation: doc/qa_derivations/tier4-dfs-synthetics.md
     notes: Q3 2026-06-12 blind re-derivation; 4/4 tests match spec.
 
-  # --- Fixture solve gates ---
+  - id: t2-t3-fixture-gate
+    paths:
+      - meowdoku_helper/rust/src/solver/t2_t3_fixtures.rs
+      - meowdoku_helper/lib/image/t2_t3_solver_goldens.dart
+      - meowdoku_helper/test/t2_t3_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t2_t3_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: pending
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 09-17
+    derivation: doc/qa_derivations/t2-t3-seq09-17-human.md
+    notes: >-
+      Q5 2026-06-12: parse-lock 9/9; T1–T5 first step locked (no -2). Uniqueness
+      block-test 0/9 forced — solvability regression, not hint oracle.
 
   - id: t6-fixture-gate
     paths:
