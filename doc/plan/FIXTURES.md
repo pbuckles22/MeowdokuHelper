@@ -47,14 +47,14 @@ Fixture gates follow [TEST_PLAN.md](../../TEST_PLAN.md) → **QA / Coder separat
 
 | Seq | File | Game | Grid N | Solver gate | Oracle | Notes |
 |-----|------|------|--------|-------------|--------|-------|
-| 01 | `01_L-early_N4_T1.jpg` | tutorial | 4 | T1 | parse-lock | Phase 2 golden |
-| 02 | `02_L03_N6_T1.jpg` | 3 | 6 | T1 | parse-lock | Phase 2 golden |
+| 01 | `01_L-early_N4_T1.jpg` | tutorial | 4 | T1 | human | Phase 2 golden; Q6 spec T1 verified |
+| 02 | `02_L03_N6_T1.jpg` | 3 | 6 | T1 | human | Phase 2 golden; Q6 spec T1 verified |
 | 03 | `03_L04_T1.jpg` | 4 | 6 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 04 | `04_L05_T1.jpg` | 5 | 10 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 05 | `05_L06_T1.jpg` | 6 | 6 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 06 | `06_L07_T1.jpg` | 7 | 5 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
 | 07 | `07_L08_T1.jpg` | 8 | 7 | T1 | parse-lock | Phase 2 golden (Q4 2026-06-12) |
-| 08 | `08_L09_N9_T1.jpg` | 9 | 8 | T1 | parse-lock | Phase 2 golden; Phase 3 E2E target |
+| 08 | `08_L09_N9_T1.jpg` | 9 | 8 | T1 | regression-lock | Phase 2 golden; Tier 2 E2E (Q6 regression-accepted) |
 | 09 | `09_L10_N7_T2.jpg` | 10 | 7 | T2 | regression-lock | Q5 gate 2026-06-12 |
 | 10 | `10_L11_T2.jpeg` | 11 | 6 | T2 | regression-lock | Q5 gate 2026-06-12 |
 | 11 | `11_L12_T2.jpeg` | 12 | 6 | T2 | regression-lock | Q5 gate 2026-06-12 |

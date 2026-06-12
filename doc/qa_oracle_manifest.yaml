@@ -11,7 +11,7 @@
 #   spec | human | parse-lock | regression-lock | unaudited | coupled-commit-risk
 
 version: 1
-last_audit_run: 2026-06-12  # Q5 t2/t3 gate seq 09–17 locked
+last_audit_run: 2026-06-12  # Q6 P2 audit — seq 01–02 human-verified; integration smoke regression-accepted
 
 artifacts:
 
@@ -91,14 +91,15 @@ artifacts:
       - meowdoku_helper/test/qa_t2_t3_oracle_audit_test.dart
     tier: fixture-gate
     oracle: regression-lock
-    audit_status: pending
+    audit_status: regression-accepted
     spec_ref: doc/plan/FIXTURES.md
     priority: P2
     fixtures: seq 09-17
     derivation: doc/qa_derivations/t2-t3-seq09-17-human.md
     notes: >-
       Q5 2026-06-12: parse-lock 9/9; T1–T5 first step locked (no -2). Uniqueness
-      block-test 0/9 forced — solvability regression, not hint oracle.
+      block-test 0/9 forced — solvability regression, not hint oracle. Q6: audit_status
+      regression-accepted.
 
   - id: t6-fixture-gate
     paths:
@@ -108,14 +109,15 @@ artifacts:
       - meowdoku_helper/test/qa_t6_oracle_audit_test.dart
     tier: fixture-gate
     oracle: regression-lock
-    audit_status: pending
+    audit_status: regression-accepted
     spec_ref: doc/plan/FIXTURES.md
     priority: P1
     fixtures: seq 22-30
     derivation: doc/qa_derivations/t6-seq22-30-human.md
     notes: >-
       Uniqueness pass 2026-06-12: 0/9 forced, 9/9 BRANCH_VARIANT (t6_qa_force).
-      Regression-lock on DFS convention — not hint oracle. See derivation doc.
+      Regression-lock on DFS convention — not hint oracle. Q6: audit_status
+      regression-accepted.
 
   # --- Parse goldens ---
 
@@ -136,27 +138,32 @@ artifacts:
     paths:
       - meowdoku_helper/lib/image/grid_goldens.dart
       - meowdoku_helper/test/solve_parsed_grid_test.dart
+      - meowdoku_helper/test/qa_p2_oracle_audit_test.dart
     tier: fixture-gate
-    oracle: regression-lock
-    audit_status: pending
+    oracle: human
+    audit_status: human-verified
     spec_ref: doc/plan/FIXTURES.md
     priority: P2
     fixtures: seq 01-02
-    notes: expectedMove in grid_goldens — verify human/spec.
+    derivation: doc/qa_derivations/phase2-solve-goldens-seq01-02-human.md
+    notes: Q6 2026-06-12 — spec T1 re-derivation matches locked indices 4 and 8.
 
   # --- Integration E2E ---
 
   - id: integration-smoke
-    paths: [meowdoku_helper/integration_test/app_smoke_test.dart]
+    paths:
+      - meowdoku_helper/integration_test/app_smoke_test.dart
+      - meowdoku_helper/test/qa_p2_oracle_audit_test.dart
     tier: integration-e2e
     oracle: regression-lock
-    audit_status: pending
+    audit_status: regression-accepted
     spec_ref: doc/plan/FIXTURES.md
     priority: P2
     fixtures: subset 08, 14, 29, 30
+    derivation: doc/qa_derivations/integration-smoke-human.md
     notes: >-
-      Tier 2 re-run 2026-06-11 iPhone 13 sim — 6/6 pass post-EPIC-6. Move
-      indices still regression-lock; human-verify pending.
+      Tier 2 re-run 2026-06-11 iPhone 13 sim — 6/6 pass post-EPIC-6. Q6: parse-lock
+      + solve regression on locked arrays; move indices regression-accepted.
 
   # --- Pipeline / FFI (lower solver-oracle risk) ---
 

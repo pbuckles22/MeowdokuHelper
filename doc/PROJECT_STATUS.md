@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (`main` @ `525f69f` — Phase 7 Q5 complete)
+**Last updated:** 2026-06-12 (Phase 7 Q6 — P2 oracle audit)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **EPIC-6 complete.** Phase 7 product blockers shipped: **`-2` branch-required API** (hint UI truth) and **MRV** for T6 DFS cell selection.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **EPIC-6 complete.** Phase 7 **Q6 complete** — P2 oracle audit (`human-verified` seq 01–02; integration smoke `regression-accepted`); `./scripts/qa_oracle_audit.sh --strict` passes.
 
 **Canonical spec:** [requirements/product.md](requirements/product.md)
 
@@ -34,18 +34,19 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | US-7.3 | Done | MRV heuristic replaces row-major `first_empty` in T6 DFS |
 | Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) |
 
-**Tests:** Tier 1b — **74** passed, 24 skipped (FFI on Linux); Tier 1a — **32 Rust**; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12). Tier 2 — **6/6** GitHub `macos-14`.
+**Tests:** Tier 1b — **101+** passed (+ FFI skipped on Linux); Tier 1a — **34 Rust**; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12). Tier 2 — **6/6** GitHub `macos-14`.
 
 ---
 
 ## Next up
 
-**Phase 7 remainder** ([PM_PLAN.md](../PM_PLAN.md)):
+**Phase 7 closure** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [x] Q3 all tier synthetics — `spec-verified` (tier1–3, tier4-phantom, tier5, tier4-dfs; 2026-06-12)
-- [x] Q4 parse goldens seq 03–08 — locked in `grid_goldens.dart`
-- [x] Q5 T2/T3 fixture gate seq 09–17 — `t2_t3_fixtures.rs`, `t2_t3_fixture_gate_test.dart` (2026-06-12)
-- [ ] Q6 P2 audit integration + seq 01–02 solve goldens
+- [x] Q3 all tier synthetics — `spec-verified` (2026-06-12)
+- [x] Q4 parse goldens seq 03–08
+- [x] Q5 T2/T3 fixture gate seq 09–17 (2026-06-12)
+- [x] Q6 P2 audit — seq 01–02 `human-verified`; integration smoke `regression-accepted` (2026-06-12)
+- [ ] **Epic closure gate** — Phase 7 complete; run [epic-closure-gate](../.cursor/skills/epic-closure-gate/SKILL.md)
 
 **Product hardening (optional):** Return T1–T5 index only when uniqueness block-test confirms forced; else `-2` for seq 22–30 class boards.
 
