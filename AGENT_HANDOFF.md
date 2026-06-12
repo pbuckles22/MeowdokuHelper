@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `25c92b5` — Phase 7 complete (epic closure 2026-06-12)
+- **Active branch:** `main` @ `4c1ed36` — Phase 7 closed; Phase 8 planned (2026-06-12)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh --strict`.
 - **Phases 0–7:** Done (bootstrap through EPIC-7 QA hardening)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
