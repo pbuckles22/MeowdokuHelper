@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (`main` @ US-7.2 + US-7.3 shipped)
+**Last updated:** 2026-06-12 (`main` @ Phase 7 Q3 complete)
 
 ---
 
@@ -34,7 +34,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | US-7.3 | Done | MRV heuristic replaces row-major `first_empty` in T6 DFS |
 | Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) |
 
-**Tests:** Tier 1b — **68** passed, 24 skipped (FFI); Tier 1a — **32 Rust**; `flutter analyze` clean. Tier 2 — **6/6 green** iPhone 13 sim (2026-06-11).
+**Tests:** Tier 1b — **74** passed, 24 skipped (FFI on Linux); Tier 1a — **32 Rust**; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12). Tier 2 — **6/6** GitHub `macos-14`.
 
 ---
 
@@ -42,9 +42,8 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 **Phase 7 remainder** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [x] Q3 tier4-phantom synthetics — `spec-verified` (2026-06-12)
+- [x] Q3 all tier synthetics — `spec-verified` (tier1–3, tier4-phantom, tier5, tier4-dfs; 2026-06-12)
 - [x] Q4 parse goldens seq 03–08 — locked in `grid_goldens.dart`
-- [ ] Q3 remainder — tier1–3, tier5, DFS synthetics (one tier / QA session)
 - [ ] Q5 T2/T3 fixture gate seq 09–19
 - [ ] Q6 P2 audit integration + seq 01–02 solve goldens
 

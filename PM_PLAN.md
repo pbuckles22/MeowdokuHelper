@@ -165,9 +165,8 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 - [x] **US-7.2** — `-2` branch-required API + Flutter hint UI truth
 - [x] **US-7.3** — MRV heuristic for T6 DFS (`tier4.rs`)
 - [x] **Q2** — Tier 2 iOS re-run post–EPIC-6 (iPhone 13 sim, 6/6, 2026-06-11)
-- [x] **Q3 (partial)** — tier4-phantom synthetics `spec-verified` (2026-06-12)
+- [x] **Q3** — All tier synthetics `spec-verified` (tier1–3, tier4-phantom, tier5, tier4-dfs; 2026-06-12)
 - [x] **Q4** — Lock parse goldens seq 03–08 (`grid_goldens.dart`)
-- [ ] **Q3 (remainder)** — tier1–3, tier5, DFS synthetics (batched per tier)
 - [ ] **Q5** — T2/T3 fixture gate seq 09–19 (QA oracles first)
 - [ ] **Q6** — P2 audit integration + seq 01–02 solve goldens
 

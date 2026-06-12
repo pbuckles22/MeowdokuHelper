@@ -11,7 +11,7 @@
 #   spec | human | parse-lock | regression-lock | unaudited | coupled-commit-risk
 
 version: 1
-last_audit_run: 2026-06-12  # Q3 tier4-phantom spec-verify
+last_audit_run: 2026-06-12  # Q3 complete — all tier synthetics spec-verified
 
 artifacts:
 
@@ -21,29 +21,34 @@ artifacts:
     paths: [meowdoku_helper/rust/src/solver/tier1.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-1--the-sweepers-beginner--t1-
     priority: P3
-    notes: Co-located with implementation; requires blind spec re-derivation.
+    derivation: doc/qa_derivations/tier1-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 3/3 tests match spec.
 
   - id: tier2-synthetics
     paths: [meowdoku_helper/rust/src/solver/tier2.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-2--intersection-logic-medium--t2-
     priority: P3
+    derivation: doc/qa_derivations/tier2-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 3/3 tests match spec.
 
   - id: tier3-synthetics
     paths: [meowdoku_helper/rust/src/solver/tier3.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-3--structural-traps-advanced--t3-
     priority: P3
+    derivation: doc/qa_derivations/tier3-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 3/3 match (Test 3 smoke-only >= 0).
 
   - id: tier4-phantom-synthetics
     paths: [meowdoku_helper/rust/src/solver/tier4_phantom.rs]
@@ -60,20 +65,23 @@ artifacts:
     paths: [meowdoku_helper/rust/src/solver/tier5.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-5--region-to-region-crowding--t5-
     priority: P3
-    notes: crowding_trap_board helper — verify from spec only.
+    derivation: doc/qa_derivations/tier5-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 3/3 tests match spec.
 
   - id: tier4-dfs-synthetics
     paths: [meowdoku_helper/rust/src/solver/tier4.rs]
     scope: "#[cfg(test)]"
     tier: solver-synthetic
-    oracle: unaudited
-    audit_status: pending
+    oracle: spec
+    audit_status: spec-verified
     spec_ref: doc/requirements/solver_algorithms.md#level-6--dfs--bifurcation-ultimate-failsafe--t6-
     priority: P3
+    derivation: doc/qa_derivations/tier4-dfs-synthetics.md
+    notes: Q3 2026-06-12 blind re-derivation; 4/4 tests match spec.
 
   # --- Fixture solve gates ---
 

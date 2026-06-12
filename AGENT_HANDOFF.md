@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — **EPIC-6 complete**; Phase 7 product blockers **US-7.2 / US-7.3 shipped**
+- **Active branch:** `main` — Phase 7 Q3 complete (all tier synthetics spec-verified)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh`.
 - **Phases 0–6:** Done (bootstrap through EPIC-6 advanced tiers)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
@@ -87,12 +87,13 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–08
-- **Lint / Tier 1:** `flutter analyze` clean; **68 Flutter passed** (+ 24 FFI skipped); **32 Rust** (`cargo test --lib`)
-- **Tier 2:** 6 integration tests — **green** iPhone 13 sim 2026-06-11 post-EPIC-6
+- **Lint / Tier 1:** `flutter analyze` clean; **74 Flutter passed** (+ 24 FFI skipped on Linux); **32 Rust** (`cargo test --lib`)
+- **CI:** [run 27386036349](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27386036349) — Tier 1 + Tier 2 **success** (2026-06-12)
+- **Tier 2:** 6 integration tests — green on GitHub `macos-14` + iPhone 13 sim 2026-06-11
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` forced (T1–T5), `-2` branch (T6 only), `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
-- **Phase 7:** Q1 uniqueness (0/9 forced); Q2 Tier 2 green; US-7.2/7.3 shipped; **Q3** tier4-phantom `spec-verified`; **Q4** parse goldens seq 03–08 locked
-- **Next:** Q3 remainder (tier1–3, tier5, DFS synthetics); Q5 T2/T3 fixture gate seq 09–19; Q6 P2 audit; optional: filter T1–T5 through uniqueness block-test
+- **Phase 7:** Q1 uniqueness (0/9 forced); Q2 Tier 2 green; US-7.2/7.3 shipped; **Q3** all tier synthetics `spec-verified`; **Q4** parse goldens seq 03–08 locked
+- **Next:** Q5 T2/T3 fixture gate seq 09–19; Q6 P2 audit; optional: filter T1–T5 through uniqueness block-test
 
 ## Run and test
 
