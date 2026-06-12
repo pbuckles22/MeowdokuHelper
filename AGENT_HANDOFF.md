@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — Phase 7 Q3 complete (all tier synthetics spec-verified)
+- **Active branch:** `main` @ `e216e71` — Phase 7 Q3 complete (all tier synthetics spec-verified)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh`.
 - **Phases 0–6:** Done (bootstrap through EPIC-6 advanced tiers)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
@@ -88,7 +88,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); seq 22–30 gate `_T6_`; parse goldens locked seq 01–08
 - **Lint / Tier 1:** `flutter analyze` clean; **74 Flutter passed** (+ 24 FFI skipped on Linux); **32 Rust** (`cargo test --lib`)
-- **CI:** [run 27386036349](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27386036349) — Tier 1 + Tier 2 **success** (2026-06-12)
+- **CI:** [run 27438410110](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27438410110) — Tier 1 + Tier 2 **success** (2026-06-12)
 - **Tier 2:** 6 integration tests — green on GitHub `macos-14` + iPhone 13 sim 2026-06-11
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` forced (T1–T5), `-2` branch (T6 only), `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
