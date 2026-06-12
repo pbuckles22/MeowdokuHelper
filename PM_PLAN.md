@@ -155,7 +155,7 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Starting EPIC-6:** Branch from `main` @ latest; read [solver_algorithms.md](doc/requirements/solver_algorithms.md) Levels 4–6 and [EPICS_AND_STORIES.md](doc/plan/EPICS_AND_STORIES.md) US-6.1–6.3. Synthetic tests before fixture re-gate.
 
-## Phase 7 — QA hardening & oracle proof (recommended next)
+## Phase 7 — QA hardening & oracle proof · **done** (2026-06-12)
 
 **Goal:** TDD process settled (QA/Coder separation); prove oracles and close fixture gaps without new solver features.
 
@@ -173,6 +173,23 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 **Acceptance:** `./scripts/qa_oracle_audit.sh --strict` passes P1/P2; Tier 2 green on iOS sim; tracked docs synced.
 
 **Not in scope:** Full 42-fixture gate (incremental); line-coverage tooling (optional M8).
+
+---
+
+## Phase 8 — Fixture completion & hint truth (recommended next)
+
+**Goal:** Close remaining fixture gaps; align hint API with uniqueness semantics; reduce golden duplication. No new solver tiers.
+
+**Depends on:** Phase 7 strict oracle audit PASS.
+
+- [ ] **H1 / US-8.1** — T1–T5 uniqueness filter: `calculate_next_move` returns index only when block-test confirms forced; else `-2` (seq 22–30 class boards)
+- [ ] **H2 / US-8.2** — T4 fixture gate seq 18–19 (QA oracles + Rust/Dart gate; deferred from Q5)
+- [ ] **H3 / US-8.3** — 42-fixture inventory script; sync [FIXTURES.md](doc/plan/FIXTURES.md) gate columns
+- [ ] **H4 / US-8.4** — Golden codegen Rust↔Dart (dedupe `t6_*` / `t2_t3_*` mirrored arrays)
+
+**Acceptance:** H1 green with updated Flutter banner paths; H2 `./scripts/qa_oracle_audit.sh --strict` still PASS; Tier 1+2 green.
+
+**Deferred (Phase 9+):** Hint UX (rule name + explanation + highlights — FRB contract change per [product.md](doc/requirements/product.md)); seq 31–42 full gates; line-coverage tooling.
 
 ---
 

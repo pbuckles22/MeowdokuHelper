@@ -102,6 +102,40 @@ Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote c
 
 ---
 
+## EPIC-7 — QA hardening & oracle proof · **Done**
+
+**Goal:** TDD process settled (QA/Coder separation); prove oracles and close fixture gaps without new solver features. **Closure:** 2026-06-12.
+
+| ID | Story | Status | Acceptance |
+|----|-------|--------|------------|
+| US-7.1 | As QA, t6 seq 22–30 uniqueness block-test proves 0/9 forced moves. | Done | `t6_qa_force.rs`; derivation doc |
+| US-7.2 | As a player, branch-required hints show when T6 alone advances. | Done | `-2` API + Flutter banner |
+| US-7.3 | As a developer, T6 DFS uses MRV heuristic. | Done | `tier4.rs`; row-major removed |
+| US-7.4 | As QA, Tier 2 integration re-runs post–EPIC-6. | Done | 6/6 green on GitHub `macos-14` |
+| US-7.5 | As QA, all tier synthetics are spec-verified. | Done | tier1–3, phantom, crowding, dfs |
+| US-7.6 | As QA, parse goldens locked seq 03–08. | Done | `grid_goldens.dart` |
+| US-7.7 | As QA, T2/T3 fixture gate seq 09–17. | Done | `t2_t3_fixtures.rs` + Dart gate |
+| US-7.8 | As QA, P2 audit clears seq 01–02 solve + integration smoke. | Done | `qa_p2_oracle_audit_test.dart`; `./scripts/qa_oracle_audit.sh --strict` PASS |
+
+**Deferred (backlog):** seq 18–19 T4 gate; T1–T5 uniqueness filter on hint API; full 42-fixture inventory.
+
+---
+
+## EPIC-8 — Fixture completion & hint truth · **Planned**
+
+**Goal:** Close remaining fixture gaps; align hint API with uniqueness semantics. Maps to [PM_PLAN.md](../../PM_PLAN.md) Phase 8.
+
+| ID | Story | Status | Acceptance |
+|----|-------|--------|------------|
+| US-8.1 | As a player, hints return a cell index only when the move is uniqueness-forced. | Planned | Block-test filter on T1–T5; `-2` otherwise; Flutter banner |
+| US-8.2 | As QA, T4 fixture gate locks seq 18–19 parse + solve. | Planned | `t4_fixtures.rs` + Dart gate; derivation doc |
+| US-8.3 | As a contributor, a script inventories 42 fixtures vs gate columns. | Planned | Script + FIXTURES.md sync |
+| US-8.4 | As a developer, golden arrays have a single SSOT (Rust or Dart codegen). | Planned | Dedupe `t6_*` / `t2_t3_*` mirrors |
+
+**Deferred:** Hint UX (rule name + highlights) — Phase 9; requires FRB contract change.
+
+---
+
 ## Traceability
 
 | Epic | PM_PLAN phase |
@@ -114,3 +148,5 @@ Insert Phantom Cat Projection (T4) and Region Crowding (T5) before DFS; demote c
 | EPIC-4 | Phase 4 (4a–4d) |
 | EPIC-5 | Phase 5 |
 | EPIC-6 | Phase 6 |
+| EPIC-7 | Phase 7 |
+| EPIC-8 | Phase 8 |

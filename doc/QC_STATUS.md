@@ -1,7 +1,7 @@
 # QC status — MeowdokuHelper
 
-**Last QC run:** 2026-06-11 (Phase 7 Q1/Q2 started)  
-**Branch:** `main` — EPIC-6 complete  
+**Last QC run:** 2026-06-12 (Phase 7 epic closure)  
+**Branch:** `main` — Phase 7 / EPIC-7 complete  
 **Full eval:** [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md)
 
 ---
@@ -10,13 +10,16 @@
 
 | Item | Status |
 |------|--------|
-| Tier 1b `flutter test` | **PASS** — 50 passed, 15 skipped (FFI when native lib absent) |
-| Tier 1a `cargo test --lib` | **PASS** — 28 tests |
+| Tier 1b `flutter test` | **PASS** — 119 passed, 48 skipped (FFI when native lib absent) |
+| Tier 1a `cargo test --lib` | **PASS** — 34 tests |
 | `flutter analyze` | **PASS** |
-| Tier 2 integration | **PASS** — 6/6 on iPhone 13 sim (iOS 15.2), 2026-06-11 post-EPIC-6 |
-| Q1 t6 pre-audit | **PARTIAL** — parse + EMPTY preconditions 9/9; human-verify pending |
+| Tier 2 integration | **PASS** — 6/6 GitHub `macos-14` (run 27444146040, 2026-06-12) |
+| Q1 t6 uniqueness | **DONE** — 0/9 forced; `regression-accepted` |
 | QA/Coder separation | **DONE** — rules + manifest + audit script |
-| Oracle independence (P1/P2) | **PENDING** — 9 manifest artifacts unaudited |
+| Oracle independence (P1/P2) | **DONE** — `./scripts/qa_oracle_audit.sh --strict` PASS |
+| Phase 7 epic closure | **DONE** — 2026-06-12 |
+| Health audit refresh | **DONE** — 2026-06-12 ([AUDIT_BASELINE.md](../.cursor/handoff/AUDIT_BASELINE.md)) |
+| Phase 8 planned | **H1–H4** in PM_PLAN / EPIC-8 |
 
 ---
 
@@ -24,9 +27,9 @@
 
 | | Assessment |
 |---|------------|
-| **Tested right** | T1–T6 solver synthetics; t6 seq 22–30 gate; parse 01–02 goldens; FFI skip hygiene; clipboard flow; 4-fixture Tier 2 |
-| **Tested weak/wrong** | Solve oracles are regression-lock (not human/spec); co-located tier tests unaudited; parse ladder 03–08 smoke-only; 13 coupled git commits |
-| **Missing** | 30/42 fixtures without gate; seq 09–19 T2/T3 gate; seq 31–42; API-level FRB synthetic; Tier 2 post–EPIC-6 |
+| **Tested right** | T1–T6 synthetics `spec-verified`; parse goldens 01–08; solve gates 01–02 `human-verified`; T2/T3 gate 09–17; t6 seq 22–30; integration smoke `regression-accepted`; `qa_p2_oracle_audit_test.dart` (18 cases) |
+| **Tested weak/wrong** | seq 09–30 + integration moves remain regression-lock class (0/9 forced on t6/t2-t3 uniqueness); 16 historical coupled commits on main |
+| **Missing** | seq 18–19 T4 gate; seq 31–42 gates; T1–T5 uniqueness filter on hint API; line-coverage tooling |
 | **Line coverage %** | Not instrumented — behavior/fixture matrix is SSOT ([TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md)) |
 
 ---
@@ -37,7 +40,7 @@
 
 - New behavior: **QA session** writes red → **Coder session** implements green
 - Coder **must not** edit tests/oracles when they don't fit
-- Backward audit: `./scripts/qa_oracle_audit.sh`
+- Backward audit: `./scripts/qa_oracle_audit.sh --strict`
 
 ---
 
@@ -54,23 +57,23 @@
 
 | Area | Tier 1a | Tier 1b | Tier 2 | Oracle status |
 |------|---------|---------|--------|---------------|
-| Solver T1–T6 synthetics | Strong (28) | Roundtrip | Synthetic board | P3 partial (tier4 phantom verified) |
-| seq 22–30 solve gate | Strong | Strong | 29–30 only | **P1 pending** |
-| Parse seq 01–02 | — | Strong | — | parse-lock OK |
-| Parse seq 03–08 | — | Strong (goldens) | seq 08 E2E | parse-lock (Q4 2026-06-12) |
-| seq 09–42 | — | **None** | **None** | Missing gates |
-| Integration smoke | — | — | 6 tests | **P2 pending** |
+| Solver T1–T6 synthetics | Strong (34) | Roundtrip | Synthetic board | **spec-verified** (P3) |
+| seq 22–30 solve gate | Strong | Strong | 29–30 only | **regression-accepted** (P1) |
+| Parse seq 01–08 | — | Strong (goldens) | seq 08 E2E | parse-lock / **human-verified** (01–02 solve) |
+| seq 09–17 T2/T3 gate | Strong | Strong | — | **regression-accepted** (Q5) |
+| seq 18–42 | — | Partial | — | Missing gates (18–19 deferred) |
+| Integration smoke | — | — | 6 tests | **regression-accepted** (P2) |
+| P2 audit harness | — | Strong (18) | — | `qa_p2_oracle_audit_test.dart` |
 
 ---
 
-## Next work (QA hardening wave)
+## Next work (Phase 8)
 
 | # | Story | Owner |
 |---|-------|-------|
-| 1 | P1 blind audit t6 seq 22–30 — **human checklist** in [qa_derivations/t6-seq22-30-human.md](qa_derivations/t6-seq22-30-human.md) | QA + you |
-| 2 | Tier 2 iOS sim post–EPIC-6 | **DONE** 2026-06-11 |
-| 3 | P3 spec-verify tier synthetics — **tier4 phantom done** | QA |
-| 4 | Lock parse goldens seq 03–08 | **DONE** 2026-06-12 |
-| 5 | T2/T3 fixture gate seq 09–19 | QA → Coder |
+| 1 | **H1** T1–T5 uniqueness filter on hint API | Coder |
+| 2 | **H2** T4 fixture gate seq 18–19 | QA → Coder |
+| 3 | **H3** 42-fixture inventory script | Backlog |
+| 4 | **H4** Golden codegen Rust↔Dart | Coder |
 
-See [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md) for full matrix and sequencing.
+See [PM_PLAN.md](../PM_PLAN.md) Phase 8 and [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md).

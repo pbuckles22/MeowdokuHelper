@@ -1,31 +1,33 @@
 # Project Health Audit — Baseline Snapshot
 
-**Recorded:** 2026-06-11  
-**Branch:** `main` (audit run on working tree)  
-**Purpose:** Phase 0 baseline for the Project Health Audit plan.
+**Recorded:** 2026-06-12 (Phase 7 boundary refresh)  
+**Branch:** `main` @ post–Phase 7 closure  
+**Prior baseline:** [2026-06-11 snapshot](AUDIT_BASELINE.md) — superseded counts below  
+**Full findings:** [PROJECT_HEALTH_AUDIT.md](PROJECT_HEALTH_AUDIT.md)
 
 ---
 
-## Merge-ready gate (2026-06-11)
+## Merge-ready gate (2026-06-12)
 
 | Check | Result | Detail |
 |-------|--------|--------|
-| `flutter analyze` | **WARN** | 1 info: unnecessary `dart:typed_data` import in `lib/image/decode_isolate.dart` |
-| `flutter test` | **PASS** | 46 tests, 0 failures |
-| `cargo test --lib` | **PASS** | 20 tests, 0 failures |
-| Tier 2 (not re-run this audit) | Last known **PASS** | 6 integration tests per QC_STATUS |
-
-**Effective merge bar:** Tier 1a + 1b green; analyze has one cosmetic info (non-blocking).
+| `flutter analyze` | **PASS** | No issues (was 1 info on 2026-06-11) |
+| `flutter test` | **PASS** | 119 passed, 48 skipped (FFI when native lib absent) |
+| `cargo test --lib` | **PASS** | 34 tests |
+| `qa_oracle_audit.sh --strict` | **PASS** | P1/P2 cleared (Phase 7 Q6) |
+| Tier 2 | **PASS** | 6/6 GitHub `macos-14` (CI run 27444146040) |
 
 ---
 
 ## Test inventory
 
-| Tier | Location | Files | Tests |
-|------|----------|-------|-------|
-| 1a | `meowdoku_helper/rust/src/**/*.rs` | 8 modules | 20 |
-| 1b | `meowdoku_helper/test/` | 15 | 46 |
+| Tier | Location | Files | Tests (approx) |
+|------|----------|-------|----------------|
+| 1a | `meowdoku_helper/rust/src/**/*.rs` | 12 modules | 34 |
+| 1b | `meowdoku_helper/test/` | 28 | 119 (+48 skip) |
 | 2 | `meowdoku_helper/integration_test/` | 1 (+ loader) | 6 |
+
+**New since 2026-06-11:** `qa_p2_oracle_audit_test.dart` (18), `qa_t6_oracle_audit_test.dart`, `qa_t2_t3_oracle_audit_test.dart`, `t2_t3_fixture_gate_test.dart`, `grid_goldens.dart` parse lock 03–08, `clipboard_flow.dart` + tests.
 
 ---
 
@@ -33,101 +35,85 @@
 
 | Phase | Status | Notes |
 |-------|--------|-------|
-| 0 Bootstrap | Done | Agentic layer, SDD, rename |
-| 1 Rust core T1 | Done | Board + halo + naked singles |
-| 1b Wordle removal | Done | FRB → Star Battle only |
-| 2 Image pipeline | Done | Clipboard, isolate, N-detect, seq 01–02 goldens |
-| 3 UI + E2E wire | Done | seq-08 integration (parser N=8) |
-| 4a–4d Solver T2–T4 | Done | seq 22–30 T4 gate |
-| 5 Progressive sizing | Done | seq 14, 29–30 Tier 2 |
-| 6 EPIC-6 T4/T5/T6 | **Pending** | Phantom, Crowding, DFS rename |
+| 0–5 | Done | Bootstrap through progressive sizing |
+| 6 EPIC-6 T4/T5/T6 | **Done** | Phantom, Crowding, DFS rename |
+| 7 QA hardening | **Done** | Q1–Q6; strict oracle audit PASS (2026-06-12) |
+| 8 Fixture + hint truth | **Planned** | H1–H4 in PM_PLAN |
 
 ---
 
-## Directory inventory
+## Delta vs 2026-06-11 audit
 
-### Repo root
+| Area | Was | Now | Verdict |
+|------|-----|-----|---------|
+| Oracle P1/P2 | Pending | **PASS** strict audit | **Improved** |
+| Parse goldens | seq 01–02 | seq **01–08** locked | **Improved** |
+| Solve gates | seq 22–30 only | + **01–02** human-verified, **09–17** T2/T3 | **Improved** |
+| FFI silent pass | FAIL | Explicit skip via `native_ffi.dart` | **Fixed** |
+| Clipboard FSM | in `main.dart` | `clipboard_flow.dart` extracted | **Fixed** (Wave 4) |
+| Tier synthetics | unaudited | **spec-verified** (Q3) | **Improved** |
+| Fixtures untested | 30/42 | **~24/42** without full gate (18–19, 31–42) | **Partial** |
+| Duplicate goldens | WARN | Still mirrored Rust↔Dart | **Open** (Phase 8 H4) |
+| Hint truth (T1–T5) | Not filtered | Still returns non-forced indices | **Open** (Phase 8 H1) |
+| Generated FRB comment | "Tier-1" | Unchanged in generated Dart | **Open** |
+
+---
+
+## Directory inventory (unchanged structure)
 
 ```
 MeowdokuHelper/
-├── meowdoku_helper/     # Flutter + Rust app
-├── assets/test_fixtures/  # 42 canonical board JPEGs (Tier 1 source)
-├── assets/reference/      # 1 EPIC-6 hint mockup
-├── doc/                   # Tracked product docs (authoritative)
+├── meowdoku_helper/       # Flutter + Rust app
+├── assets/test_fixtures/  # 42 canonical board JPEGs
+├── doc/                   # Authoritative product docs
 ├── docs/                  # Template/setup/archive (partially stale)
-├── .cursor/               # Rules, skills, handoff
-└── PM_PLAN, TECH_DEBT, AGENT_HANDOFF, …
+└── .cursor/               # Rules, skills, handoff
 ```
 
-### `meowdoku_helper/lib/` (19 files)
+**`meowdoku_helper/lib/`:** `main.dart` (shell), `app/` (clipboard_flow, puzzle_grid_preview), `image/` (8 files), `services/`, `src/rust/` (generated).
 
-| Path | Role |
-|------|------|
-| `main.dart` | App entry, FFI bootstrap, clipboard orchestration, shell UI |
-| `service_locator.dart` | `setupServices()` → FfiService |
-| `app/clipboard_lifecycle.dart` | Resume → callback |
-| `app/solve_parsed_grid.dart` | GridParseShell → FRB |
-| `app/puzzle_grid_preview.dart` | N×N grid + highlight |
-| `image/*` | JPEG parse pipeline (8 files) |
-| `services/ffi_service.dart` | RustLib.init wrapper |
-| `exceptions/service_exceptions.dart` | Template exception hierarchy |
-| `src/rust/` | Generated FRB bindings |
-
-**Absent vs DEV_GUIDE:** `controllers/`, `screens/`, `widgets/`, `assets/word_lists/`
-
-### `meowdoku_helper/rust/src/`
-
-| Path | Role |
-|------|------|
-| `api/simple.rs` | `init_app()` |
-| `api/meowdoku.rs` | `calculate_next_move()` |
-| `solver/board.rs` | Board model |
-| `solver/tier1.rs`–`tier4.rs` | CSP algorithms |
-| `solver/t4_fixtures.rs` | Rust T4 golden gate |
-| `frb_generated.rs` | Generated |
+**`meowdoku_helper/rust/src/`:** `api/` (FRB), `solver/` (tier1–5, tier4 phantom, tier4 dfs, fixtures, test_helpers).
 
 ---
 
-## Validated code flow
+## Code-flow diagram (current)
 
 ```mermaid
-flowchart TD
-  main["main.dart"] --> setup["service_locator / FfiService"]
-  main --> clip["clipboard_lifecycle"]
-  clip --> parseClip["clipboard_parse"]
-  parseClip --> iso["decode_isolate"]
-  iso --> ndetect["n_detect / GridParseShell"]
-  ndetect --> solve["solve_parsed_grid"]
-  solve --> frb["api/meowdoku.rs"]
-  frb --> tiers["solver tier1..tier4"]
-  tiers --> ui["puzzle_grid_preview"]
+flowchart LR
+  subgraph dart [Dart lib]
+    main --> appLayer[app/]
+    appLayer --> clipboardFlow[clipboard_flow]
+    appLayer --> services[services/]
+    appLayer --> frbDart[src/rust/api/]
+    imageLayer[image/] --> frbDart
+    clipboardFlow --> imageLayer
+  end
+  subgraph rust [Rust]
+    frbRust[api/meowdoku.rs] --> solver[solver/]
+  end
+  frbDart --> frbRust
 ```
 
-**Import validation:** All call sites match diagram. `main.dart` is the only orchestrator; no circular deps between `image/` and `app/`.
+---
+
+## Coverage snapshot (fixture matrix)
+
+| Gate | Fixtures | Parse golden | Solve golden | Tier 2 E2E |
+|------|----------|--------------|--------------|------------|
+| seq 01–02 | 2 | ✅ | ✅ human-verified | — |
+| seq 03–08 | 6 | ✅ | — | ✅ seq 08 |
+| seq 09–17 | 9 | — | ✅ T2/T3 gate | — |
+| seq 18–19 | 2 | — | ❌ deferred | — |
+| seq 20–21 | 2 | — | ❌ | — |
+| seq 22–30 | 9 | ✅ | ✅ regression-accepted | ✅ 29–30 |
+| seq 31–42 | 12 | — | ❌ | — |
+
+**~24 fixtures** still without solve gate; **12** without parse golden.
 
 ---
 
-## Documentation drift (verified)
+## Remediation waves (status)
 
-| Doc | Issue |
-|-----|-------|
-| `.cursor/skills/DEV_GUIDE.md` | Lists removed Wordle layout; FRB 2.11.1 vs actual 2.12.0 |
-| `meowdoku_helper/README.md` | Entire Wordle product description |
-| `doc/QC_STATUS.md` | Counts 6 Flutter / 8 Rust tests (stale) |
-| `docs/TESTING_STRATEGY.md` | Wordle-era strategy |
-| `.cursor/skills/TEST_TDD.md` | References non-existent test paths |
+See [TECH_DEBT.md](../../TECH_DEBT.md) § Audit remediation waves. Waves 1–4 **Done**; Wave 5 **Partial**; Wave 6 **Partial** (Phase 7 closed most oracle gaps).
 
----
-
-## Fixture catalog
-
-- **Total:** 42 files in `assets/test_fixtures/`
-- **Parse goldens locked:** seq 01–02 (`grid_goldens.dart`), seq 22–30 (`t4_solver_goldens.dart`)
-- **Tier 2 bundled:** 4 files in `integration_test/fixtures/` (08, 14, 29, 30)
-- **Uncovered:** 30 fixtures (no parse golden, no E2E)
-
----
-
-## Next document
-
-Full findings: [PROJECT_HEALTH_AUDIT.md](PROJECT_HEALTH_AUDIT.md)
+**Next waves (Phase 8):** H1 hint filter; H2 seq 18–19; H4 golden codegen; optional Wave 5 prod solver dedup.

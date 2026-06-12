@@ -2,13 +2,13 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (Phase 7 Q6 — P2 oracle audit)
+**Last updated:** 2026-06-12 (Phase 7 closure + Phase 8 plan + health audit refresh)
 
 ---
 
 ## Summary
 
-MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **EPIC-6 complete.** Phase 7 **Q6 complete** — P2 oracle audit (`human-verified` seq 01–02; integration smoke `regression-accepted`); `./scripts/qa_oracle_audit.sh --strict` passes.
+MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dart isolate → Rust CSP engine (full **T1–T6 ladder**) → next move. **Phase 7 complete** — QA hardening & oracle proof (Q1–Q6); `./scripts/qa_oracle_audit.sh --strict` passes; EPIC-7 closed.
 
 **Canonical spec:** [requirements/product.md](requirements/product.md)
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration branch; Phase 7 partial |
+| **`main`** | Integration branch; Phase 7 closed |
 
 **New contributors:** `git checkout main && git pull origin main`
 
@@ -29,26 +29,25 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 | Phase | Status | Notes |
 |-------|--------|-------|
 | Phase 0–6 | Done | Bootstrap through EPIC-6 T1–T6 ladder |
-| US-7.1 | Done | t6 uniqueness block-test (`t6_qa_force.rs`); 0/9 forced |
-| US-7.2 | Done | `calculate_next_move` `-2` + Flutter branch banner |
-| US-7.3 | Done | MRV heuristic replaces row-major `first_empty` in T6 DFS |
-| Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) |
+| Phase 7 | Done | EPIC-7 QA hardening (2026-06-12); strict oracle audit PASS |
+| Health audit + remediation | Done | [TECH_DEBT.md](../TECH_DEBT.md) (2026-06-11) |
 
-**Tests:** Tier 1b — **101+** passed (+ FFI skipped on Linux); Tier 1a — **34 Rust**; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12). Tier 2 — **6/6** GitHub `macos-14`.
+**Tests:** Tier 1b — **119** passed / **48** skipped (FFI on Linux); Tier 1a — **34** Rust; `flutter analyze` clean. CI Tier 1+2 green (2026-06-12). Tier 2 — **6/6** GitHub `macos-14`.
 
 ---
 
 ## Next up
 
-**Phase 7 closure** ([PM_PLAN.md](../PM_PLAN.md)):
+**Phase 8 — Fixture completion & hint truth** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- [x] Q3 all tier synthetics — `spec-verified` (2026-06-12)
-- [x] Q4 parse goldens seq 03–08
-- [x] Q5 T2/T3 fixture gate seq 09–17 (2026-06-12)
-- [x] Q6 P2 audit — seq 01–02 `human-verified`; integration smoke `regression-accepted` (2026-06-12)
-- [ ] **Epic closure gate** — Phase 7 complete; run [epic-closure-gate](../.cursor/skills/epic-closure-gate/SKILL.md)
+- [ ] **H1 / US-8.1** — T1–T5 uniqueness filter on hint API
+- [ ] **H2 / US-8.2** — T4 fixture gate seq 18–19
+- [ ] **H3 / US-8.3** — 42-fixture inventory script
+- [ ] **H4 / US-8.4** — Golden codegen Rust↔Dart
 
-**Product hardening (optional):** Return T1–T5 index only when uniqueness block-test confirms forced; else `-2` for seq 22–30 class boards.
+**Health audit:** Refreshed 2026-06-12 ([AUDIT_BASELINE.md](../.cursor/handoff/AUDIT_BASELINE.md)).
+
+**Deferred (Phase 9+):** Hint UX (rule name + highlights — FRB change); seq 31–42 full gates.
 
 ---
 

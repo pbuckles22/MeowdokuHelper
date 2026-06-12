@@ -1,8 +1,33 @@
 # Project Health Audit — Full Findings
 
-**Recorded:** 2026-06-11  
-**Baseline:** [AUDIT_BASELINE.md](AUDIT_BASELINE.md)  
+**Recorded:** 2026-06-11 (initial) · **Refreshed:** 2026-06-12 (Phase 7 boundary)  
+**Baseline:** [AUDIT_BASELINE.md](AUDIT_BASELINE.md) (2026-06-12 counts)  
 **Skills:** tech-lead, code-reviewer, code-quality-gate, tester, eval-engineer
+
+---
+
+## 2026-06-12 refresh summary (Phase 7 boundary)
+
+**Verdict:** **WARN → improved.** Phase 7 closed oracle/process gaps; structural debt unchanged.
+
+| Category | Prior (Jun 11) | Current (Jun 12) | Action |
+|----------|----------------|------------------|--------|
+| Merge gate | 46+20 tests | **119+34** (+48 FFI skip) | PASS |
+| Oracle independence | 9/12 pending | **strict audit PASS** | Done (Q6) |
+| Parse goldens | 01–02 | **01–08** | Done (Q4) |
+| Solve gates | 22–30 | **01–02**, **09–17**, 22–30 | Done (Q5–Q6) |
+| FFI silent pass | FAIL | **Fixed** — explicit skip | Done (Wave 2) |
+| Clipboard coupling | WARN (`main.dart`) | **Fixed** — `clipboard_flow.dart` | Done (Wave 4) |
+| Duplicate goldens | WARN | **Open** | Phase 8 H4 |
+| Hint truth T1–T5 | Not addressed | **Open** — 0/9 forced on t6 | Phase 8 H1 |
+| seq 18–42 gates | Missing | **Partial** — 18–19 deferred | Phase 8 H2+ |
+| `doc/` vs `docs/` | WARN | **Unchanged** | Accept |
+| Prod solver dedup | Deferred | **Unchanged** | Wave 5 backlog |
+| Generated FRB "Tier-1" comment | WARN | **Unchanged** | Low — regen after Rust doc fix |
+
+**Phase 8 entry criteria met:** Tier 1+2 green; strict oracle PASS; EPIC-7 closed.
+
+Sections below retain the **2026-06-11** file-level findings where still applicable; cross-check delta table above for resolved items.
 
 ---
 
