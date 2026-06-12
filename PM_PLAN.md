@@ -184,7 +184,7 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 - [x] **H1 / US-8.1** — T1–T5 uniqueness filter: `calculate_next_move` returns index only when block-test confirms forced; else `-2` (seq 22–30 class boards)
 - [x] **H2 / US-8.2** — T4 fixture gate seq 18–19 (QA oracles + Rust/Dart gate; deferred from Q5)
-- [ ] **H3 / US-8.3** — 42-fixture inventory script; sync [FIXTURES.md](doc/plan/FIXTURES.md) gate columns
+- [x] **H3 / US-8.3** — 42-fixture inventory script; sync [FIXTURES.md](doc/plan/FIXTURES.md) gate columns
 - [ ] **H4 / US-8.4** — Golden codegen Rust↔Dart (dedupe `t6_*` / `t2_t3_*` mirrored arrays)
 
 **Acceptance:** H1 green with updated Flutter banner paths; H2 `./scripts/qa_oracle_audit.sh --strict` still PASS; Tier 1+2 green.

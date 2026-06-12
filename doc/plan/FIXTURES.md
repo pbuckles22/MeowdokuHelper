@@ -19,6 +19,8 @@ Repo root: `assets/test_fixtures/`
 
 **Legacy names** (`EarlyGame.jpg`, `lvl3.jpg`, UUID exports) are retired.
 
+**Inventory:** `./scripts/fixture_inventory.sh` — seq 01–42 on-disk vs gate tier + FIXTURES.md catalog (H3 2026-06-12).
+
 ## Oracle protocol (QA-owned)
 
 Fixture gates follow [TEST_PLAN.md](../../TEST_PLAN.md) → **QA / Coder separation**. Summary:

@@ -21,9 +21,7 @@ This is the durable home for technical debt across sessions. Handoff notes can m
 
 (High ROI; frequent pain; not blocking.)
 
-- **Forced-move semantics (product/solver)** — Uniqueness: **9/9** t6 probes are `BRANCH_VARIANT`. **Shipped:** `-2` when T6 alone advances; MRV for T6 DFS. **Remaining:** seq 22–30 still return T1–T5 indices (deterministic tiers place before T6); optional filter so hint API returns index only when block-test confirms forced ([doc/qa_derivations/t6-seq22-30-human.md](doc/qa_derivations/t6-seq22-30-human.md)).
-- **t6 solve goldens mislabeled** — Gate is solvability + T1–T5 regression-lock, not hint oracle; rename or re-oracle if product requires uniqueness on every return.
-- **Golden coverage** — Parse locked seq 01–08; solve locked seq 01–02 (`human-verified`), 09–17, 22–30; **18 fixtures** still without full gates (seq 18–19 T4 deferred; seq 31–42 backlog) ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)).
+- **Golden coverage** — Parse locked seq 01–08; gates t2/t3 09–17, t4 18–19, t6 22–30; **16 fixtures** ungated (seq 20–21, 31–42) ([doc/plan/FIXTURES.md](doc/plan/FIXTURES.md)). Inventory: `./scripts/fixture_inventory.sh`.
 - **seq-08 N mismatch** — Catalog/fixture name says N=9; parser detects N=8 on `08_L09_N9_T1.jpg`. Integration test locks N=8 + index 11; fix N-detect when expanding goldens.
 - **Integration fixture copy** — Four fixtures duplicated under `integration_test/fixtures/` for device `rootBundle`.
 - **Android clipboard** — `pasteboard` may need FileProvider setup before device clipboard testing.
