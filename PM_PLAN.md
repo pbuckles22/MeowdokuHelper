@@ -189,7 +189,7 @@ Historical name “Tier 4” = DFS. EPIC-6 will insert Phantom (T4) + Crowding (
 
 **Acceptance:** H1 green with updated Flutter banner paths; H2 `./scripts/qa_oracle_audit.sh --strict` still PASS; Tier 1+2 green.
 
-**Deferred (Phase 9+):** Hint UX (rule name + explanation + highlights — FRB contract change per [product.md](doc/requirements/product.md)); seq 31–42 full gates; line-coverage tooling.
+**Deferred (Phase 9+):** Hint UX (rule name + explanation + highlights — FRB contract change per [product.md](doc/requirements/product.md)); seq **33–42** full gates; line-coverage tooling.
 
 ---
 

@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` — seq 20–21 QA gates shipped (2026-06-12); Phase 8 / EPIC-8 complete
+- **Active branch:** `main` — seq 31–32 QA gates shipped (2026-06-13); L21–L33 batch complete; Phase 8 / EPIC-8 complete
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh --strict`.
 - **Phases 0–7:** Done (bootstrap through EPIC-7 QA hardening)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
@@ -86,16 +86,16 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **Health audit (2026-06-11):** Done — remediation on `main`; see [TECH_DEBT.md](TECH_DEBT.md)
 - **Image pipeline:** `lib/image/` → `lib/app/clipboard_flow.dart` → `solveParsedGrid()` → FRB
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
-- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens 01–08; gates t2/t3 09–17 + **20**, t4 18–19 + **21**, t6 22–30; hint API uniqueness filter (H1); seq 20–21 = parse-lock + hint `-2` (dual T1, not unique-forced); solver golden Dart **generated** from Rust SSOT (`./scripts/generate_solver_goldens.sh`)
-- **Lint / Tier 1:** `flutter analyze` clean; **125 Flutter passed** / **52 skipped** (Linux); **37 Rust** (`cargo test --lib`)
-- **CI:** [run 27476087634](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27476087634) — Tier 1 + Tier 2 **success** (2026-06-12, seq 20–21 gates)
+- **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens 01–08; gates t2/t3 09–17 + **20**, t4 18–19 + **21** + **31–32**, t6 22–30; hint API uniqueness filter (H1); seq 20–21 + **32** = parse-lock + hint `-2` (not unique-forced); seq **31** = parse-lock + T1–T5 stall (`prop -2`); solver golden Dart **generated** from Rust SSOT (`./scripts/generate_solver_goldens.sh`)
+- **Lint / Tier 1:** `flutter analyze` clean; Tier 1b green (FFI solve tests skip on Linux); **37 Rust** (`cargo test --lib`)
+- **CI:** pending seq 31–32 merge (prior: [run 27476087634](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27476087634) — success, seq 20–21)
 - **Tier 2:** 6 integration tests — green on GitHub `macos-14` (run 27451959956, 2026-06-12)
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` uniqueness-forced, `-2` branch/alternate, `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
 - **Phase 7 / EPIC-7:** Closed 2026-06-12 — Q1–Q6 done; **`qa_oracle_audit.sh --strict` PASS**
 - **Phase 8 / EPIC-8:** Closed 2026-06-12 — H1–H4 shipped (uniqueness filter, T4 gate, inventory, golden codegen)
 - **Health audit:** Refreshed 2026-06-12 — [.cursor/handoff/AUDIT_BASELINE.md](.cursor/handoff/AUDIT_BASELINE.md)
-- **Next:** Phase 9+ backlog — seq **31–32** or **33–42** gates (QA); Hint UX (FRB contract)
+- **Next:** Phase 9+ backlog — seq **33–42** gates (QA); Hint UX (FRB contract)
 
 ## Run and test
 
