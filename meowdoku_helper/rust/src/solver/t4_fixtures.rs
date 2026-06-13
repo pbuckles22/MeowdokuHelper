@@ -1,4 +1,4 @@
-//! Locked parse output + expected next-move index for T4 fixture gate (seq 18–19, 21).
+//! Locked parse output + expected next-move index for T4 fixture gate (seq 18–19, 21, 31–32).
 //! Parse arrays: parse-lock (H2 2026-06-12). expected_move: regression-lock (QA derivation).
 //! QA-owned oracle — Coder must not edit to force green. See doc/plan/FIXTURES.md.
 
@@ -43,6 +43,22 @@ const SEQ21_REGIONS: [u8; 64] = [
     4, 6, 6, 3, 3, 3, 3, 2, 6, 6, 3, 3, 1, 3, 3, 3, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 1,
 ];
 
+const SEQ31_STATE: [u8; 100] = [0; 100];
+const SEQ31_REGIONS: [u8; 100] = [
+    1, 5, 5, 6, 6, 6, 6, 6, 7, 7, 1, 1, 5, 6, 5, 6, 5, 6, 6, 7, 1, 3, 5, 5, 5, 5, 5, 8, 8, 7, 1, 3,
+    5, 3, 3, 3, 5, 3, 8, 7, 1, 3, 3, 3, 3, 3, 3, 3, 8, 2, 1, 1, 1, 1, 1, 4, 4, 2, 2, 2, 1, 1, 1, 4,
+    4, 4, 2, 2, 9, 2, 1, 1, 4, 4, 2, 4, 9, 9, 9, 2, 1, 4, 4, 2, 2, 2, 2, 10, 10, 2, 1, 1, 4, 4, 4, 2,
+    2, 2, 2, 2,
+];
+
+const SEQ32_STATE: [u8; 100] = [0; 100];
+const SEQ32_REGIONS: [u8; 100] = [
+    2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 4, 1, 1, 1, 8, 2, 3, 2,
+    2, 3, 4, 4, 1, 8, 8, 2, 2, 2, 2, 3, 4, 1, 1, 8, 1, 2, 2, 7, 2, 4, 4, 4, 1, 1, 1, 2, 7, 7, 2, 4, 1,
+    1, 1, 5, 1, 2, 2, 7, 4, 4, 1, 6, 5, 5, 1, 10, 2, 2, 6, 6, 6, 6, 6, 5, 5, 10, 2, 9, 9, 9, 6, 5, 5,
+    5, 5,
+];
+
 pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
     T4SolverGolden {
         fixture: "18_L19_T4.jpeg",
@@ -69,6 +85,24 @@ pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
         grid_size: 8,
         state: &SEQ21_STATE,
         regions: &SEQ21_REGIONS,
+        expected_move: -2,
+    },
+    T4SolverGolden {
+        fixture: "31_L28_N10_T4.jpeg",
+        seq: 31,
+        min_tier: 4,
+        grid_size: 10,
+        state: &SEQ31_STATE,
+        regions: &SEQ31_REGIONS,
+        expected_move: -2,
+    },
+    T4SolverGolden {
+        fixture: "32_L33_N10_T4.jpeg",
+        seq: 32,
+        min_tier: 4,
+        grid_size: 10,
+        state: &SEQ32_STATE,
+        regions: &SEQ32_REGIONS,
         expected_move: -2,
     },
 ];

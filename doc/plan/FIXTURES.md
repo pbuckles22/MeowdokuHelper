@@ -86,8 +86,8 @@ Added June 2026. **Start after seq 19 (`L20`) parses and solves.** One duplicate
 | 28 | `28_L30_N9_T6.jpeg` | 30 | 9 | T6 | regression-lock-2026-06 | ★HARD — defer despite singleton — **P1** |
 | 29 | `29_L23_N10_T6.jpeg` | 23 | 10 | T6 | regression-lock-2026-06 | 2 singles; large fragmented regions — **P1** |
 | 30 | `30_L25_N10_T6.jpeg` | 25 | 10 | T6 | regression-lock-2026-06 | 1 single; sprawling regions — **P1** |
-| 31 | `31_L28_N10_T4.jpeg` | 28 | 10 | T4 | Smallest region = 2 cells; no singleton |
-| 32 | `32_L33_N10_T4.jpeg` | 33 | 10 | T4 | Largest sprawl; last in batch |
+| 31 | `31_L28_N10_T4.jpeg` | 28 | 10 | T4 | regression-lock-2026-06 | T1–T5 stall; smallest region 2 cells — **P2** |
+| 32 | `32_L33_N10_T4.jpeg` | 33 | 10 | T4 | regression-lock-2026-06 | T2 first cat; hint `-2`; last in L21–L33 batch — **P2** |
 
 ## Catalog — seq 33–41 (L34–L52 batch)
 

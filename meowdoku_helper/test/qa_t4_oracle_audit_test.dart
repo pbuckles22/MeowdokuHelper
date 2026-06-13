@@ -10,7 +10,7 @@ import 'package:meowdoku_helper/image/t4_solver_goldens.dart';
 import 'support/native_ffi.dart';
 import 'support/qa_board_trace.dart';
 
-/// H2/P9 — QA oracle audit for T4 fixture gate seq 18–19, 21.
+/// H2/P9/P10 — QA oracle audit for T4 fixture gate seq 18–19, 21, 31–32.
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final ffiSkip = await nativeFfiSkipReason();
@@ -19,6 +19,7 @@ Future<void> main() async {
     '18_L19_T4.jpeg': 5,
     '19_L20_T4.jpeg': 0,
     '21_L26_N8_T4.jpeg': 3,
+    '32_L33_N10_T4.jpeg': 1,
   };
 
   group('H2 t4 parse-lock (QA)', () {
@@ -60,9 +61,9 @@ Future<void> main() async {
 
   group('H2 t4 board traces (QA)', () {
     for (final golden in t4FixtureGate) {
-      if (golden.seq == 21) continue;
+      final propagation = propagationMoves[golden.fixture];
+      if (propagation == null) continue;
       test('${golden.fixture} trace for derivation doc', () {
-        final propagation = propagationMoves[golden.fixture]!;
         expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);
         // ignore: avoid_print
         print('\n--- QA trace ---\n${qaBoardTrace(
@@ -79,6 +80,24 @@ Future<void> main() async {
   group('P9 t4 board traces (seq 21)', () {
     for (final golden in t4FixtureGate) {
       if (golden.seq != 21) continue;
+      test('${golden.fixture} trace for derivation doc', () {
+        final propagation = propagationMoves[golden.fixture]!;
+        expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);
+        // ignore: avoid_print
+        print('\n--- QA trace ---\n${qaBoardTrace(
+          fixture: golden.fixture,
+          gridSize: golden.gridSize,
+          state: golden.state,
+          regions: golden.regions,
+          expectedMove: propagation,
+        )}');
+      });
+    }
+  });
+
+  group('P10 t4 board traces (seq 32)', () {
+    for (final golden in t4FixtureGate) {
+      if (golden.seq != 32) continue;
       test('${golden.fixture} trace for derivation doc', () {
         final propagation = propagationMoves[golden.fixture]!;
         expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);

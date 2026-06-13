@@ -152,6 +152,23 @@ artifacts:
       P9 2026-06-12: parse-lock 1/1; hint API -2 (US-7.2); prop index 3 T1 naked
       single; block-test not forced.
 
+  - id: t4-fixture-gate-seq31-32
+    paths:
+      - meowdoku_helper/rust/src/solver/t4_fixtures.rs
+      - meowdoku_helper/lib/image/t4_solver_goldens.dart
+      - meowdoku_helper/test/t4_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t4_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: regression-accepted
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 31-32
+    derivation: doc/qa_derivations/t4-seq31-32-human.md
+    notes: >-
+      P10 2026-06-13: parse-lock 2/2; seq 31 T1-T5 stall (prop -2); seq 32 hint API
+      -2 with T2 prop index 1; block-test not forced on seq 32.
+
   - id: t6-fixture-gate
     paths:
       - meowdoku_helper/rust/src/solver/t6_fixtures.rs
