@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration branch; Phase 8 H4 landing on `feature/h4-golden-codegen` |
+| **`main`** | Integration branch @ `f656d52` — Phase 8 complete |
 
 **New contributors:** `git checkout main && git pull origin main`
 
