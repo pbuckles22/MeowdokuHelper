@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (Phase 8 / EPIC-8 closed — golden codegen shipped)
+**Last updated:** 2026-06-12 (seq 20–21 QA gates shipped)
 
 ---
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration branch @ `0e6234e` — Phase 8 / EPIC-8 complete |
+| **`main`** | Integration branch — seq 20–21 gates; Phase 8 / EPIC-8 complete |
 
 **New contributors:** `git checkout main && git pull origin main`
 
@@ -40,7 +40,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 **Phase 9+ / backlog** ([PM_PLAN.md](../PM_PLAN.md)):
 
-- seq 20–21, 31–42 full gates
+- seq **31–32** or **33–42** full gates (QA next)
 - Hint UX (rule name + explanation + highlights — FRB contract change)
 
 ---
