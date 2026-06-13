@@ -88,7 +88,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens 01–08; gates t2/t3 09–17 + **20**, t4 18–19 + **21**, t6 22–30; hint API uniqueness filter (H1); seq 20–21 = parse-lock + hint `-2` (dual T1, not unique-forced); solver golden Dart **generated** from Rust SSOT (`./scripts/generate_solver_goldens.sh`)
 - **Lint / Tier 1:** `flutter analyze` clean; **125 Flutter passed** / **52 skipped** (Linux); **37 Rust** (`cargo test --lib`)
-- **CI:** [run 27451959956](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27451959956) — Tier 1 + Tier 2 **success** (2026-06-12, merge-ready includes golden codegen `--check`)
+- **CI:** [run 27476087634](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27476087634) — Tier 1 + Tier 2 **success** (2026-06-12, seq 20–21 gates)
 - **Tier 2:** 6 integration tests — green on GitHub `macos-14` (run 27451959956, 2026-06-12)
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` uniqueness-forced, `-2` branch/alternate, `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
