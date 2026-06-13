@@ -78,7 +78,7 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 
 ## Current state
 
-- **Active branch:** `main` @ `91df357` — Phase 8 / EPIC-8 complete (2026-06-12)
+- **Active branch:** `main` @ `79e1e98` — Phase 8 / EPIC-8 complete; golden codegen CI check wired (2026-06-12)
 - **Branch policy:** One feature branch per user story — `feature/us-{epic}.{story}-<slug>`; merge each to `main` separately. **Settle first:** [handoff checklist](.cursor/rules/handoff-checklist.mdc) Phase A before commit; CI (Phase B); local handoff note last (Phase C). **QA/Coder:** [TEST_PLAN.md](TEST_PLAN.md); backward audit: `./scripts/qa_oracle_audit.sh --strict`.
 - **Phases 0–7:** Done (bootstrap through EPIC-7 QA hardening)
 - **US-6.1–6.3:** Done — T4 Phantom, T5 Crowding, T6 DFS rename (`run_tiers_1_through_6`)
@@ -88,8 +88,8 @@ When shipping work: update **PM_PLAN** checkboxes, **doc/PROJECT_STATUS.md**, an
 - **UI:** `PuzzleGridPreview` — forced highlight, branch-required banner (`-2`), or stalled (`-1`)
 - **Fixtures:** seq `01`–`42` ([FIXTURES.md](doc/plan/FIXTURES.md)); parse goldens 01–08; gates t2/t3 09–17, t4 18–19, t6 22–30; hint API uniqueness filter (H1); solver golden Dart **generated** from Rust SSOT (`./scripts/generate_solver_goldens.sh`)
 - **Lint / Tier 1:** `flutter analyze` clean; **125 Flutter passed** / **52 skipped** (Linux); **37 Rust** (`cargo test --lib`)
-- **CI:** [run 27450470778](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27450470778) — Tier 1 + Tier 2 **success** (2026-06-12, `main` @ `91df357`)
-- **Tier 2:** 6 integration tests — green on GitHub `macos-14` (run 27450470778, 2026-06-12)
+- **CI:** [run 27451593071](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27451593071) — Tier 1 + Tier 2 **success** (2026-06-12, `main` @ `79e1e98`; merge-ready includes golden codegen `--check`)
+- **Tier 2:** 6 integration tests — green on GitHub `macos-14` (run 27451593071, 2026-06-12)
 - **FFI:** `init_app`, `calculate_next_move` only; return `>=0` uniqueness-forced, `-2` branch/alternate, `-1` stuck; regenerate after `rust/src/api/*.rs` changes
 - **Guardrails:** [docs/POLYGLOT_GUARDRAILS.md](docs/POLYGLOT_GUARDRAILS.md)
 - **Phase 7 / EPIC-7:** Closed 2026-06-12 — Q1–Q6 done; **`qa_oracle_audit.sh --strict` PASS**
