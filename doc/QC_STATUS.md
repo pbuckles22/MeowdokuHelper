@@ -1,7 +1,7 @@
 # QC status — MeowdokuHelper
 
-**Last QC run:** 2026-06-12 (Phase 8 H4 golden codegen — feature branch)  
-**Branch:** `feature/h4-golden-codegen` — Phase 8 complete (merge pending)  
+**Last QC run:** 2026-06-12 (Phase 8 epic closure — EPIC-8)  
+**Branch:** `main` @ `91df357` — Phase 8 / EPIC-8 **complete**  
 **Full eval:** [TEST_COVERAGE_EVAL.md](TEST_COVERAGE_EVAL.md)
 
 ---
@@ -13,13 +13,14 @@
 | Tier 1b `flutter test` | **PASS** — 125 passed, 52 skipped (FFI when native lib absent) |
 | Tier 1a `cargo test --lib` | **PASS** — 37 tests |
 | `flutter analyze` | **PASS** |
-| Tier 2 integration | **PASS** — 6/6 GitHub `macos-14` (post-H1 hint API) |
+| Tier 2 integration | **PASS** — 6/6 GitHub `macos-14` ([run 27450470778](https://github.com/pbuckles22/MeowdokuHelper/actions/runs/27450470778)) |
 | H1 uniqueness filter | **DONE** — block-test on hint API; fixture oracles re-locked |
 | H2 T4 gate seq 18–19 | **DONE** — `t4_fixtures.rs` + Dart gate |
 | H3 fixture inventory | **DONE** — `./scripts/fixture_inventory.sh` |
 | H4 golden codegen | **DONE** — `gen_solver_goldens` + `./scripts/generate_solver_goldens.sh` |
 | Oracle strict audit | **PASS** — `./scripts/qa_oracle_audit.sh --strict` |
-| Phase 8 | **DONE** — H1–H4 on feature branch |
+| Phase 8 / EPIC-8 | **DONE** — H1–H4 shipped; epic closure PASS |
+| Epic closure check | **PASS** — `./scripts/epic_closure_check.sh` |
 
 ---
 

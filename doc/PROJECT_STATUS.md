@@ -2,7 +2,7 @@
 
 **Human-readable current state.** Keep this file in sync with [AGENT_HANDOFF.md](../AGENT_HANDOFF.md) → *Current state* whenever a phase ships or the active branch changes.
 
-**Last updated:** 2026-06-12 (Phase 8 complete — H4 golden codegen on feature branch)
+**Last updated:** 2026-06-12 (Phase 8 / EPIC-8 closed — golden codegen shipped)
 
 ---
 
@@ -18,7 +18,7 @@ MeowdokuHelper is a Star Battle N×N puzzle solver: clipboard screenshot → Dar
 
 | Branch | Role |
 |--------|------|
-| **`main`** | Integration branch @ `f656d52` — Phase 8 complete |
+| **`main`** | Integration branch @ `91df357` — Phase 8 / EPIC-8 complete |
 
 **New contributors:** `git checkout main && git pull origin main`
 
