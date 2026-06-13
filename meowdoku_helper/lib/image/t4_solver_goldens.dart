@@ -51,6 +51,18 @@ const _seq19Regions = [
   8, 8, 8, 8, 6, 6,
 ];
 
+const _seq21State = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+];
+
+const _seq21Regions = [
+  5, 5, 5, 5, 5, 5, 2, 2, 5, 4, 5, 2, 2, 2, 2, 2, 7, 4, 4, 4, 4, 2, 3, 2, 4,
+  4, 4, 3, 2, 2, 3, 2, 4, 6, 6, 3, 3, 3, 3, 2, 6, 6, 3, 3, 1, 3, 3, 3, 1, 6,
+  6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 1,
+];
+
 const List<T4SolverGolden> t4FixtureGate = [
   T4SolverGolden(
     fixture: '18_L19_T4.jpeg',
@@ -68,6 +80,15 @@ const List<T4SolverGolden> t4FixtureGate = [
     gridSize: 9,
     state: _seq19State,
     regions: _seq19Regions,
+    expectedMove: -2,
+  ),
+  T4SolverGolden(
+    fixture: '21_L26_N8_T4.jpeg',
+    seq: 21,
+    minTier: 4,
+    gridSize: 8,
+    state: _seq21State,
+    regions: _seq21Regions,
     expectedMove: -2,
   ),
 ];

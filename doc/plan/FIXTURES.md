@@ -75,8 +75,8 @@ Added June 2026. **Start after seq 19 (`L20`) parses and solves.** One duplicate
 
 | Seq | File | Game | Grid N | Solver gate | Oracle | Complexity rationale |
 |-----|------|------|--------|-------------|--------|----------------------|
-| 20 | `20_L21_N8_T3.jpeg` | 21 | 8 | T3 | — | 2 single-cell regions; refreshed capture |
-| 21 | `21_L26_N8_T4.jpeg` | 26 | 8 | T4 | — | 2 forced singles; smallest N in batch |
+| 20 | `20_L21_N8_T3.jpeg` | 21 | 8 | T3 | regression-lock-2026-06 | 2 single-cell regions; refreshed capture |
+| 21 | `21_L26_N8_T4.jpeg` | 26 | 8 | T4 | regression-lock-2026-06 | 2 forced singles; smallest N in batch |
 | 22 | `22_L31_N8_T6.jpeg` | 31 | 8 | T6 | regression-lock-2026-06 | 2 forced singles — **P1 re-audit** |
 | 23 | `23_L22_N9_T6.jpeg` | 22 | 9 | T6 | regression-lock-2026-06 | 1 forced single (purple) — **P1** |
 | 24 | `24_L27_N9_T6.jpeg` | 27 | 9 | T6 | regression-lock-2026-06 | 1 forced single + tight cascades — **P1** |

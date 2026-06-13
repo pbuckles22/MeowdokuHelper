@@ -13,7 +13,7 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final skip = await nativeFfiSkipReason();
 
-  group('H2 T4 parse goldens (seq 18–19)', () {
+  group('H2 T4 parse goldens (seq 18–19, 21)', () {
     for (final golden in t4FixtureGate) {
       test('${golden.fixture} parse matches locked arrays', () async {
         final bytes = Uint8List.fromList(
@@ -28,7 +28,7 @@ Future<void> main() async {
     }
   });
 
-  group('H2 T4 solver goldens (seq 18–19)', () {
+  group('H2 T4 solver goldens (seq 18–19, 21)', () {
     for (final golden in t4FixtureGate) {
       test(
         '${golden.fixture} solve returns move ${golden.expectedMove}',

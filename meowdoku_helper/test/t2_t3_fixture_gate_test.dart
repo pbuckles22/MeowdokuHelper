@@ -13,7 +13,7 @@ Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final skip = await nativeFfiSkipReason();
 
-  group('Q5 T2/T3 parse goldens (seq 09–17)', () {
+  group('Q5 T2/T3 parse goldens (seq 09–17, 20)', () {
     for (final golden in t2T3FixtureGate) {
       test('${golden.fixture} parse matches locked arrays', () async {
         final bytes = Uint8List.fromList(
@@ -28,7 +28,7 @@ Future<void> main() async {
     }
   });
 
-  group('Q5 T2/T3 solver goldens (seq 09–17)', () {
+  group('Q5 T2/T3 solver goldens (seq 09–17, 20)', () {
     for (final golden in t2T3FixtureGate) {
       test(
         '${golden.fixture} solve returns move ${golden.expectedMove}',

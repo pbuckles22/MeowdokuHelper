@@ -1,4 +1,4 @@
-//! Locked parse output + expected next-move index for T4 fixture gate (seq 18–19).
+//! Locked parse output + expected next-move index for T4 fixture gate (seq 18–19, 21).
 //! Parse arrays: parse-lock (H2 2026-06-12). expected_move: regression-lock (QA derivation).
 //! QA-owned oracle — Coder must not edit to force green. See doc/plan/FIXTURES.md.
 
@@ -37,6 +37,12 @@ const SEQ19_REGIONS: [u8; 81] = [
     1, 3, 3, 2, 2, 2, 2, 2, 6, 6, 3, 3, 8, 8, 8, 8, 8, 6, 6,
 ];
 
+const SEQ21_STATE: [u8; 64] = [0; 64];
+const SEQ21_REGIONS: [u8; 64] = [
+    5, 5, 5, 5, 5, 5, 2, 2, 5, 4, 5, 2, 2, 2, 2, 2, 7, 4, 4, 4, 4, 2, 3, 2, 4, 4, 4, 3, 2, 2, 3, 2,
+    4, 6, 6, 3, 3, 3, 3, 2, 6, 6, 3, 3, 1, 3, 3, 3, 1, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 1,
+];
+
 pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
     T4SolverGolden {
         fixture: "18_L19_T4.jpeg",
@@ -54,6 +60,15 @@ pub const T4_FIXTURE_GATE: &[T4SolverGolden] = &[
         grid_size: 9,
         state: &SEQ19_STATE,
         regions: &SEQ19_REGIONS,
+        expected_move: -2,
+    },
+    T4SolverGolden {
+        fixture: "21_L26_N8_T4.jpeg",
+        seq: 21,
+        min_tier: 4,
+        grid_size: 8,
+        state: &SEQ21_STATE,
+        regions: &SEQ21_REGIONS,
         expected_move: -2,
     },
 ];

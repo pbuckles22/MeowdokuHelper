@@ -10,7 +10,7 @@ import 'package:meowdoku_helper/image/t2_t3_solver_goldens.dart';
 import 'support/native_ffi.dart';
 import 'support/qa_board_trace.dart';
 
-/// Q5 — QA oracle audit for T2/T3 fixture gate seq 09–17.
+/// Q5/P9 — QA oracle audit for T2/T3 fixture gate seq 09–17, 20.
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   final ffiSkip = await nativeFfiSkipReason();
@@ -25,6 +25,7 @@ Future<void> main() async {
     '15_L16_T3.jpeg': 2,
     '16_L17_T3.jpeg': 6,
     '17_L18_T3.jpeg': 4,
+    '20_L21_N8_T3.jpeg': 1,
   };
 
   group('Q5 t2/t3 parse-lock (QA)', () {
@@ -66,6 +67,25 @@ Future<void> main() async {
 
   group('Q5 t2/t3 board traces (QA)', () {
     for (final golden in t2T3FixtureGate) {
+      if (golden.seq == 20) continue;
+      test('${golden.fixture} trace for derivation doc', () {
+        final propagation = propagationMoves[golden.fixture]!;
+        expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);
+        // ignore: avoid_print
+        print('\n--- QA trace ---\n${qaBoardTrace(
+          fixture: golden.fixture,
+          gridSize: golden.gridSize,
+          state: golden.state,
+          regions: golden.regions,
+          expectedMove: propagation,
+        )}');
+      });
+    }
+  });
+
+  group('P9 t2/t3 board traces (seq 20)', () {
+    for (final golden in t2T3FixtureGate) {
+      if (golden.seq != 20) continue;
       test('${golden.fixture} trace for derivation doc', () {
         final propagation = propagationMoves[golden.fixture]!;
         expect(qaExpectedMoveIsEmpty(golden.state, propagation), isTrue);

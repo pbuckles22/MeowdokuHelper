@@ -180,6 +180,20 @@ const _seq17Regions = [
   2, 3, 3, 3,
 ];
 
+const _seq20State = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+];
+
+const _seq20Regions = [
+  4, 4, 4, 4, 4, 1, 1, 3, 6, 4, 4, 8, 1, 1, 1, 3,
+  6, 1, 4, 1, 1, 1, 3, 3, 1, 1, 1, 1, 3, 3, 3, 3,
+  1, 1, 5, 1, 1, 3, 2, 3, 5, 5, 5, 5, 2, 3, 2, 3,
+  2, 5, 2, 5, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 7,
+];
+
 const t2T3FixtureGate = <T2T3SolverGolden>[
   T2T3SolverGolden(
     fixture: '09_L10_N7_T2.jpg',
@@ -260,6 +274,15 @@ const t2T3FixtureGate = <T2T3SolverGolden>[
     gridSize: 10,
     state: _seq17State,
     regions: _seq17Regions,
+    expectedMove: -2,
+  ),
+  T2T3SolverGolden(
+    fixture: '20_L21_N8_T3.jpeg',
+    seq: 20,
+    minTier: 3,
+    gridSize: 8,
+    state: _seq20State,
+    regions: _seq20Regions,
     expectedMove: -2,
   ),
 ];

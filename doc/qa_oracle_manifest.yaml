@@ -94,12 +94,29 @@ artifacts:
     audit_status: regression-accepted
     spec_ref: doc/plan/FIXTURES.md
     priority: P2
-    fixtures: seq 09-17
+    fixtures: seq 09-17, 20
     derivation: doc/qa_derivations/t2-t3-seq09-17-human.md
     notes: >-
       Q5 2026-06-12: parse-lock 9/9; T1–T5 first step locked (no -2). Uniqueness
       block-test 0/9 forced — solvability regression, not hint oracle. Q6: audit_status
-      regression-accepted.
+      regression-accepted. P9 2026-06-12: seq 20 added — parse-lock + hint API -2.
+
+  - id: t2-t3-fixture-gate-seq20
+    paths:
+      - meowdoku_helper/rust/src/solver/t2_t3_fixtures.rs
+      - meowdoku_helper/lib/image/t2_t3_solver_goldens.dart
+      - meowdoku_helper/test/t2_t3_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t2_t3_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: regression-accepted
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 20
+    derivation: doc/qa_derivations/t2-t3-seq20-human.md
+    notes: >-
+      P9 2026-06-12: parse-lock 1/1; hint API -2 (US-7.2); prop index 1 T1 naked
+      single; block-test not forced.
 
   - id: t4-fixture-gate
     paths:
@@ -117,6 +134,23 @@ artifacts:
     notes: >-
       H2 2026-06-12: parse-lock 2/2; T1–T5 first step locked (no -2). Uniqueness
       block-test 0/2 forced — solvability regression, not hint oracle.
+
+  - id: t4-fixture-gate-seq21
+    paths:
+      - meowdoku_helper/rust/src/solver/t4_fixtures.rs
+      - meowdoku_helper/lib/image/t4_solver_goldens.dart
+      - meowdoku_helper/test/t4_fixture_gate_test.dart
+      - meowdoku_helper/test/qa_t4_oracle_audit_test.dart
+    tier: fixture-gate
+    oracle: regression-lock
+    audit_status: regression-accepted
+    spec_ref: doc/plan/FIXTURES.md
+    priority: P2
+    fixtures: seq 21
+    derivation: doc/qa_derivations/t4-seq21-human.md
+    notes: >-
+      P9 2026-06-12: parse-lock 1/1; hint API -2 (US-7.2); prop index 3 T1 naked
+      single; block-test not forced.
 
   - id: t6-fixture-gate
     paths:
