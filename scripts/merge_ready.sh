@@ -17,6 +17,9 @@ echo "PASS: flutter analyze"
 (cd rust && cargo test --lib)
 echo "PASS: cargo test --lib"
 
+(cd "$ROOT" && ./scripts/generate_solver_goldens.sh --check)
+echo "PASS: solver golden codegen sync"
+
 flutter test
 echo "PASS: flutter test"
 

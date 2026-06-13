@@ -30,7 +30,7 @@
 |---|------------|
 | **Tested right** | T1–T6 synthetics `spec-verified`; parse 01–08; gates t2/t3 09–17, t4 18–19, t6 22–30; hint API uniqueness filter; inventory script |
 | **Tested weak/wrong** | seq 20–21, 31–42 ungated |
-| **Missing** | Line-coverage tooling; CI wire for `generate_solver_goldens.sh --check` |
+| **Missing** | Line-coverage tooling |
 | **Line coverage %** | Not instrumented — behavior/fixture matrix is SSOT |
 
 ---
@@ -76,4 +76,3 @@ Run `./scripts/fixture_inventory.sh` for live report.
 | Priority | Item | Owner |
 |----------|------|-------|
 | 1 | seq 20–21, 31–42 gates | QA → Coder |
-| 2 | Wire `generate_solver_goldens.sh --check` in CI | Coder |

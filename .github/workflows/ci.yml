@@ -1,4 +1,5 @@
 # Tier 1 merge-ready gate — mirrors scripts/merge_ready.sh
+# (includes solver golden codegen sync: generate_solver_goldens.sh --check)
 # Tier 2 (iOS integration) runs on macOS; FFI-heavy unit tests skip on Linux hosts.
 
 name: CI
